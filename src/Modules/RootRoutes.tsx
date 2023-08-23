@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import lodash from 'lodash';
 import { ConstRouters } from '@Commons';
 import { BoraLayout, BlankLayout } from '@Components';
-import { PageNotFound } from '@Pages';
+import { PageNotFound, TemporaryMainPage } from '@Pages';
 
 const RootRoutes = () => {
     return (
@@ -31,7 +31,7 @@ const RootRoutes = () => {
                         return (
                             <Route
                                 key={`root-routers-bora-${index}`}
-                                path={element.pathName}
+                                path={`/bora${element.pathName}`}
                                 element={
                                     <React.Suspense>
                                         <PageComponent />
@@ -41,6 +41,25 @@ const RootRoutes = () => {
                         );
                     })}
                 </Route>
+                <Route element={<BlankLayout />}>
+                    {lodash.map(ConstRouters.Publish, (element, index) => {
+                        const PageComponent = element.Component;
+                        return (
+                            <Route
+                                key={`root-routers-publish-${index}`}
+                                path={`/publish${element.pathName}`}
+                                element={
+                                    <React.Suspense>
+                                        <PageComponent />
+                                    </React.Suspense>
+                                }
+                            />
+                        );
+                    })}
+                </Route>
+                {/*임시 메인 start*/}
+                <Route path={`/`} element={<TemporaryMainPage />} />
+                {/*임시 메인 end*/}
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </BrowserRouter>
