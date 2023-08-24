@@ -49,7 +49,7 @@ const DefaultDerkPage = () => {
                         <div className="active-users flex flex-row p-2 overflow-auto w-0 min-w-full">
                             <div className="text-sm text-center mr-4">
                                 <button
-                                    className="flex flex-shrink-0 focus:outline-none block bg-gray-800 text-gray-600 rounded-full w-20 h-20"
+                                    className="flex flex-shrink-0 focus:outline-none bg-gray-800 text-gray-600 rounded-full w-20 h-20"
                                     type="button">
                                     <svg className="w-full h-full fill-current" viewBox="0 0 24 24">
                                         <path d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z" />
@@ -217,7 +217,7 @@ const DefaultDerkPage = () => {
                                         <p className="ml-2 whitespace-no-wrap">10min</p>
                                     </div>
                                 </div>
-                                <div className="bg-blue-700 w-3 h-3 rounded-full flex flex-shrink-0 hidden md:block group-hover:block"></div>
+                                <div className="bg-blue-700 w-3 h-3 rounded-full flex flex-shrink-0 md:block group-hover:block"></div>
                             </div>
                             <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg relative">
                                 <div className="w-16 h-16 relative flex flex-shrink-0">
@@ -272,7 +272,7 @@ const DefaultDerkPage = () => {
                                         <p className="ml-2 whitespace-no-wrap">11 Feb</p>
                                     </div>
                                 </div>
-                                <div className="w-4 h-4 flex flex-shrink-0 hidden md:block group-hover:block">
+                                <div className="w-4 h-4 flex flex-shrink-0 md:block group-hover:block">
                                     <img
                                         className="rounded-full w-full h-full object-cover"
                                         alt="user2"
@@ -318,7 +318,7 @@ const DefaultDerkPage = () => {
                                         <p className="ml-2 whitespace-no-wrap">23 Jan</p>
                                     </div>
                                 </div>
-                                <div className="w-4 h-4 flex flex-shrink-0 hidden md:block group-hover:block">
+                                <div className="w-4 h-4 flex flex-shrink-0 md:block group-hover:block">
                                     <img
                                         className="rounded-full w-full h-full object-cover"
                                         alt="user2"
@@ -426,7 +426,7 @@ const DefaultDerkPage = () => {
                                         <p className="ml-2 whitespace-no-wrap">12 Nov</p>
                                     </div>
                                 </div>
-                                <div className="w-4 h-4 flex flex-shrink-0 hidden md:block group-hover:block">
+                                <div className="w-4 h-4 flex flex-shrink-0 md:block group-hover:block">
                                     <img
                                         className="rounded-full w-full h-full object-cover"
                                         alt="user2"
@@ -490,7 +490,7 @@ const DefaultDerkPage = () => {
                                         <p className="ml-2 whitespace-no-wrap">2 Oct</p>
                                     </div>
                                 </div>
-                                <div className="w-4 h-4 flex flex-shrink-0 hidden md:block group-hover:block">
+                                <div className="w-4 h-4 flex flex-shrink-0 md:block group-hover:block">
                                     <img
                                         className="rounded-full w-full h-full object-cover"
                                         alt="user2"

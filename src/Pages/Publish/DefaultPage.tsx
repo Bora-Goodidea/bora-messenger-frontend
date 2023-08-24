@@ -49,7 +49,7 @@ const DefaultPage = () => {
                         <div className="active-users flex flex-row p-2 overflow-auto w-0 min-w-full">
                             <div className="text-sm text-center mr-4">
                                 <button
-                                    className="flex flex-shrink-0 focus:outline-none block bg-gray-200 text-gray-500 rounded-full w-20 h-20"
+                                    className="flex flex-shrink-0 focus:outline-none bg-gray-200 text-gray-500 rounded-full w-20 h-20"
                                     type="button">
                                     <svg className="w-full h-full fill-current" viewBox="0 0 24 24">
                                         <path d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z" />
