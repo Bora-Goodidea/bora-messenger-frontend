@@ -13,7 +13,7 @@ const TemporaryMainPage = () => {
                 <code className="bg-gray-100">임시 메인 - 라우터 리스트</code>
             </header>
             <main className="p-4">
-                <div className="flex h-screen w-full items-center justify-center">
+                <div className="flex h-screen w-full items-baseline justify-center">
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-2/3">
                         <table className="w-full text-sm text-left text-blue-100 dark:text-blue-100 min-w-full">
                             <thead className="text-xs text-white bg-blue-600 border-b border-blue-400 dark:text-white">
