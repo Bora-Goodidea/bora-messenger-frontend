@@ -1,3 +1,5 @@
 *.css
 *.svg
 *.md
+*.js
+*.json
