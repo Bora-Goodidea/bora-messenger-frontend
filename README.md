@@ -26,7 +26,7 @@ Prettier - [Set Up ESLint and Prettier in a React TypeScript App (2023)](https:/
 
 * 박성민 - [@psmever](https://github.com/psmever) - psmever@gmail.com
 * 진하영 - [@Jin-composition](https://github.com/Jin-composition) - jinhy921207@naver.com
-* 우의명 - [@wem519](https://github.com/wem519) - psmever@gmail.com
+* 우의명 - [@wem519](https://github.com/wem519) - wem519@gmail.com
 
 Project Link: [https://localhost:3000](https://localhost:3000)
 
