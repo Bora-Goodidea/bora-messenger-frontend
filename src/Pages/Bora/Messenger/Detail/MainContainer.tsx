@@ -1,4 +1,4 @@
-const Main = () => {
+const MainContainer = () => {
     return (
         <>
             <section className="flex flex-col flex-none overflow-auto w-24 lg:max-w-sm md:w-2/5 transition-all duration-300 ease-in-out">
@@ -972,4 +972,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default MainContainer;

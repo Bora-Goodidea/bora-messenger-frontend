@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import Const from '@Const';
-import Detail from './Detail/Main';
+import MainContainer from './Detail/MainContainer';
 
-const MainPage = () => {
+const MessengerPage = () => {
     return (
         <>
             <Helmet>
@@ -10,9 +10,9 @@ const MainPage = () => {
                 <meta name="description" content="메인 페이지" />
             </Helmet>
 
-            <Detail />
+            <MainContainer />
         </>
     );
 };
 
-export default MainPage;
+export default MessengerPage;

@@ -3,9 +3,9 @@ import React from 'react';
 export default {
     Bora: [
         {
-            name: `bora-main`,
-            pathName: `/main`,
-            Component: React.lazy(() => import('@Page/Bora/Main/MainPage')),
+            name: `bora-messenger`,
+            pathName: `/messenger`,
+            Component: React.lazy(() => import('@Page/Bora/Messenger/MessengerPage')),
         },
     ],
     Auth: [
