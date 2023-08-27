@@ -12,7 +12,9 @@
             "@Styles": ["src/Styles"],
             "@Style/*": ["src/Styles/*"],
             "@Pages": ["src/Pages"],
-            "@Page/*": ["src/Pages/*"]
+            "@Page/*": ["src/Pages/*"],
+            "@Elements": ["src/Component/Element"],
+            "@Icons": ["src/Component/Element/Icon"]
         }
     }
 }
