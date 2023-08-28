@@ -168,4 +168,87 @@ export default {
             select: false,
         },
     ],
+    Messages: {
+        '2023년 08월 25일 금요일': [
+            {
+                my: false,
+                user: {
+                    profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Hey! How are you?`,
+                    },
+                    {
+                        type: `text`,
+                        contents: `Shall we go for Hiking this weekend?`,
+                    },
+                    {
+                        type: `text`,
+                        contents: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Volutpat lacus laoreet non curabitur gravida.`,
+                    },
+                ],
+            },
+            {
+                my: true,
+                user: {
+                    profileImage: ``,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Hey! How are you?`,
+                    },
+                    {
+                        type: `text`,
+                        contents: `Shall we go for Hiking this weekend?`,
+                    },
+                    {
+                        type: `text`,
+                        contents: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Volutpat lacus laoreet non curabitur gravida.`,
+                    },
+                ],
+            },
+            {
+                my: false,
+                user: {
+                    profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Hey! How are you?`,
+                    },
+                ],
+            },
+            {
+                my: true,
+                user: {
+                    profileImage: ``,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Shall we go for Hiking this weekend?`,
+                    },
+                ],
+            },
+            {
+                my: false,
+                user: {
+                    profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Volutpat lacus laoreet non curabitur gravida.`,
+                    },
+                ],
+            },
+        ],
+    },
 };
