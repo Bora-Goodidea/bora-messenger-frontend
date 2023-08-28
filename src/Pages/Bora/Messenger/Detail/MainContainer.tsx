@@ -1,6 +1,4 @@
-import HeaderPart from './HeaderPart';
-import SearchPart from './SearchPart';
-import ActiveUsers from './ActiveUsers';
+import { HeaderPart, ActiveUsersPart, SearchPart, ContactsPart } from '.';
 
 const MainContainer = () => {
     return (
@@ -17,7 +15,10 @@ const MainContainer = () => {
                     </div>
                 </div>
                 <div className="active-users flex flex-row p-2 overflow-auto w-0 min-w-full">
-                    <ActiveUsers />
+                    <ActiveUsersPart />
+                </div>
+                <div className="contacts p-2 flex-1 overflow-y-scroll border-t">
+                    <ContactsPart />
                 </div>
             </section>
             <section className="flex flex-col flex-auto border-l"></section>

@@ -5,6 +5,7 @@ const BoraInput = ({ InputType, InputValue, Placeholder }: { InputType: string; 
             type={InputType}
             value={InputValue}
             placeholder={Placeholder}
+            onChange={() => console.debug('BoraInput onChange')}
         />
     );
 };

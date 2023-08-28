@@ -5,7 +5,7 @@ import { YourStoryIcon } from '@Icons';
 
 const { ActiveUsers: ActiveUserList } = TemporaryData;
 
-const ActiveUsers = () => {
+const ActiveUsersPart = () => {
     return (
         <>
             <div className="text-sm text-center mr-4">
@@ -13,10 +13,14 @@ const ActiveUsers = () => {
                 <p>Your Story</p>
             </div>
             {lodash.map(ActiveUserList, (user, index) => {
-                return <BoraAvatar Active={user.active} AvatarUrl={user.profileImage} AvataAltString={user.name} />;
+                return (
+                    <div className="text-sm text-center mr-4" key={`Active-Users-avatar-item-${index}`}>
+                        <BoraAvatar Active={user.active} AvatarUrl={user.profileImage} AvataAltString={user.name} AvatarName={user.name} />
+                    </div>
+                );
             })}
         </>
     );
 };
 
-export default ActiveUsers;
+export default ActiveUsersPart;
