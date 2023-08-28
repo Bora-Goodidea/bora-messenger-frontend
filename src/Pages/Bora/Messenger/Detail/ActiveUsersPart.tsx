@@ -9,7 +9,7 @@ const ActiveUsersPart = () => {
     return (
         <>
             <div className="text-sm text-center mr-4">
-                <BoraButton Icon={<YourStoryIcon />} />
+                <BoraButton ButtonType={`RoundIcon`} ButtonChildren={<YourStoryIcon />} />
                 <p>Your Story</p>
             </div>
             {lodash.map(ActiveUserList, (user, index) => {

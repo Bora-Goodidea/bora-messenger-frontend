@@ -1,4 +1,4 @@
-import { HeaderPart, ActiveUsersPart, SearchPart, ContactsPart } from '.';
+import { HeaderPart, ActiveUsersPart, SearchPart, ContactsPart, MessagePart } from '.';
 
 const MainContainer = () => {
     return (
@@ -21,7 +21,9 @@ const MainContainer = () => {
                     <ContactsPart />
                 </div>
             </section>
-            <section className="flex flex-col flex-auto border-l"></section>
+            <section className="flex flex-col flex-auto border-l">
+                <MessagePart />
+            </section>
         </>
     );
 };
