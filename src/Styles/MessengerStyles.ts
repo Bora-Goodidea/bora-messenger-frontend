@@ -60,6 +60,7 @@ export default {
     MessagePart: {
         HeaderBox: tw.div`px-6 py-4 flex flex-row flex-none justify-between items-center shadow`,
         MessageBox: tw.div`p-4 flex-1 overflow-y-scroll`,
+        MessageDate: tw.p`p-4 text-center text-sm text-gray-500`,
         FooterBox: tw.div`flex-none`,
     },
 };

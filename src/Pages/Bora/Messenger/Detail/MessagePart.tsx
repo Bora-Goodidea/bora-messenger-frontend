@@ -4,7 +4,7 @@ import { TemporaryData } from '@Commons';
 import { MessageHeaderBox, MessageBox, MessageFooterBox } from '@Elements';
 import { MessengerStyles } from '@Styles';
 
-const { HeaderBox, MessageBox: MessageBoxStyle, FooterBox } = MessengerStyles.MessagePart;
+const { HeaderBox, MessageBox: MessageBoxStyle, FooterBox, MessageDate } = MessengerStyles.MessagePart;
 
 const MessagePart = () => {
     return (
@@ -16,7 +16,7 @@ const MessagePart = () => {
                 {lodash.map(TemporaryData.Messages, (message, dateIndex) => {
                     return (
                         <React.Fragment key={`message-part-message-box-item-${dateIndex}`}>
-                            <p className="p-4 text-center text-sm text-gray-500">{`${dateIndex}`}</p>
+                            <MessageDate>{`${dateIndex}`}</MessageDate>
                             {lodash.map(message, (msg, index) => {
                                 return (
                                     <MessageBox
