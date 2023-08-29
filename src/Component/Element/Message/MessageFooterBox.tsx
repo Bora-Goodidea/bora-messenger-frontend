@@ -14,6 +14,7 @@ const MessageFooterBox = () => {
                             type="text"
                             value=""
                             placeholder="Aa"
+                            onChange={() => console.debug('onChange')}
                         />
                         <BoraButton ButtonType={`MessageInInputButton`} ButtonChildren={<MessageEmojiIcon />} />
                     </label>
