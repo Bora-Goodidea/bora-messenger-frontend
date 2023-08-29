@@ -30,7 +30,12 @@ const ActiveUsersPart = () => {
                 return (
                     <div className="text-sm text-center mr-4" key={`Active-Users-avatar-item-${index}`}>
                         <AvatarWapper ActiveStyle={user.active}>
-                            <BoraAvatar AvatarUrl={user.profileImage} AvataAltString={user.name} AvatarShadow={true} SmallSize={false} />
+                            <BoraAvatar
+                                AvatarUrl={user.profileImage}
+                                AvataAltString={user.name}
+                                AvatarShadow={true}
+                                AvatarSize={`default`}
+                            />
                         </AvatarWapper>
                         <p>{`${user.name}`}</p>
                     </div>

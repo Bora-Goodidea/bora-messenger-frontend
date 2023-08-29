@@ -1,26 +1,23 @@
-import { BoraButton } from '@Elements';
+import { BoraButton, BoraInput } from '@Elements';
 import { MessagePictureIcon, MessageCameraIcon, MessageEmojiIcon, MessageSendIcon } from '@Icons';
+import { ElementStyles } from '@Styles';
+
+const { Container, InputBox, InputWapper } = ElementStyles.MessageStyle.MessageFooterBox;
 
 const MessageFooterBox = () => {
     return (
         <>
-            <div className="flex flex-row items-center p-4">
+            <Container>
                 <BoraButton ButtonType={`MessageInputButton`} ButtonChildren={<MessagePictureIcon />} />
                 <BoraButton ButtonType={`MessageInputButton`} ButtonChildren={<MessageCameraIcon />} />
-                <div className="relative flex-grow">
-                    <label>
-                        <input
-                            className="rounded-full py-2 pl-3 pr-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none text-gray-600 focus:shadow-md transition duration-300 ease-in"
-                            type="text"
-                            value=""
-                            placeholder="Aa"
-                            onChange={() => console.debug('onChange')}
-                        />
+                <InputBox>
+                    <InputWapper>
+                        <BoraInput StyleType={`send`} InputType={`text`} InputValue="" Placeholder="Aa" />
                         <BoraButton ButtonType={`MessageInInputButton`} ButtonChildren={<MessageEmojiIcon />} />
-                    </label>
-                </div>
+                    </InputWapper>
+                </InputBox>
                 <BoraButton ButtonType={`MessageInputButton`} ButtonChildren={<MessageSendIcon />} />
-            </div>
+            </Container>
         </>
     );
 };

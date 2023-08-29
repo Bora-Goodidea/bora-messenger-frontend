@@ -1,19 +1,22 @@
 import { Outlet } from 'react-router';
+import { ElementStyles } from '@Styles';
+
+const { Container, Wapper, IconWapper, MainWapper, IconStep1, IconStep2, IconStep3 } = ElementStyles.LayoutStyle.BoraLayoutStyle;
 
 const BoraLayout = () => {
     return (
-        <div className="h-screen w-full flex antialiased text-gray-800 bg-white overflow-hidden">
-            <div className="flex-1 flex flex-col">
-                <div className="border-b-2 p-2 flex flex-row z-20">
-                    <div className="bg-red-600 w-3 h-3 rounded-full mr-2"></div>
-                    <div className="bg-yellow-500 w-3 h-3 rounded-full mr-2"></div>
-                    <div className="bg-green-500 w-3 h-3 rounded-full mr-2"></div>
-                </div>
-                <main className="flex-grow flex flex-row min-h-0">
+        <Container>
+            <Wapper>
+                <IconWapper>
+                    <IconStep1></IconStep1>
+                    <IconStep2></IconStep2>
+                    <IconStep3></IconStep3>
+                </IconWapper>
+                <MainWapper>
                     <Outlet />
-                </main>
-            </div>
-        </div>
+                </MainWapper>
+            </Wapper>
+        </Container>
     );
 };
 

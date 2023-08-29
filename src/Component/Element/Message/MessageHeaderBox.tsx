@@ -1,27 +1,30 @@
 import { BoraAvatar } from '@Elements';
 import { MessageInfoIcon } from '@Icons';
+import { ElementStyles } from '@Styles';
+
+const { Wapper, TextWapper, Name, Time, IconWapper } = ElementStyles.MessageStyle.MessageHeader;
 
 const MessageHeader = () => {
     return (
         <>
-            <div className="flex">
+            <Wapper>
                 <BoraAvatar
                     AvatarUrl={`https://randomuser.me/api/portraits/women/33.jpg`}
                     AvataAltString={`Scarlett Johansson`}
                     AvatarShadow={true}
-                    SmallSize={true}
+                    AvatarSize={`middle`}
                 />
-                <div className="text-sm">
-                    <p className="font-bold">{`Scarlett Johansson`}</p>
-                    <p>{`Active 1h ago`}</p>
-                </div>
-            </div>
+                <TextWapper>
+                    <Name>{`Scarlett Johansson`}</Name>
+                    <Time>{`Active 1h ago`}</Time>
+                </TextWapper>
+            </Wapper>
 
-            <div className="flex">
-                <div className="block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2 ml-4">
+            <Wapper>
+                <IconWapper>
                     <MessageInfoIcon />
-                </div>
-            </div>
+                </IconWapper>
+            </Wapper>
         </>
     );
 };
