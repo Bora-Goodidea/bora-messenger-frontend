@@ -2,8 +2,19 @@ import lodash from 'lodash';
 import { TemporaryData } from '@Commons';
 import { MessengerStyles } from '@Styles';
 
-const { Wapper, AvatarBox, AvatarImage, AvatarActive, AvatarActiveMark, MessageWapper, MessageName, MessageBox, Message, MessageTime } =
-    MessengerStyles.ContactsPart;
+const {
+    Wapper,
+    AvatarBox,
+    AvatarImage,
+    AvatarActive,
+    AvatarActiveMark,
+    MessageWapper,
+    MessageName,
+    MessageBox,
+    Message,
+    MessageTime,
+    MessageMin,
+} = MessengerStyles.ContactsPart;
 
 const ContactsPart = () => {
     return (
@@ -22,9 +33,9 @@ const ContactsPart = () => {
                         <MessageWapper>
                             <MessageName>{`${c.name}`}</MessageName>
                             <MessageBox>
-                                <div className="min-w-0">
+                                <MessageMin>
                                     <Message>{`${c.message}`}</Message>
-                                </div>
+                                </MessageMin>
                             </MessageBox>
                             <MessageTime>{`${c.time}`}</MessageTime>
                         </MessageWapper>
