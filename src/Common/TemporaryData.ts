@@ -171,7 +171,7 @@ export default {
     Messages: {
         '2023년 08월 25일 금요일': [
             {
-                my: false,
+                location: `left`,
                 user: {
                     profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
                 },
@@ -192,7 +192,7 @@ export default {
                 ],
             },
             {
-                my: true,
+                location: `right`,
                 user: {
                     profileImage: ``,
                 },
@@ -213,7 +213,7 @@ export default {
                 ],
             },
             {
-                my: false,
+                location: `left`,
                 user: {
                     profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
                 },
@@ -225,7 +225,7 @@ export default {
                 ],
             },
             {
-                my: true,
+                location: `right`,
                 user: {
                     profileImage: ``,
                 },
@@ -237,7 +237,144 @@ export default {
                 ],
             },
             {
-                my: false,
+                location: `left`,
+                user: {
+                    profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Volutpat lacus laoreet non curabitur gravida.`,
+                    },
+                ],
+            },
+        ],
+        '2023년 08월 26일 토요일': [
+            {
+                location: `left`,
+                user: {
+                    profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Hey! How are you?`,
+                    },
+                ],
+            },
+            {
+                location: `right`,
+                user: {
+                    profileImage: ``,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Shall we go for Hiking this weekend?`,
+                    },
+                ],
+            },
+            {
+                location: `left`,
+                user: {
+                    profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Volutpat lacus laoreet non curabitur gravida.`,
+                    },
+                ],
+            },
+            {
+                location: `right`,
+                user: {
+                    profileImage: ``,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Shall we go for Hiking this weekend?`,
+                    },
+                ],
+            },
+            {
+                location: `left`,
+                user: {
+                    profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Volutpat lacus laoreet non curabitur gravida.`,
+                    },
+                ],
+            },
+        ],
+        '2023년 08월 27일 일요일': [
+            {
+                location: `left`,
+                user: {
+                    profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Hey! How are you?`,
+                    },
+                ],
+            },
+            {
+                location: `right`,
+                user: {
+                    profileImage: ``,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Shall we go for Hiking this weekend?`,
+                    },
+                ],
+            },
+            {
+                location: `left`,
+                user: {
+                    profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Volutpat lacus laoreet non curabitur gravida.`,
+                    },
+                ],
+            },
+            {
+                location: `right`,
+                user: {
+                    profileImage: ``,
+                },
+                msg: [
+                    {
+                        type: `text`,
+                        contents: `Hey! How are you?`,
+                    },
+                    {
+                        type: `image`,
+                        contents: `https://unsplash.com/photos/8--kuxbxuKU/download?force=true&w=640`,
+                    },
+                    {
+                        type: `text`,
+                        contents: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                            magna aliqua. Volutpat lacus laoreet non curabitur gravida.`,
+                    },
+                ],
+            },
+            {
+                location: `left`,
                 user: {
                     profileImage: `https://randomuser.me/api/portraits/women/33.jpg`,
                 },

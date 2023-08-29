@@ -9,12 +9,12 @@ const Button = styled.button(({ ButtonType }: { ButtonType: ButtonType }) => {
     if (ButtonType === `RoundIcon`) {
         twStyled.push(tw`focus:outline-none bg-gray-200 text-gray-500 rounded-full w-20 h-20`);
     } else if (ButtonType === `MessageInputButton`) {
-        twStyled.push(tw`flex-shrink-0 focus:outline-none mx-2 text-blue-600 hover:text-blue-700 w-6 h-6`);
+        twStyled.push(tw`focus:outline-none mx-2 text-blue-600 hover:text-blue-700 w-6 h-6`);
     } else if (ButtonType === `MessageInInputButton`) {
-        twStyled.push(tw`flex-shrink-0 focus:outline-none absolute top-0 right-0 mt-2 mr-3 text-blue-600 hover:text-blue-700 w-6 h-6`);
+        twStyled.push(tw`focus:outline-none absolute top-0 right-0 mt-2 mr-3 text-blue-600 hover:text-blue-700 w-6 h-6`);
     } else if (ButtonType === `MessageBoxMessageButton`) {
         twStyled.push(
-            tw`flex flex-shrink-0 group-hover:block focus:outline-none mx-2 rounded-full text-gray-500 hover:text-gray-800 hover:bg-gray-200 bg-gray-100 w-8 h-8 p-2`
+            tw`flex group-hover:block focus:outline-none mx-2 rounded-full text-gray-500 hover:text-gray-800 hover:bg-gray-200 bg-gray-100 w-8 h-8 p-2`
         );
     }
 
