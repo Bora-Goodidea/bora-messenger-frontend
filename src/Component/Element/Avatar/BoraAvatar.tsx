@@ -1,37 +1,42 @@
 import tw, { styled } from 'twin.macro';
 
-const Container = styled.div(({ ActiveStyle }: { ActiveStyle: boolean }) => {
-    const twStyled = [tw`p-1 border-4 rounded-full`];
+const Wapper = styled.div(({ SmallSize }: { SmallSize: boolean }) => {
+    const twStyled = [tw`relative flex flex-shrink-0`];
 
-    if (ActiveStyle) {
-        twStyled.push(tw`border-blue-600`);
+    if (SmallSize) {
+        twStyled.push(tw`w-12 h-12 mr-4`);
     } else {
-        twStyled.push(tw`border-transparent`);
+        twStyled.push(tw`w-16 h-16`);
+    }
+
+    return twStyled;
+});
+
+const AvatarImage = styled.img(({ Shadow }: { Shadow: boolean }) => {
+    const twStyled = [tw`rounded-full w-full h-full object-cover`];
+
+    if (Shadow) {
+        twStyled.push(tw`shadow-md`);
     }
 
     return twStyled;
 });
 
 const BoraAvatar = ({
-    Active,
-    AvatarName,
     AvatarUrl,
     AvataAltString,
+    AvatarShadow,
+    SmallSize,
 }: {
-    Active: boolean;
-    AvatarName?: string;
+    AvatarShadow: boolean;
     AvatarUrl: string;
     AvataAltString: string;
+    SmallSize: boolean;
 }) => {
     return (
-        <>
-            <Container ActiveStyle={Active}>
-                <div className="w-16 h-16 relative flex flex-shrink-0">
-                    <img className="shadow-md rounded-full w-full h-full object-cover" src={AvatarUrl} alt={AvataAltString} />
-                </div>
-            </Container>
-            {AvatarName && <p>{`${AvatarName}`}</p>}
-        </>
+        <Wapper SmallSize={SmallSize ? SmallSize : false}>
+            <AvatarImage Shadow={AvatarShadow ? AvatarShadow : false} src={AvatarUrl} alt={AvataAltString} />
+        </Wapper>
     );
 };
 

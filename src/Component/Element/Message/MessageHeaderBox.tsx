@@ -1,16 +1,20 @@
-import { MessageAvatar } from '@Elements';
+import { BoraAvatar } from '@Elements';
 import { MessageInfoIcon } from '@Icons';
 
 const MessageHeader = () => {
     return (
         <>
             <div className="flex">
-                <MessageAvatar
+                <BoraAvatar
                     AvatarUrl={`https://randomuser.me/api/portraits/women/33.jpg`}
                     AvataAltString={`Scarlett Johansson`}
-                    AvatarName={`Scarlett Johansson`}
-                    MessageTime={`Active 1h ago`}
+                    AvatarShadow={true}
+                    SmallSize={true}
                 />
+                <div className="text-sm">
+                    <p className="font-bold">{`Scarlett Johansson`}</p>
+                    <p>{`Active 1h ago`}</p>
+                </div>
             </div>
 
             <div className="flex">
