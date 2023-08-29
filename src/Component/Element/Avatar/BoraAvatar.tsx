@@ -1,40 +1,21 @@
-import tw, { styled } from 'twin.macro';
+import { ElementStyles } from '@Styles';
+import { AvatarStyleSizeType } from '@CommonType';
 
-const Wapper = styled.div(({ SmallSize }: { SmallSize: boolean }) => {
-    const twStyled = [tw`relative flex flex-shrink-0`];
-
-    if (SmallSize) {
-        twStyled.push(tw`w-12 h-12 mr-4`);
-    } else {
-        twStyled.push(tw`w-16 h-16`);
-    }
-
-    return twStyled;
-});
-
-const AvatarImage = styled.img(({ Shadow }: { Shadow: boolean }) => {
-    const twStyled = [tw`rounded-full w-full h-full object-cover`];
-
-    if (Shadow) {
-        twStyled.push(tw`shadow-md`);
-    }
-
-    return twStyled;
-});
+const { Wapper, AvatarImage } = ElementStyles.BoraAvatarStyle;
 
 const BoraAvatar = ({
     AvatarUrl,
     AvataAltString,
     AvatarShadow,
-    SmallSize,
+    AvatarSize,
 }: {
     AvatarShadow: boolean;
     AvatarUrl: string;
     AvataAltString: string;
-    SmallSize: boolean;
+    AvatarSize: AvatarStyleSizeType;
 }) => {
     return (
-        <Wapper SmallSize={SmallSize ? SmallSize : false}>
+        <Wapper AvatarSize={AvatarSize ? AvatarSize : `default`}>
             <AvatarImage Shadow={AvatarShadow ? AvatarShadow : false} src={AvatarUrl} alt={AvataAltString} />
         </Wapper>
     );

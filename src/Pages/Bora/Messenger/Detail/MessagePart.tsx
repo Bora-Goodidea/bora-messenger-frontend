@@ -2,14 +2,17 @@ import React from 'react';
 import lodash from 'lodash';
 import { TemporaryData } from '@Commons';
 import { MessageHeaderBox, MessageBox, MessageFooterBox } from '@Elements';
+import { MessengerStyles } from '@Styles';
+
+const { HeaderBox, MessageBox: MessageBoxStyle, FooterBox } = MessengerStyles.MessagePart;
 
 const MessagePart = () => {
     return (
         <>
-            <div className="chat-header px-6 py-4 flex flex-row flex-none justify-between items-center shadow">
+            <HeaderBox>
                 <MessageHeaderBox />
-            </div>
-            <div className="chat-body p-4 flex-1 overflow-y-scroll">
+            </HeaderBox>
+            <MessageBoxStyle>
                 {lodash.map(TemporaryData.Messages, (message, dateIndex) => {
                     return (
                         <React.Fragment key={`message-part-message-box-item-${dateIndex}`}>
@@ -32,10 +35,10 @@ const MessagePart = () => {
                         </React.Fragment>
                     );
                 })}
-            </div>
-            <div className="chat-footer flex-none">
+            </MessageBoxStyle>
+            <FooterBox>
                 <MessageFooterBox />
-            </div>
+            </FooterBox>
         </>
     );
 };
