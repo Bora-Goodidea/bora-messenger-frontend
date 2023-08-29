@@ -14,7 +14,8 @@
             "@Pages": ["src/Pages"],
             "@Page/*": ["src/Pages/*"],
             "@Elements": ["src/Component/Element"],
-            "@Icons": ["src/Component/Element/Icon"]
+            "@Icons": ["src/Component/Element/Icon"],
+            "@CommonType": ["src/Types/CommonType"]
         }
     }
 }
