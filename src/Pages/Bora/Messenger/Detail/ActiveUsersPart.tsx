@@ -3,32 +3,22 @@ import lodash from 'lodash';
 import { TemporaryData } from '@Commons';
 import { BoraButton, BoraAvatar } from '@Elements';
 import { YourStoryIcon } from '@Icons';
-import tw, { styled } from 'twin.macro';
+import { MessengerStyles } from '@Styles';
 
-const AvatarWapper = styled.div(({ ActiveStyle }: { ActiveStyle: boolean }) => {
-    const twStyled = [tw`p-1 border-4 rounded-full`];
-
-    if (ActiveStyle) {
-        twStyled.push(tw`border-blue-600`);
-    } else {
-        twStyled.push(tw`border-transparent`);
-    }
-
-    return twStyled;
-});
+const { IconWapper, AvatarWapper, AvatarBox } = MessengerStyles.ActiveUsersPart;
 
 const { ActiveUsers: ActiveUserList } = TemporaryData;
 
 const ActiveUsersPart = () => {
     return (
         <>
-            <div className="text-sm text-center mr-4">
+            <IconWapper>
                 <BoraButton ButtonType={`RoundIcon`} ButtonChildren={<YourStoryIcon />} />
                 <p>Your Story</p>
-            </div>
+            </IconWapper>
             {lodash.map(ActiveUserList, (user, index) => {
                 return (
-                    <div className="text-sm text-center mr-4" key={`Active-Users-avatar-item-${index}`}>
+                    <AvatarBox key={`Active-Users-avatar-item-${index}`}>
                         <AvatarWapper ActiveStyle={user.active}>
                             <BoraAvatar
                                 AvatarUrl={user.profileImage}
@@ -38,7 +28,7 @@ const ActiveUsersPart = () => {
                             />
                         </AvatarWapper>
                         <p>{`${user.name}`}</p>
-                    </div>
+                    </AvatarBox>
                 );
             })}
         </>

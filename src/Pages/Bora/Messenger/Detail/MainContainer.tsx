@@ -1,29 +1,28 @@
 import { HeaderPart, ActiveUsersPart, SearchPart, ContactsPart, MessagePart } from '.';
+import { MessengerStyles } from '@Styles';
+
+const { LeftContainer, RightContainer, ActiveUsersBox, HeaderBox, SearchBox, ContactsBox } = MessengerStyles.Container;
 
 const MainContainer = () => {
     return (
         <>
-            <section className="flex flex-col flex-none overflow-auto w-24 lg:max-w-sm md:w-2/5 transition-all duration-300 ease-in-out">
-                <div className="header p-4 flex flex-row justify-between items-center flex-none">
+            <LeftContainer>
+                <HeaderBox>
                     <HeaderPart />
-                </div>
-                <div className="search-box p-4 flex-none">
-                    <div>
-                        <div className="relative">
-                            <SearchPart />
-                        </div>
-                    </div>
-                </div>
-                <div className="active-users flex flex-row p-2 overflow-auto w-0 min-w-full">
+                </HeaderBox>
+                <SearchBox>
+                    <SearchPart />
+                </SearchBox>
+                <ActiveUsersBox>
                     <ActiveUsersPart />
-                </div>
-                <div className="contacts p-2 flex-1 overflow-y-scroll border-t">
+                </ActiveUsersBox>
+                <ContactsBox>
                     <ContactsPart />
-                </div>
-            </section>
-            <section className="flex flex-col flex-auto border-l">
+                </ContactsBox>
+            </LeftContainer>
+            <RightContainer>
                 <MessagePart />
-            </section>
+            </RightContainer>
         </>
     );
 };

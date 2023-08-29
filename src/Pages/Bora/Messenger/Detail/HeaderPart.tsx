@@ -1,5 +1,8 @@
 import { BoraAvatar } from '@Elements';
 import { NewMessageIcon } from '@Icons';
+import { MessengerStyles } from '@Styles';
+
+const { Title, NewMessage } = MessengerStyles.HeaderPart;
 
 const HeaderPart = () => {
     return (
@@ -10,10 +13,10 @@ const HeaderPart = () => {
                 AvataAltString={`ravisankarchinnam`}
                 AvatarSize={`default`}
             />
-            <p className="text-md font-bold hidden md:block">Messenger</p>
-            <div className="block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2">
+            <Title>Messenger</Title>
+            <NewMessage>
                 <NewMessageIcon />
-            </div>
+            </NewMessage>
         </>
     );
 };
