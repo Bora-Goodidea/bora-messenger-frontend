@@ -15,7 +15,7 @@ const RootRoutes = () => {
                         return (
                             <Route
                                 key={`root-routers-auth-${index}`}
-                                path={element.pathName}
+                                path={`/auth${element.pathName}`}
                                 element={
                                     <React.Suspense>
                                         <PageComponent />
