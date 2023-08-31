@@ -2,20 +2,6 @@ import tw, { styled } from 'twin.macro';
 import { BoraButtonType, LocationStyleType, AvatarStyleSizeType, BoraInputType } from '@CommonType';
 
 export default {
-    LayoutStyle: {
-        BoraLayoutStyle: {
-            Container: tw.div`h-screen w-full flex antialiased text-gray-800 bg-white overflow-hidden`,
-            Wapper: tw.div`flex-1 flex flex-col`,
-            IconWapper: tw.div`border-b-2 p-2 flex flex-row z-20`,
-            IconStep1: tw.div`bg-red-600 w-3 h-3 rounded-full mr-2`,
-            IconStep2: tw.div`bg-yellow-500 w-3 h-3 rounded-full mr-2`,
-            IconStep3: tw.div`bg-green-500 w-3 h-3 rounded-full mr-2`,
-            MainWapper: tw.main`flex-grow flex flex-row min-h-0`,
-        },
-        BlankLayoutStyle: {
-            Container: tw.div`h-screen w-full flex antialiased text-gray-800 bg-white overflow-hidden`,
-        },
-    },
     BoraAvatarStyle: {
         Wapper: styled.div(({ AvatarSize }: { AvatarSize: AvatarStyleSizeType }) => {
             const twStyled = [tw`relative flex flex-shrink-0`];

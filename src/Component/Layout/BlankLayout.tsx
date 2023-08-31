@@ -1,13 +1,13 @@
 import { Outlet } from 'react-router';
-import { ElementStyles } from '@Styles';
+import { LayoutStyles } from '@Styles';
 
-const { Container } = ElementStyles.LayoutStyle.BlankLayoutStyle;
+const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 
 const BlankLayout = () => {
     return (
-        <Container>
+        <MainContainer>
             <Outlet />
-        </Container>
+        </MainContainer>
     );
 };
 
