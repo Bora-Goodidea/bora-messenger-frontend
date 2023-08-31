@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import { LayoutStyles } from '@Styles';
 
 const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 const { Section, Container, Wapper, IconWapper, TitleText, SubText, BackIcon, BackButton } = LayoutStyles.NotFoundPageStyle;
 
 const PageNotFound = () => {
+    const navigate = useNavigate();
+
     return (
         <MainContainer>
             <Section>
@@ -27,7 +30,7 @@ const PageNotFound = () => {
                         <TitleText>페이지가 존재 하지 않아요</TitleText>
                         <SubText>찾고 계신 페이지가 존재하지 않습니다.</SubText>
 
-                        <BackIcon>
+                        <BackIcon onClick={() => navigate(`${process.env.PUBLIC_URL}/`)}>
                             <BackButton>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
