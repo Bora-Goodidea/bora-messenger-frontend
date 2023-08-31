@@ -17,6 +17,17 @@
 
 > 페이스북 메신저 개발 스터디
 
+## 개발 환경
+
+> env.environment.* 파일 생성
+
+```sh
+# cp .config/env.environment.sample .config/env.environment.local
+# cp .config/env.environment.sample .config/env.environment.dev
+
+# yarn start
+```
+
 ## 참고 문서
 
 ESLint and
