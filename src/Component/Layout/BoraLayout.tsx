@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router';
-import { ElementStyles } from '@Styles';
+import { LayoutStyles } from '@Styles';
 
-const { Container, Wapper, IconWapper, MainWapper, IconStep1, IconStep2, IconStep3 } = ElementStyles.LayoutStyle.BoraLayoutStyle;
+const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
+const { Wapper, IconWapper, MainWapper, IconStep1, IconStep2, IconStep3 } = LayoutStyles.DafalutLayoutStyle.BoraLayoutStyle;
 
 const BoraLayout = () => {
     return (
-        <Container>
+        <MainContainer>
             <Wapper>
                 <IconWapper>
                     <IconStep1></IconStep1>
@@ -16,7 +17,7 @@ const BoraLayout = () => {
                     <Outlet />
                 </MainWapper>
             </Wapper>
-        </Container>
+        </MainContainer>
     );
 };
 

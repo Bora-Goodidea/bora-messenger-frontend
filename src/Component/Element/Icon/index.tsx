@@ -82,6 +82,7 @@ export const MessageSendIcon = () => {
     );
 };
 
+// 채팅창 채팅 메시지 헴버거 버튼
 export const MessageBoxHamburgerIcon = () => {
     return (
         <DefaultSvg viewBox="0 0 20 20">
@@ -90,6 +91,7 @@ export const MessageBoxHamburgerIcon = () => {
     );
 };
 
+// 채팅창 채팅 메시지 답글 버튼
 export const MessageBoxReplayIcon = () => {
     return (
         <DefaultSvg viewBox="0 0 20 20">
@@ -98,6 +100,7 @@ export const MessageBoxReplayIcon = () => {
     );
 };
 
+// 채팅창 채팅 메시지 옵션 버튼
 export const MessageBoxOptionIcon = () => {
     return (
         <DefaultSvg viewBox="0 0 24 24">
