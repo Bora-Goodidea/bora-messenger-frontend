@@ -15,7 +15,9 @@
             "@Page/*": ["src/Pages/*"],
             "@Elements": ["src/Component/Element"],
             "@Icons": ["src/Component/Element/Icon"],
-            "@CommonType": ["src/Types/CommonType"]
+            "@CommonType": ["src/Types/CommonType"],
+            "@Hooks": ["src/Hooks"],
+            "@Helper": ["src/Common/Helper"]
         }
     }
 }

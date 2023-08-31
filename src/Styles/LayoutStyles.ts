@@ -23,4 +23,8 @@ export default {
         BackIcon: tw.div`flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto`,
         BackButton: tw.button`flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700`,
     },
+    SplashComponentStyle: {
+        Wapper: tw.div`flex h-full w-full items-center justify-center`,
+        Text: tw.span`sr-only`,
+    },
 };
