@@ -30,7 +30,7 @@ export const colorDebug = (color: 'success' | 'info' | 'error' | 'warning', mess
  * @constructor
  */
 export const DEBUG = (e: any) => {
-    console.debug('%c::DEBUG::', 'color: green; font-weight: bold;', e);
+    console.debug('%c::DEBUG::', 'color: #EE82EE; font-weight: lighter;', e);
 };
 
 /**
@@ -154,6 +154,8 @@ export const saveRefreshToken = ({ accessToken, refreshToken }: { accessToken: s
 export const removeLoginToken = (): void => {
     storageMaster.remove(`accessToken`);
     storageMaster.remove(`refreshToken`);
+
+    return;
 };
 
 /**
