@@ -16,6 +16,7 @@
             "@Elements": ["src/Component/Element"],
             "@Icons": ["src/Component/Element/Icon"],
             "@CommonType": ["src/Types/CommonType"],
+            "@ServiceInterface": ["src/Types/ServiceInterface"],
             "@Hooks": ["src/Hooks"],
             "@Helper": ["src/Common/Helper"]
         }

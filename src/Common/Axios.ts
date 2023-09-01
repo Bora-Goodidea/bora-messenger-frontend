@@ -16,14 +16,14 @@ interface serviceInterface {
 
 const apiBaseURLL: string | undefined = lodash.isUndefined(process.env.REACT_APP_API_URL)
     ? 'http://localhost'
-    : process.env.NEXT_PUBLIC_API_URL;
+    : process.env.REACT_APP_API_URL;
 export const axiosDefaultHeader: AxiosRequestConfig = {
     baseURL: apiBaseURLL,
     timeout: 20000,
     headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Access-Control-Allow-Origin': '*',
-        'Request-Client-Type': lodash.isUndefined(process.env.REACT_APP_CLIENT_TYPE) ? '' : process.env.REACT_APP_CLIENT_TYPE,
+        'Client-Type': lodash.isUndefined(process.env.REACT_APP_CLIENT_TYPE) ? '' : process.env.REACT_APP_CLIENT_TYPE,
         Accept: 'application/json',
         Authorization: '',
     },
