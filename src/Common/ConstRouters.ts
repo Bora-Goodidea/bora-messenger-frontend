@@ -14,6 +14,11 @@ export default {
             pathName: `/login`,
             Component: React.lazy(() => import('@Page/Auth/LoginPage')),
         },
+        {
+            name: `auth-register`,
+            pathName: `/register`,
+            Component: React.lazy(() => import('@Page/Auth/RegisterPage')),
+        },
     ],
     Publish: [
         {
