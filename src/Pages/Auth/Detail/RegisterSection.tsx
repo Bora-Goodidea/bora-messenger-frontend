@@ -14,7 +14,7 @@ const {
     LoginButton,
     LoginText,
     ErrorMessage,
-} = PageStyles.AuthStyles.RegisterPageStyle;
+} = PageStyles.AuthStyles.RegisterPageStyles;
 
 const RegisterSection = () => {
     return (
