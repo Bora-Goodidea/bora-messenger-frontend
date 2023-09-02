@@ -47,9 +47,11 @@ export default {
     },
     IconStyle: {
         DefaultSvg: tw.svg`w-full h-full fill-current`,
+        DefaultWHSvg: tw.svg`w-6 h-6`,
+        DefaultSpinnerSvg: tw.svg`inline w-8 h-8 mr-2 text-gray-200 animate-spin fill-purple-600`,
         MessageInfoSvg: tw.svg`w-full h-full fill-current text-blue-600`,
         SearchSvg: tw.svg`w-6 h-6`,
-        DefaultSpinnerSvg: tw.svg`inline w-8 h-8 mr-2 text-gray-200 animate-spin fill-purple-600`,
+        BackInfoSvg: tw.svg`w-5 h-5 rtl:rotate-180`,
     },
     BoraInputStyle: {
         Input2: tw.input`rounded-full py-2 pr-6 pl-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none text-gray-600 focus:shadow-md transition duration-300 ease-in`,

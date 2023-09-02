@@ -1,6 +1,6 @@
 import { ElementStyles } from '@Styles';
 
-const { DefaultSvg, MessageInfoSvg, SearchSvg, DefaultSpinnerSvg } = ElementStyles.IconStyle;
+const { DefaultSvg, DefaultWHSvg, MessageInfoSvg, SearchSvg, DefaultSpinnerSvg, BackInfoSvg } = ElementStyles.IconStyle;
 
 // 왼쪽 상단 뉴 메시지 버튼
 export const NewMessageIcon = () => {
@@ -109,6 +109,7 @@ export const MessageBoxOptionIcon = () => {
     );
 };
 
+// Spinner
 export const DefaultSpinner = () => {
     return (
         <DefaultSpinnerSvg aria-hidden="true" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -121,5 +122,27 @@ export const DefaultSpinner = () => {
                 fill="currentFill"
             />
         </DefaultSpinnerSvg>
+    );
+};
+
+// 느낌표
+export const ExclamationMarkIcon = () => {
+    return (
+        <DefaultWHSvg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+            />
+        </DefaultWHSvg>
+    );
+};
+
+// 뒤로 아이콘
+export const BackIcon = () => {
+    return (
+        <BackInfoSvg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+        </BackInfoSvg>
     );
 };

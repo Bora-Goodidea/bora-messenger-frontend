@@ -35,7 +35,7 @@ export default {
             RememberTextLabel: tw.label`text-gray-500 dark:text-gray-300`,
             RememberCheckBox: tw.input`w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-4 focus:ring-sky-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-sky-600 dark:ring-offset-gray-800`,
             RememberText: tw.div`ml-3 text-sm`,
-            RegisterButton: tw.p`flex text-sm font-light text-gray-500 dark:text-gray-400`,
+            RegisterButton: tw.p`flex text-sm font-medium text-gray-500 dark:text-gray-400`,
             RegisterText: tw.div`ml-2 font-medium text-sky-600 dark:text-blue-500 cursor-pointer`,
             ErrorMessage: tw.p`pt-1 font-medium text-xs text-red-500`,
         },
