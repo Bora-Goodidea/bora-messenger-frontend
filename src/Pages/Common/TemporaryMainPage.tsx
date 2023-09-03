@@ -16,18 +16,21 @@ const TemporaryMainPage = () => {
                 <div className="flex h-screen w-full items-baseline justify-center">
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-2/3">
                         <table className="w-full text-sm text-left text-blue-100 dark:text-blue-100 min-w-full">
-                            <thead className="text-xs text-white bg-blue-600 border-b border-blue-400 dark:text-white">
+                            <thead className="text-xs text-white bg-blue-600 border-b border-blue-400 dark:text-white w-full">
                                 <tr>
-                                    <th scope="col" className="px-6 py-2">
+                                    <th scope="col" className="text-center px-6 py-2">
                                         구분
                                     </th>
-                                    <th scope="col" className="">
+                                    <th scope="col" className="text-center px-6 py-2">
+                                        페이지 명
+                                    </th>
+                                    <th scope="col" className="text-center px-6 py-2">
                                         라우터명
                                     </th>
-                                    <th scope="col" className="">
+                                    <th scope="col" className="text-center px-6 py-2">
                                         pathName
                                     </th>
-                                    <th scope="col" className="">
+                                    <th scope="col" className="text-center px-6 py-2">
                                         이동
                                     </th>
                                 </tr>
@@ -38,18 +41,21 @@ const TemporaryMainPage = () => {
                                         const category = rIndex === 0 ? catrgory : ``;
                                         return (
                                             <tr
-                                                className="bg-blue-600 border-b border-blue-400 hover:bg-blue-500"
+                                                className="bg-blue-600 border-b border-blue-400 hover:bg-blue-500 text-left"
                                                 key={`temporary-main-page-table-row-item-${catrgory}-${rIndex}`}>
                                                 <td
                                                     scope="row"
-                                                    className="px-6 py-1 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                                                    className="px-6 py-1 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100 text-center">
                                                     {`${category}`}
                                                 </td>
-                                                <td className="px-1 py-1">{`${router.name}`}</td>
-                                                <td className="">{`/${catrgory.toLowerCase()}${router.pathName}`}</td>
-                                                <td className="">
+                                                <td className="px-6 py-1 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100 text-center">{`${router.name}`}</td>
+                                                <td className="px-6 py-1 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100 text-center">{`${router.page}`}</td>
+                                                <td className="px-6 py-1 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100 text-center">{`/${catrgory.toLowerCase()}${
+                                                    router.pathName
+                                                }`}</td>
+                                                <td className="px-6 py-1 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100 text-center">
                                                     <div
-                                                        className="cursor-pointer"
+                                                        className="flex px-6 py-1 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100 text-center cursor-pointer justify-center"
                                                         onClick={() => {
                                                             handleClickPathName(`/${catrgory.toLowerCase()}${router.pathName}`);
                                                         }}>

@@ -10,6 +10,22 @@ const RootRoutes = () => {
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>
                 <Route element={<BlankLayout />}>
+                    {lodash.map(ConstRouters.Common, (element, index) => {
+                        const PageComponent = element.Component;
+                        return (
+                            <Route
+                                key={`root-routers-auth-${index}`}
+                                path={`/common${element.pathName}`}
+                                element={
+                                    <React.Suspense>
+                                        <PageComponent />
+                                    </React.Suspense>
+                                }
+                            />
+                        );
+                    })}
+                </Route>
+                <Route element={<BlankLayout />}>
                     {lodash.map(ConstRouters.Auth, (element, index) => {
                         const PageComponent = element.Component;
                         return (
