@@ -6,15 +6,15 @@ const {
     FormWapper,
     FormBox,
     TitleBox,
-    RegisterForm,
+    AuthForm,
     InputItem,
     InputLabel,
     Input,
-    RegisterButton,
-    LoginButton,
-    LoginText,
+    AuthButton,
+    Button,
+    AuthText,
     ErrorMessage,
-} = PageStyles.AuthStyles.RegisterPageStyles;
+} = PageStyles.Auth.AuthStyles;
 
 const RegisterSection = () => {
     return (
@@ -23,7 +23,7 @@ const RegisterSection = () => {
                 <FormWapper>
                     <FormBox>
                         <TitleBox>회원 가입</TitleBox>
-                        <RegisterForm>
+                        <AuthForm>
                             <InputItem>
                                 <InputLabel form="email">이메일 주소</InputLabel>
                                 <Input type="email" name="email" id="email" placeholder="name@company.com" required={false} />
@@ -56,12 +56,12 @@ const RegisterSection = () => {
                                 />
                                 <ErrorMessage>이미 사용중인 닉네임 입니다.</ErrorMessage>
                             </InputItem>
-                            <RegisterButton>회원 가입</RegisterButton>
-                            <LoginButton>
+                            <Button>회원 가입</Button>
+                            <AuthButton>
                                 아이디가 존재 한가요?
-                                <LoginText>로그인</LoginText>
-                            </LoginButton>
-                        </RegisterForm>
+                                <AuthText>로그인</AuthText>
+                            </AuthButton>
+                        </AuthForm>
                     </FormBox>
                 </FormWapper>
             </Wapper>

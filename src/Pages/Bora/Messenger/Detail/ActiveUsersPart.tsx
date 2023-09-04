@@ -3,9 +3,9 @@ import lodash from 'lodash';
 import { TemporaryData } from '@Commons';
 import { BoraButton, BoraAvatar } from '@Elements';
 import { YourStoryIcon } from '@Icons';
-import { MessengerStyles } from '@Styles';
+import { PageStyles } from '@Styles';
 
-const { IconWapper, AvatarWapper, AvatarBox } = MessengerStyles.ActiveUsersPart;
+const { IconWapper, AvatarWapper, AvatarBox } = PageStyles.Bora.MessengerStyles.ActiveUsersPart;
 
 const { ActiveUsers: ActiveUserList } = TemporaryData;
 

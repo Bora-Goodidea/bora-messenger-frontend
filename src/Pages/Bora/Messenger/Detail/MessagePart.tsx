@@ -2,9 +2,9 @@ import React from 'react';
 import lodash from 'lodash';
 import { TemporaryData } from '@Commons';
 import { MessageHeaderBox, MessageBox, MessageFooterBox } from '@Elements';
-import { MessengerStyles } from '@Styles';
+import { PageStyles } from '@Styles';
 
-const { HeaderBox, MessageBox: MessageBoxStyle, FooterBox, MessageDate } = MessengerStyles.MessagePart;
+const { HeaderBox, MessageBox: MessageBoxStyle, FooterBox, MessageDate } = PageStyles.Bora.MessengerStyles.MessagePart;
 
 const MessagePart = () => {
     return (

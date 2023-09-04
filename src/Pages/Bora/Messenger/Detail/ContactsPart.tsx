@@ -1,6 +1,6 @@
 import lodash from 'lodash';
 import { TemporaryData } from '@Commons';
-import { MessengerStyles } from '@Styles';
+import { PageStyles } from '@Styles';
 
 const {
     Wapper,
@@ -14,7 +14,7 @@ const {
     Message,
     MessageTime,
     MessageMin,
-} = MessengerStyles.ContactsPart;
+} = PageStyles.Bora.MessengerStyles.ContactsPart;
 
 const ContactsPart = () => {
     return (

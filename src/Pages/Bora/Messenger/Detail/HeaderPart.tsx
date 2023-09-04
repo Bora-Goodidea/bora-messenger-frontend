@@ -1,8 +1,8 @@
 import { BoraAvatar } from '@Elements';
 import { NewMessageIcon } from '@Icons';
-import { MessengerStyles } from '@Styles';
+import { PageStyles } from '@Styles';
 
-const { Title, NewMessage } = MessengerStyles.HeaderPart;
+const { Title, NewMessage } = PageStyles.Bora.MessengerStyles.HeaderPart;
 
 const HeaderPart = () => {
     return (
