@@ -2,11 +2,11 @@ import React from 'react';
 import lodash from 'lodash';
 import { TemporaryData } from '@Commons';
 import { MessageHeaderBox, MessageBox, MessageFooterBox } from '@Elements';
-import { MessengerStyles } from '@Styles';
+import { PageStyles } from '@Styles';
 
-const { HeaderBox, MessageBox: MessageBoxStyle, FooterBox, MessageDate } = MessengerStyles.MessagePart;
+const { HeaderBox, MessageBox: MessageBoxStyle, FooterBox, MessageDate } = PageStyles.Bora.MessengerStyles.MessageSection;
 
-const MessagePart = () => {
+const MessageSection = () => {
     return (
         <>
             <HeaderBox>
@@ -15,12 +15,12 @@ const MessagePart = () => {
             <MessageBoxStyle>
                 {lodash.map(TemporaryData.Messages, (message, dateIndex) => {
                     return (
-                        <React.Fragment key={`message-part-message-box-item-${dateIndex}`}>
+                        <React.Fragment key={`message-section-message-box-item-${dateIndex}`}>
                             <MessageDate>{`${dateIndex}`}</MessageDate>
                             {lodash.map(message, (msg, index) => {
                                 return (
                                     <MessageBox
-                                        key={`message-part-message-box-message-${dateIndex}-${index}`}
+                                        key={`message-section-message-box-message-${dateIndex}-${index}`}
                                         ProfileImage={msg.user.profileImage ? msg.user.profileImage : null}
                                         MessageLocation={msg.location}
                                         MessageList={lodash.map(msg.msg, msgList => {
@@ -43,4 +43,4 @@ const MessagePart = () => {
     );
 };
 
-export default MessagePart;
+export default MessageSection;

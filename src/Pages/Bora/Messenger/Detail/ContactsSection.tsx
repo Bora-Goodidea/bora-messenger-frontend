@@ -1,6 +1,6 @@
 import lodash from 'lodash';
 import { TemporaryData } from '@Commons';
-import { MessengerStyles } from '@Styles';
+import { PageStyles } from '@Styles';
 
 const {
     Wapper,
@@ -14,14 +14,14 @@ const {
     Message,
     MessageTime,
     MessageMin,
-} = MessengerStyles.ContactsPart;
+} = PageStyles.Bora.MessengerStyles.ContactsSection;
 
-const ContactsPart = () => {
+const ContactsSection = () => {
     return (
         <>
             {lodash.map(TemporaryData.Contacts, (c, index) => {
                 return (
-                    <Wapper SelectStyle={c.select} key={`contacts-part-item-${index}`}>
+                    <Wapper SelectStyle={c.select} key={`contacts-section-item-${index}`}>
                         <AvatarBox>
                             <AvatarImage src={`${c.profileImage}`} alt="" />
                             {c.now && (
@@ -46,4 +46,4 @@ const ContactsPart = () => {
     );
 };
 
-export default ContactsPart;
+export default ContactsSection;

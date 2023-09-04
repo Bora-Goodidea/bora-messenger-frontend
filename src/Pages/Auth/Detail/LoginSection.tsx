@@ -6,7 +6,7 @@ const {
     FormWapper,
     FormBox,
     TitleBox,
-    LoginForm,
+    AuthForm,
     InputItem,
     InputLabel,
     Input,
@@ -16,12 +16,11 @@ const {
     RememberTextWapper,
     RememberTextLabel,
     RememberCheckBox,
-    RememberText,
-    LoginButton,
-    RegisterButton,
-    RegisterText,
     ErrorMessage,
-} = PageStyles.AuthStyles.LoginPageStyles;
+    AuthText,
+    Button,
+    AuthButton,
+} = PageStyles.Auth.AuthStyles;
 
 const LoginSection = () => {
     return (
@@ -30,7 +29,7 @@ const LoginSection = () => {
                 <FormWapper>
                     <FormBox>
                         <TitleBox>로그인</TitleBox>
-                        <LoginForm>
+                        <AuthForm>
                             <InputItem>
                                 <InputLabel htmlFor="email">이메일</InputLabel>
                                 <Input type="email" name="email" id="email" placeholder="name@company.com" required={false} />
@@ -49,14 +48,14 @@ const LoginSection = () => {
                                         <RememberTextLabel htmlFor="remember">아이디 기억</RememberTextLabel>
                                     </RememberTextWapper>
                                 </RememberId>
-                                <RememberText>비밀번호를 잊으셨나요?</RememberText>
+                                <AuthText>비밀번호를 잊으셨나요?</AuthText>
                             </ManagerWapper>
-                            <LoginButton>로그인</LoginButton>
-                            <RegisterButton>
+                            <Button>로그인</Button>
+                            <AuthButton>
                                 아직 계정이 없으신가요?
-                                <RegisterText>회원 가입</RegisterText>
-                            </RegisterButton>
-                        </LoginForm>
+                                <AuthText>회원 가입</AuthText>
+                            </AuthButton>
+                        </AuthForm>
                     </FormBox>
                 </FormWapper>
             </Wapper>
