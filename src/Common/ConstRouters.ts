@@ -36,6 +36,18 @@ export default {
             pathName: `/register`,
             Component: React.lazy(() => import('@Page/Auth/RegisterPage')),
         },
+        {
+            page: `auth-password-reset`,
+            name: `패스워드 리셋`,
+            pathName: `/password-reset`,
+            Component: React.lazy(() => import('@Page/Auth/PasswordResetPage')),
+        },
+        {
+            page: `auth-password-change`,
+            name: `패스워드 변경`,
+            pathName: `/password-change`,
+            Component: React.lazy(() => import('@Page/Auth/PasswordChangePage')),
+        },
     ],
     Publish: [
         {
