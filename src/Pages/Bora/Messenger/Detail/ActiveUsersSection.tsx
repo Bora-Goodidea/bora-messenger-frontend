@@ -5,11 +5,11 @@ import { BoraButton, BoraAvatar } from '@Elements';
 import { YourStoryIcon } from '@Icons';
 import { PageStyles } from '@Styles';
 
-const { IconWapper, AvatarWapper, AvatarBox } = PageStyles.Bora.MessengerStyles.ActiveUsersPart;
+const { IconWapper, AvatarWapper, AvatarBox } = PageStyles.Bora.MessengerStyles.ActiveUsersSection;
 
 const { ActiveUsers: ActiveUserList } = TemporaryData;
 
-const ActiveUsersPart = () => {
+const ActiveUsersSection = () => {
     return (
         <>
             <IconWapper>
@@ -35,4 +35,4 @@ const ActiveUsersPart = () => {
     );
 };
 
-export default ActiveUsersPart;
+export default ActiveUsersSection;

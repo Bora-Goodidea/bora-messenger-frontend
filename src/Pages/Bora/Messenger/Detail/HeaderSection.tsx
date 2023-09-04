@@ -2,9 +2,9 @@ import { BoraAvatar } from '@Elements';
 import { NewMessageIcon } from '@Icons';
 import { PageStyles } from '@Styles';
 
-const { Title, NewMessage } = PageStyles.Bora.MessengerStyles.HeaderPart;
+const { Title, NewMessage } = PageStyles.Bora.MessengerStyles.HeaderSection;
 
-const HeaderPart = () => {
+const HeaderSection = () => {
     return (
         <>
             <BoraAvatar
@@ -21,4 +21,4 @@ const HeaderPart = () => {
     );
 };
 
-export default HeaderPart;
+export default HeaderSection;

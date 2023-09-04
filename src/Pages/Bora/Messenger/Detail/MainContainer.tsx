@@ -1,4 +1,4 @@
-import { HeaderPart, ActiveUsersPart, SearchPart, ContactsPart, MessagePart } from '.';
+import { HeaderSection, ActiveUsersSection, SearchSection, ContactsSection, MessageSection } from '.';
 import { PageStyles } from '@Styles';
 
 const { LeftContainer, RightContainer, ActiveUsersBox, HeaderBox, SearchBox, ContactsBox } = PageStyles.Bora.MessengerStyles.Container;
@@ -8,20 +8,20 @@ const MainContainer = () => {
         <>
             <LeftContainer>
                 <HeaderBox>
-                    <HeaderPart />
+                    <HeaderSection />
                 </HeaderBox>
                 <SearchBox>
-                    <SearchPart />
+                    <SearchSection />
                 </SearchBox>
                 <ActiveUsersBox>
-                    <ActiveUsersPart />
+                    <ActiveUsersSection />
                 </ActiveUsersBox>
                 <ContactsBox>
-                    <ContactsPart />
+                    <ContactsSection />
                 </ContactsBox>
             </LeftContainer>
             <RightContainer>
-                <MessagePart />
+                <MessageSection />
             </RightContainer>
         </>
     );

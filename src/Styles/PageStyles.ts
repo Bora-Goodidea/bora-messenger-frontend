@@ -11,17 +11,17 @@ export default {
                 ActiveUsersBox: tw.div`flex flex-row p-2 overflow-auto w-0 min-w-full`,
                 ContactsBox: tw.div`p-2 flex-1 overflow-y-scroll border-t`,
             },
-            HeaderPart: {
+            HeaderSection: {
                 Title: tw.p`font-bold hidden md:block`,
                 NewMessage: tw.div`block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2`,
             },
-            SearchPart: {
+            SearchSection: {
                 Container: tw.div``,
                 Wapper: tw.div`relative`,
                 Label: tw.label``,
                 Icon: tw.span`absolute top-0 left-0 mt-2 ml-3 inline-block`,
             },
-            ActiveUsersPart: {
+            ActiveUsersSection: {
                 IconWapper: tw.div`text-sm text-center mr-4`,
                 AvatarBox: tw.div`text-sm text-center mr-4`,
                 AvatarWapper: styled.div(({ ActiveStyle }: { ActiveStyle: boolean }) => {
@@ -36,7 +36,7 @@ export default {
                     return twStyled;
                 }),
             },
-            ContactsPart: {
+            ContactsSection: {
                 Wapper: styled.div(({ SelectStyle }: { SelectStyle: boolean }) => {
                     const twStyled = [tw`flex justify-between items-center p-3 rounded-lg relative cursor-pointer`];
 
@@ -59,7 +59,7 @@ export default {
                 Message: tw.p`truncate`,
                 MessageTime: tw.p`text-xs`,
             },
-            MessagePart: {
+            MessageSection: {
                 HeaderBox: tw.div`px-6 py-4 flex flex-row flex-none justify-between items-center shadow`,
                 MessageBox: tw.div`p-4 flex-1 overflow-y-scroll`,
                 MessageDate: tw.p`p-4 text-center text-sm text-gray-500`,

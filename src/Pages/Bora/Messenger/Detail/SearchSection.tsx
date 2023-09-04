@@ -2,9 +2,9 @@ import { SearchIcon } from '@Icons';
 import { BoraInput } from '@Elements';
 import { PageStyles } from '@Styles';
 
-const { Container, Wapper, Label, Icon } = PageStyles.Bora.MessengerStyles.SearchPart;
+const { Container, Wapper, Label, Icon } = PageStyles.Bora.MessengerStyles.SearchSection;
 
-const SearchPart = () => {
+const SearchSection = () => {
     return (
         <Container>
             <Wapper>
@@ -19,4 +19,4 @@ const SearchPart = () => {
     );
 };
 
-export default SearchPart;
+export default SearchSection;
