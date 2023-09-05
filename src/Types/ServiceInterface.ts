@@ -1,18 +1,9 @@
+import { BaseDataCodeStep1Item, BaseDataCodeStep2Item } from '@CommonType';
+
+// 기본 데이터 결과
 export interface BaseDataResultInterface {
     code: {
-        step1: Array<{
-            type: string | 'group' | 'code';
-            group: string;
-            code: string;
-            name: string;
-        }>;
-        step2: Array<{
-            group: string;
-            name: string;
-            codes: Array<{
-                code_id: string;
-                name: string;
-            }>;
-        }>;
+        step1: Array<BaseDataCodeStep1Item>;
+        step2: Array<BaseDataCodeStep2Item>;
     };
 }
