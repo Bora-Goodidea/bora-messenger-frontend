@@ -17,8 +17,10 @@
             "@Icons": ["src/Component/Element/Icon"],
             "@CommonType": ["src/Types/CommonType"],
             "@ServiceInterface": ["src/Types/ServiceInterface"],
+            "@RecoilInterface": ["src/Types/RecoilInterface"],
             "@Hooks": ["src/Hooks"],
-            "@Helper": ["src/Common/Helper"]
+            "@Helper": ["src/Common/Helper"],
+            "@Recoil/*": ["src/Recoil/*"]
         }
     }
 }
