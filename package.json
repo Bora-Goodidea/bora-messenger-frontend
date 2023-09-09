@@ -12,7 +12,8 @@
         "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
         "build:local": "cp .config/env.environment.local .env && GENERATE_SOURCEMAP=false react-app-rewired build",
         "build:dev": "cp .config/env.environment.dev .env && GENERATE_SOURCEMAP=false react-app-rewired build",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "deploy:dev": "ssh sm@psmever.iptime.org -p42022 -t 'bash -ic \"bash ~/Workspaces/deploy/bora/bora-messenger/frontend-deploy.sh\"'"
     },
     "browserslist": {
         "production": [
