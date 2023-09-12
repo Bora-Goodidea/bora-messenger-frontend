@@ -72,7 +72,7 @@ const RegisterSection = () => {
         if (!pageState.joinupState.email) {
             setPageState(prev => ({
                 ...prev,
-                category: 'empty',
+                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
                     email: true,
@@ -119,7 +119,7 @@ const RegisterSection = () => {
         if (!pageState.joinupState.password) {
             setPageState(prev => ({
                 ...prev,
-                category: 'empty',
+                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
                     password: true,
@@ -128,7 +128,7 @@ const RegisterSection = () => {
         } else {
             setPageState(prev => ({
                 ...prev,
-                category: 'empty',
+                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
                     password: false,
@@ -158,7 +158,7 @@ const RegisterSection = () => {
         if (!pageState.joinupState.passwordConfirm) {
             setPageState(prev => ({
                 ...prev,
-                category: 'empty',
+                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
                     passwordConfirm: true,
@@ -167,7 +167,7 @@ const RegisterSection = () => {
         } else {
             setPageState(prev => ({
                 ...prev,
-                category: 'empty',
+                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
                     passwordConfirm: false,
@@ -177,7 +177,7 @@ const RegisterSection = () => {
             if (pageState.joinupState.password !== pageState.joinupState.passwordConfirm) {
                 setPageState(prev => ({
                     ...prev,
-                    category: 'duplicate',
+                    category: 'duplicateCheck',
                     checkState: {
                         ...prev.checkState,
                         passwordConfirm: true,
@@ -186,7 +186,7 @@ const RegisterSection = () => {
             } else {
                 setPageState(prev => ({
                     ...prev,
-                    category: 'duplicate',
+                    category: 'duplicateCheck',
                     checkState: {
                         ...prev.checkState,
                         passwordConfirm: false,
@@ -198,7 +198,7 @@ const RegisterSection = () => {
         if (!pageState.joinupState.nickname) {
             setPageState(prev => ({
                 ...prev,
-                category: 'empty',
+                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
                     nickname: true,
@@ -207,7 +207,7 @@ const RegisterSection = () => {
         } else {
             setPageState(prev => ({
                 ...prev,
-                category: 'empty',
+                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
                     nickname: false,
@@ -251,13 +251,13 @@ const RegisterSection = () => {
                                     value={pageState.joinupState.email}
                                     onChange={joinupHandler}
                                 />
-                                {pageState.category === 'empty' && pageState.checkState.email ? (
+                                {pageState.category === 'emptyCheck' && pageState.checkState.email ? (
                                     <ErrorMessage>이메일을 입력헤주세요.</ErrorMessage>
                                 ) : null}
-                                {pageState.category === 'valid' && pageState.checkState.email ? (
+                                {pageState.category === 'validCheck' && pageState.checkState.email ? (
                                     <ErrorMessage>이메일형식이 올바르지 않습니다.</ErrorMessage>
                                 ) : null}
-                                {pageState.category === 'duplicate' && pageState.checkState.email ? (
+                                {pageState.category === 'duplicateCheck' && pageState.checkState.email ? (
                                     <ErrorMessage>이미 사용중인 이메일 주소 입니다.</ErrorMessage>
                                 ) : null}
                             </InputItem>
@@ -274,10 +274,10 @@ const RegisterSection = () => {
                                     minLength={4}
                                     maxLength={15}
                                 />
-                                {pageState.category === 'empty' && pageState.checkState.password ? (
+                                {pageState.category === 'emptyCheck' && pageState.checkState.password ? (
                                     <ErrorMessage>패스워드를 입력헤주세요.</ErrorMessage>
                                 ) : null}
-                                {pageState.category === 'valid' && pageState.checkState.password ? (
+                                {pageState.category === 'validCheck' && pageState.checkState.password ? (
                                     <ErrorMessage>패스워드는 4~15자 이내여야 합니다.</ErrorMessage>
                                 ) : null}
                             </InputItem>
@@ -292,10 +292,10 @@ const RegisterSection = () => {
                                     value={pageState.joinupState.passwordConfirm}
                                     onChange={joinupHandler}
                                 />
-                                {pageState.category === 'empty' && pageState.checkState.passwordConfirm ? (
+                                {pageState.category === 'emptyCheck' && pageState.checkState.passwordConfirm ? (
                                     <ErrorMessage>패스워드를 입력헤주세요.</ErrorMessage>
                                 ) : null}
-                                {pageState.category === 'duplicate' && pageState.checkState.passwordConfirm ? (
+                                {pageState.category === 'duplicateCheck' && pageState.checkState.passwordConfirm ? (
                                     <ErrorMessage>패스워드가 일치하지 않습니다.</ErrorMessage>
                                 ) : null}
                             </InputItem>
@@ -310,7 +310,7 @@ const RegisterSection = () => {
                                     value={pageState.joinupState.nickname}
                                     onChange={joinupHandler}
                                 />
-                                {pageState.category === 'empty' && pageState.checkState.nickname ? (
+                                {pageState.category === 'emptyCheck' && pageState.checkState.nickname ? (
                                     <ErrorMessage>닉네임을 입력헤주세요.</ErrorMessage>
                                 ) : null}
                                 {/* {duplicateCheck.nickname ? <ErrorMessage>이미 사용중인 닉네임 입니다.</ErrorMessage> : null} */}
