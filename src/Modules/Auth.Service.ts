@@ -17,4 +17,40 @@ export default {
             payload: null,
         });
     },
+
+    NicknameCheckStatus: (
+        nickname: string
+    ): Promise<
+        ServicesResult<{
+            nickname: string;
+            exist: string;
+        }>
+    > => {
+        return Axios({
+            method: 'get',
+            url: `/api/auth/${nickname}/nickname-exists`,
+            payload: null,
+        });
+    },
+
+    joinupStatus: (
+        email: string,
+        password: string,
+        nickname: string
+    ): Promise<
+        ServicesResult<{
+            email: string;
+            nickname: string;
+        }>
+    > => {
+        return Axios({
+            method: 'post',
+            url: `/api/auth/register`,
+            payload: {
+                email: email,
+                password: password,
+                nickname: nickname,
+            },
+        });
+    },
 };

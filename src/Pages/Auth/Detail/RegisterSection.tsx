@@ -19,7 +19,7 @@ const {
     ErrorMessage,
 } = PageStyles.Auth.AuthStyles;
 
-const { EmailCheckStatus } = AuthService;
+const { EmailCheckStatus, NicknameCheckStatus, joinupStatus } = AuthService;
 
 const pageInitializeState = {
     // loading: false,
@@ -83,6 +83,58 @@ const RegisterSection = () => {
                 }));
             }
             return;
+        }
+    };
+
+    const nicknameCheck = async () => {
+        const nickname = pageState.joinupState.nickname;
+
+        const { status, payload } = await NicknameCheckStatus(nickname);
+
+        if (status) {
+            if (payload.exist) {
+                setPageState(prev => ({
+                    ...prev,
+                    checkState: {
+                        ...prev.checkState,
+                        status: true,
+                        type: `nickname`,
+                        message: `이미 사용중인 닉네임 입니다.`,
+                    },
+                }));
+                return;
+            } else {
+                joinupCheck();
+            }
+        }
+    };
+
+    const joinupCheck = async () => {
+        const email = pageState.joinupState.email;
+        const password = pageState.joinupState.password;
+        const nickname = pageState.joinupState.nickname;
+
+        const { status, payload, message } = await joinupStatus(email, password, nickname);
+
+        if (status) {
+            if (!payload) {
+                setPageState(prev => ({
+                    ...prev,
+                    checkState: {
+                        ...prev.checkState,
+                        status: true,
+                        message: message,
+                    },
+                }));
+                return;
+            } else {
+                setPageState(prevState => ({
+                    ...prevState,
+                    joinupState: pageInitializeState.joinupState,
+                }));
+                alert('회원가입이 완료되었습니다.');
+                navigate('/bora/messenger');
+            }
         }
     };
 
@@ -184,17 +236,8 @@ const RegisterSection = () => {
             return;
         }
 
-        // const payload = {
-        //     email: pageState.joinupState.email,
-        //     password: pageState.joinupState.password,
-        //     passwordConfirm: pageState.joinupState.passwordConfirm,
-        //     nickname: pageState.joinupState.nickname,
-        // };
+        nicknameCheck();
     };
-
-    // useEffect(() => {
-    //     console.log(joinInfo);
-    // }, [joinInfo]);
 
     return (
         <Container>
