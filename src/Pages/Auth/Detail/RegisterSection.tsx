@@ -1,8 +1,7 @@
 import { PageStyles } from '@Styles';
 import { /*useEffect,*/ useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
-// import { axiosDefaultHeader } from '../../../Common/Axios';
+import { AuthService } from '@Modules';
 
 const {
     Container,
@@ -19,6 +18,8 @@ const {
     AuthText,
     ErrorMessage,
 } = PageStyles.Auth.AuthStyles;
+
+const { EmailCheckStatus } = AuthService;
 
 const pageInitializeState = {
     // loading: false,
@@ -64,6 +65,27 @@ const RegisterSection = () => {
         }));
     };
 
+    const emailCheck = async () => {
+        const email = pageState.joinupState.email;
+
+        const { status, payload } = await EmailCheckStatus(email);
+
+        if (status) {
+            if (payload.exist) {
+                setPageState(prev => ({
+                    ...prev,
+                    checkState: {
+                        ...prev.checkState,
+                        status: true,
+                        type: `email`,
+                        message: `이미 사용중인 이메일 주소 입니다.`,
+                    },
+                }));
+            }
+            return;
+        }
+    };
+
     const joinUp = () => {
         if (!pageState.joinupState.email) {
             setPageState(prev => ({
@@ -94,6 +116,8 @@ const RegisterSection = () => {
             }));
             return;
         }
+
+        emailCheck();
 
         if (!pageState.joinupState.password) {
             setPageState(prev => ({
