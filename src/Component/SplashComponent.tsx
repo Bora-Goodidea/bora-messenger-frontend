@@ -33,7 +33,7 @@ const SplashComponent = ({ LodingControl }: { LodingControl: () => void }) => {
                     },
                 }));
             } else {
-                // 에러 처리
+                // 에러 처리 (페이지 이동해서 서버에 문제가 생겼다고 알려줘야함)
             }
         };
 

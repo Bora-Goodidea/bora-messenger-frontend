@@ -1,8 +1,7 @@
 import { PageStyles } from '@Styles';
 import { /*useEffect,*/ useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
-// import { axiosDefaultHeader } from '../../../Common/Axios';
+import { AuthService } from '@Modules';
 
 const {
     Container,
@@ -20,14 +19,14 @@ const {
     ErrorMessage,
 } = PageStyles.Auth.AuthStyles;
 
+const { EmailCheckStatus } = AuthService;
+
 const pageInitializeState = {
     // loading: false,
-    category: '',
     checkState: {
-        email: false,
-        password: false,
-        passwordConfirm: false,
-        nickname: false,
+        status: false,
+        type: null,
+        message: ``,
     },
     joinupState: {
         email: '',
@@ -42,12 +41,10 @@ const RegisterSection = () => {
 
     const [pageState, setPageState] = useState<{
         // loading: boolean;
-        category: string;
         checkState: {
-            email: boolean;
-            password: boolean;
-            passwordConfirm: boolean;
-            nickname: boolean;
+            status: boolean;
+            type: null | string | `email` | `password` | `passwordConfirm` | `nickname`;
+            message: string;
         };
         joinupState: {
             email: string;
@@ -68,157 +65,123 @@ const RegisterSection = () => {
         }));
     };
 
+    const emailCheck = async () => {
+        const email = pageState.joinupState.email;
+
+        const { status, payload } = await EmailCheckStatus(email);
+
+        if (status) {
+            if (payload.exist) {
+                setPageState(prev => ({
+                    ...prev,
+                    checkState: {
+                        ...prev.checkState,
+                        status: true,
+                        type: `email`,
+                        message: `이미 사용중인 이메일 주소 입니다.`,
+                    },
+                }));
+            }
+            return;
+        }
+    };
+
     const joinUp = () => {
         if (!pageState.joinupState.email) {
             setPageState(prev => ({
                 ...prev,
-                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
-                    email: true,
+                    status: true,
+                    type: `email`,
+                    message: `이메일을 입력해 주세요`,
                 },
             }));
-            return false;
-        } else {
+            return;
+        }
+
+        const email = pageState.joinupState.email;
+        const exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+
+        if (exptext.test(email) === false) {
+            //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
             setPageState(prev => ({
                 ...prev,
-                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
-                    email: false,
+                    status: true,
+                    type: `email`,
+                    message: `정확한 이메일을 입력해 주세요`,
                 },
             }));
-            const email = pageState.joinupState.email;
-            const exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-
-            if (exptext.test(email) === false) {
-                //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
-                setPageState(prev => ({
-                    ...prev,
-                    category: 'validCheck',
-                    checkState: {
-                        ...prev.checkState,
-                        email: true,
-                    },
-                }));
-                // setDuplicateCheck(prev => ({ ...prev, email: true }));
-                return false;
-            } else {
-                setPageState(prev => ({
-                    ...prev,
-                    category: 'validCheck',
-                    checkState: {
-                        ...prev.checkState,
-                        email: false,
-                    },
-                }));
-                // setDuplicateCheck(prev => ({ ...prev, email: false }));
-            }
+            return;
         }
+
+        emailCheck();
 
         if (!pageState.joinupState.password) {
             setPageState(prev => ({
                 ...prev,
-                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
-                    password: true,
+                    status: true,
+                    type: `password`,
+                    message: `비밀번호를 입력해 주세요`,
                 },
             }));
-        } else {
+            return;
+        }
+
+        if (pageState.joinupState.password.length < 4 || pageState.joinupState.password.length > 15) {
             setPageState(prev => ({
                 ...prev,
-                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
-                    password: false,
+                    status: true,
+                    type: `password`,
+                    message: `비밀번호는 4~15자 이내여야 합니다.`,
                 },
             }));
-            if (pageState.joinupState.password.length < 4 || pageState.joinupState.password.length > 15) {
-                setPageState(prev => ({
-                    ...prev,
-                    category: 'validCheck',
-                    checkState: {
-                        ...prev.checkState,
-                        password: true,
-                    },
-                }));
-            } else {
-                setPageState(prev => ({
-                    ...prev,
-                    category: 'validCheck',
-                    checkState: {
-                        ...prev.checkState,
-                        password: false,
-                    },
-                }));
-            }
+            return;
         }
 
         if (!pageState.joinupState.passwordConfirm) {
             setPageState(prev => ({
                 ...prev,
-                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
-                    passwordConfirm: true,
+                    status: true,
+                    type: `passwordConfirm`,
+                    message: `비밀번호를 입력해 주세요.`,
                 },
             }));
-        } else {
+            return;
+        }
+
+        if (pageState.joinupState.password !== pageState.joinupState.passwordConfirm) {
             setPageState(prev => ({
                 ...prev,
-                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
-                    passwordConfirm: false,
+                    status: true,
+                    type: `passwordConfirm`,
+                    message: `비밀번호가 일치하지 않습니다.`,
                 },
             }));
-
-            if (pageState.joinupState.password !== pageState.joinupState.passwordConfirm) {
-                setPageState(prev => ({
-                    ...prev,
-                    category: 'duplicateCheck',
-                    checkState: {
-                        ...prev.checkState,
-                        passwordConfirm: true,
-                    },
-                }));
-            } else {
-                setPageState(prev => ({
-                    ...prev,
-                    category: 'duplicateCheck',
-                    checkState: {
-                        ...prev.checkState,
-                        passwordConfirm: false,
-                    },
-                }));
-            }
+            return;
         }
 
         if (!pageState.joinupState.nickname) {
             setPageState(prev => ({
                 ...prev,
-                category: 'emptyCheck',
                 checkState: {
                     ...prev.checkState,
-                    nickname: true,
+                    status: true,
+                    type: `nickname`,
+                    message: `닉네임을 입력헤주세요.`,
                 },
             }));
-        } else {
-            setPageState(prev => ({
-                ...prev,
-                category: 'emptyCheck',
-                checkState: {
-                    ...prev.checkState,
-                    nickname: false,
-                },
-            }));
-
-            // if(){
-            //     setDuplicateCheck(prev => ({ ...prev, nickname: true }));
-            // }else{
-            //     setDuplicateCheck(prev => ({ ...prev, nickname: false }));
-            // }
+            return;
         }
 
         // const payload = {
@@ -251,14 +214,8 @@ const RegisterSection = () => {
                                     value={pageState.joinupState.email}
                                     onChange={joinupHandler}
                                 />
-                                {pageState.category === 'emptyCheck' && pageState.checkState.email ? (
-                                    <ErrorMessage>이메일을 입력헤주세요.</ErrorMessage>
-                                ) : null}
-                                {pageState.category === 'validCheck' && pageState.checkState.email ? (
-                                    <ErrorMessage>이메일형식이 올바르지 않습니다.</ErrorMessage>
-                                ) : null}
-                                {pageState.category === 'duplicateCheck' && pageState.checkState.email ? (
-                                    <ErrorMessage>이미 사용중인 이메일 주소 입니다.</ErrorMessage>
+                                {pageState.checkState.status && pageState.checkState.type === 'email' ? (
+                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
                                 ) : null}
                             </InputItem>
                             <InputItem>
@@ -274,17 +231,14 @@ const RegisterSection = () => {
                                     minLength={4}
                                     maxLength={15}
                                 />
-                                {pageState.category === 'emptyCheck' && pageState.checkState.password ? (
-                                    <ErrorMessage>패스워드를 입력헤주세요.</ErrorMessage>
-                                ) : null}
-                                {pageState.category === 'validCheck' && pageState.checkState.password ? (
-                                    <ErrorMessage>패스워드는 4~15자 이내여야 합니다.</ErrorMessage>
+                                {pageState.checkState.status && pageState.checkState.type === 'password' ? (
+                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
                                 ) : null}
                             </InputItem>
                             <InputItem>
                                 <InputLabel htmlFor="passwordConfirm">비밀 번호 확인</InputLabel>
                                 <Input
-                                    type="passwordConfirm"
+                                    type="password"
                                     name="passwordConfirm"
                                     id="passwordConfirm"
                                     placeholder="••••••••"
@@ -292,11 +246,8 @@ const RegisterSection = () => {
                                     value={pageState.joinupState.passwordConfirm}
                                     onChange={joinupHandler}
                                 />
-                                {pageState.category === 'emptyCheck' && pageState.checkState.passwordConfirm ? (
-                                    <ErrorMessage>패스워드를 입력헤주세요.</ErrorMessage>
-                                ) : null}
-                                {pageState.category === 'duplicateCheck' && pageState.checkState.passwordConfirm ? (
-                                    <ErrorMessage>패스워드가 일치하지 않습니다.</ErrorMessage>
+                                {pageState.checkState.status && pageState.checkState.type === 'passwordConfirm' ? (
+                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
                                 ) : null}
                             </InputItem>
                             <InputItem>
@@ -310,12 +261,21 @@ const RegisterSection = () => {
                                     value={pageState.joinupState.nickname}
                                     onChange={joinupHandler}
                                 />
-                                {pageState.category === 'emptyCheck' && pageState.checkState.nickname ? (
-                                    <ErrorMessage>닉네임을 입력헤주세요.</ErrorMessage>
+                                {pageState.checkState.status && pageState.checkState.type === 'nickname' ? (
+                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
                                 ) : null}
                                 {/* {duplicateCheck.nickname ? <ErrorMessage>이미 사용중인 닉네임 입니다.</ErrorMessage> : null} */}
                             </InputItem>
-                            <Button onClick={joinUp}>회원 가입</Button>
+                            <Button
+                                onClick={() => {
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        checkState: pageInitializeState.checkState,
+                                    }));
+                                    joinUp();
+                                }}>
+                                회원 가입
+                            </Button>
                             <AuthButton>
                                 아이디가 존재 한가요?
                                 <AuthText
