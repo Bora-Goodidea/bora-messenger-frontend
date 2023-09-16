@@ -19,7 +19,7 @@ const {
     ErrorMessage,
 } = PageStyles.Auth.AuthStyles;
 
-const { EmailCheckStatus } = AuthService;
+const { EmailCheckStatus, NicknameCheckStatus } = AuthService;
 
 const pageInitializeState = {
     // loading: false,
@@ -79,6 +79,27 @@ const RegisterSection = () => {
                         status: true,
                         type: `email`,
                         message: `이미 사용중인 이메일 주소 입니다.`,
+                    },
+                }));
+            }
+            return;
+        }
+    };
+
+    const nicknameCheck = async () => {
+        const nickname = pageState.joinupState.nickname;
+
+        const { status, payload } = await NicknameCheckStatus(nickname);
+
+        if (status) {
+            if (payload.exist) {
+                setPageState(prev => ({
+                    ...prev,
+                    checkState: {
+                        ...prev.checkState,
+                        status: true,
+                        type: `nickname`,
+                        message: `이미 사용중인 닉네임 입니다.`,
                     },
                 }));
             }
@@ -184,17 +205,8 @@ const RegisterSection = () => {
             return;
         }
 
-        // const payload = {
-        //     email: pageState.joinupState.email,
-        //     password: pageState.joinupState.password,
-        //     passwordConfirm: pageState.joinupState.passwordConfirm,
-        //     nickname: pageState.joinupState.nickname,
-        // };
+        nicknameCheck();
     };
-
-    // useEffect(() => {
-    //     console.log(joinInfo);
-    // }, [joinInfo]);
 
     return (
         <Container>

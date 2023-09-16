@@ -17,4 +17,19 @@ export default {
             payload: null,
         });
     },
+
+    NicknameCheckStatus: (
+        nickname: string
+    ): Promise<
+        ServicesResult<{
+            nickname: string;
+            exist: string;
+        }>
+    > => {
+        return Axios({
+            method: 'get',
+            url: `/api/auth/${nickname}/nickname-exists`,
+            payload: null,
+        });
+    },
 };
