@@ -19,7 +19,7 @@ const {
     ErrorMessage,
 } = PageStyles.Auth.AuthStyles;
 
-const { EmailCheckStatus, NicknameCheckStatus } = AuthService;
+const { EmailCheckStatus, NicknameCheckStatus, joinupStatus } = AuthService;
 
 const pageInitializeState = {
     // loading: false,
@@ -102,8 +102,39 @@ const RegisterSection = () => {
                         message: `이미 사용중인 닉네임 입니다.`,
                     },
                 }));
+                return;
+            } else {
+                joinupCheck();
             }
-            return;
+        }
+    };
+
+    const joinupCheck = async () => {
+        const email = pageState.joinupState.email;
+        const password = pageState.joinupState.password;
+        const nickname = pageState.joinupState.nickname;
+
+        const { status, payload, message } = await joinupStatus(email, password, nickname);
+
+        if (status) {
+            if (!payload) {
+                setPageState(prev => ({
+                    ...prev,
+                    checkState: {
+                        ...prev.checkState,
+                        status: true,
+                        message: message,
+                    },
+                }));
+                return;
+            } else {
+                setPageState(prevState => ({
+                    ...prevState,
+                    joinupState: pageInitializeState.joinupState,
+                }));
+                alert('회원가입이 완료되었습니다.');
+                navigate('/bora/messenger');
+            }
         }
     };
 

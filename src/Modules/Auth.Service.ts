@@ -32,4 +32,25 @@ export default {
             payload: null,
         });
     },
+
+    joinupStatus: (
+        email: string,
+        password: string,
+        nickname: string
+    ): Promise<
+        ServicesResult<{
+            email: string;
+            nickname: string;
+        }>
+    > => {
+        return Axios({
+            method: 'post',
+            url: `/api/auth/register`,
+            payload: {
+                email: email,
+                password: password,
+                nickname: nickname,
+            },
+        });
+    },
 };
