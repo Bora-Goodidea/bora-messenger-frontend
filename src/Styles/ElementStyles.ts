@@ -48,6 +48,7 @@ export default {
     IconStyle: {
         DefaultSvg: tw.svg`w-full h-full fill-current`,
         DefaultWHSvg: tw.svg`w-6 h-6`,
+        DefaultXSvg: tw.svg`text-red-600 w-6 h-6`,
         DefaultSpinnerSvg: tw.svg`inline w-8 h-8 mr-2 text-gray-200 animate-spin fill-purple-600`,
         MessageInfoSvg: tw.svg`w-full h-full fill-current text-blue-600`,
         SearchSvg: tw.svg`w-6 h-6`,

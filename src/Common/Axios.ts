@@ -128,7 +128,10 @@ const _axios_ = ({ method = 'post', url, payload }: serviceInterface): any => {
 
         // FIXME 서버 상태, 인증 외에 401 에러 처리 어떻게 할껀지?
         if (!options.shouldIntercept(error)) {
-            const errorMessage = error.message;
+            const statusText = error.response.statusText;
+            const errorMessage = error.response.data.message;
+
+            console.debug(error);
 
             if (status === 503) {
                 // 서버 에러
@@ -143,7 +146,7 @@ const _axios_ = ({ method = 'post', url, payload }: serviceInterface): any => {
 
             return Promise.resolve({
                 status: false,
-                message: errorMessage,
+                message: errorMessage ? errorMessage : statusText,
             });
         }
 

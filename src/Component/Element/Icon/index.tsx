@@ -1,6 +1,6 @@
 import { ElementStyles } from '@Styles';
 
-const { DefaultSvg, DefaultWHSvg, MessageInfoSvg, SearchSvg, DefaultSpinnerSvg, BackInfoSvg } = ElementStyles.IconStyle;
+const { DefaultSvg, DefaultWHSvg, DefaultXSvg, MessageInfoSvg, SearchSvg, DefaultSpinnerSvg, BackInfoSvg } = ElementStyles.IconStyle;
 
 // 왼쪽 상단 뉴 메시지 버튼
 export const NewMessageIcon = () => {
@@ -138,11 +138,45 @@ export const ExclamationMarkIcon = () => {
     );
 };
 
+// X 아이콘
+export const XIcon = () => {
+    return (
+        <DefaultXSvg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </DefaultXSvg>
+    );
+};
+
+// 새로고침
+export const ReloadIcon = () => {
+    return (
+        <DefaultXSvg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+            />
+        </DefaultXSvg>
+    );
+};
+
 // 뒤로 아이콘
 export const BackIcon = () => {
     return (
         <BackInfoSvg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+        </BackInfoSvg>
+    );
+};
+
+export const LoginIcon = () => {
+    return (
+        <BackInfoSvg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+            />
         </BackInfoSvg>
     );
 };

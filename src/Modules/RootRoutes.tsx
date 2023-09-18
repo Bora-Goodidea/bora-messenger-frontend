@@ -28,6 +28,7 @@ const RootRoutes = () => {
                 <Route element={<BlankLayout />}>
                     {lodash.map(ConstRouters.Auth, (element, index) => {
                         const PageComponent = element.Component;
+                        console.debug(`/auth${element.pathName}`);
                         return (
                             <Route
                                 key={`root-routers-auth-${index}`}
