@@ -14,6 +14,12 @@ export default {
             pathName: `/messenger`,
             Component: React.lazy(() => import('@Page/Common/PageNotFound')),
         },
+        {
+            page: `under-construction`,
+            name: `under-construction`,
+            pathName: `/under-construction`,
+            Component: React.lazy(() => import('@Page/Common/UnderConstructionPage')),
+        },
     ],
     Bora: [
         {

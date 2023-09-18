@@ -14,7 +14,7 @@ const { Wapper, Text } = LayoutStyles.SplashComponentStyle;
 /**
  * 최초 서버 상태 체크 -> 공지사항 체크 -> 데이터 조회
  */
-const SplashComponent = ({ LodingControl }: { LodingControl: () => void }) => {
+const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `under`) => void }) => {
     const [rootState, setRootState] = useRecoilState(AtomRootState);
 
     useEffect(() => {
@@ -66,7 +66,7 @@ const SplashComponent = ({ LodingControl }: { LodingControl: () => void }) => {
                 ...prevState,
                 appState: true,
             }));
-            LodingControl();
+            LodingControl(false);
         };
 
         const { server, notice, data } = rootState.systemStatus;
@@ -89,12 +89,12 @@ const SplashComponent = ({ LodingControl }: { LodingControl: () => void }) => {
                     },
                 }));
             } else {
-                // 서버 에러시 어떻게 할껀지?
+                LodingControl(`under`);
             }
         };
 
         startCheck().then();
-    }, [setRootState]);
+    }, [LodingControl, setRootState]);
 
     return (
         <MainContainer>
