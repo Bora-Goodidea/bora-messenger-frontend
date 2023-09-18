@@ -54,6 +54,12 @@ export default {
             pathName: `/password-change`,
             Component: React.lazy(() => import('@Page/Auth/PasswordChangePage')),
         },
+        {
+            page: `auth-email-auth`,
+            name: `이메일 인증`,
+            pathName: `/:AuthCode/email-auth`,
+            Component: React.lazy(() => import('@Page/Auth/EmailAuthPage')),
+        },
     ],
     Publish: [
         {
