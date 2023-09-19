@@ -53,4 +53,23 @@ export default {
             },
         });
     },
+
+    loginStatus: (
+        email: string,
+        password: string
+    ): Promise<
+        ServicesResult<{
+            access_token: string;
+            refresh_token: string;
+        }>
+    > => {
+        return Axios({
+            method: 'post',
+            url: `/api/auth/login`,
+            payload: {
+                email: email,
+                password: password,
+            },
+        });
+    },
 };

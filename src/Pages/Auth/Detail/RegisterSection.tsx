@@ -22,7 +22,6 @@ const {
 const { EmailCheckStatus, NicknameCheckStatus, joinupStatus } = AuthService;
 
 const pageInitializeState = {
-    // loading: false,
     checkState: {
         status: false,
         type: null,
@@ -40,7 +39,6 @@ const RegisterSection = () => {
     const navigate = useNavigate();
 
     const [pageState, setPageState] = useState<{
-        // loading: boolean;
         checkState: {
             status: boolean;
             type: null | string | `email` | `password` | `passwordConfirm` | `nickname`;
