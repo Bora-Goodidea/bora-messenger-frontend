@@ -1,4 +1,7 @@
 import { PageStyles } from '@Styles';
+import { /*useEffect, */ useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthService } from '@Modules';
 
 const {
     Container,
@@ -22,7 +25,104 @@ const {
     AuthButton,
 } = PageStyles.Auth.AuthStyles;
 
+const { loginStatus } = AuthService;
+
+const pageInitializeState = {
+    checkState: {
+        status: false,
+        type: null,
+        message: '',
+    },
+    loginState: {
+        email: '',
+        password: '',
+        idRemember: false,
+    },
+};
+
 const LoginSection = () => {
+    const navigate = useNavigate();
+
+    const [pageState, setPageState] = useState<{
+        checkState: {
+            status: boolean;
+            type: null | string | `email` | `password` | `passwordConfirm` | `nickname`;
+            message: string;
+        };
+        loginState: {
+            email: string;
+            password: string;
+            idRemember: boolean;
+        };
+    }>(pageInitializeState);
+
+    const loginHandler = (e: { target: { name: string; value: string } }) => {
+        const { name, value } = e.target;
+        setPageState(prev => ({
+            ...prev,
+            loginState: {
+                ...prev.loginState,
+                [name]: value,
+            },
+        }));
+    };
+
+    const loginCheck = async () => {
+        const email = pageState.loginState.email;
+        const password = pageState.loginState.password;
+
+        const { status, payload, message } = await loginStatus(email, password);
+        // console.log(status, payload, message);
+
+        if (status) {
+            setPageState(prevState => ({
+                ...prevState,
+                joinupState: pageInitializeState.loginState,
+            }));
+            navigate('/bora/messenger');
+        } else {
+            setPageState(prev => ({
+                ...prev,
+                checkState: {
+                    ...prev.checkState,
+                    status: true,
+                    type: `password`,
+                    message: `패스워드를 확인해 주세요`, //로그인 실패하면 무조건 status가 undefined라..
+                },
+            }));
+        }
+    };
+
+    const login = () => {
+        if (!pageState.loginState.email) {
+            setPageState(prev => ({
+                ...prev,
+                checkState: {
+                    ...prev.checkState,
+                    status: true,
+                    type: `email`,
+                    message: `이메일을 입력해 주세요`,
+                },
+            }));
+            return;
+        }
+
+        if (!pageState.loginState.password) {
+            setPageState(prev => ({
+                ...prev,
+                checkState: {
+                    ...prev.checkState,
+                    status: true,
+                    type: `password`,
+                    message: `비밀번호를 입력해 주세요`,
+                },
+            }));
+            return;
+        }
+
+        loginCheck();
+    };
+
     return (
         <Container>
             <Wapper>
@@ -32,12 +132,34 @@ const LoginSection = () => {
                         <AuthForm>
                             <InputItem>
                                 <InputLabel htmlFor="email">이메일</InputLabel>
-                                <Input type="email" name="email" id="email" placeholder="name@company.com" required={false} />
+                                <Input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder="name@company.com"
+                                    required={false}
+                                    value={pageState.loginState.email}
+                                    onChange={loginHandler}
+                                />
+                                {pageState.checkState.status && pageState.checkState.type === 'email' ? (
+                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
+                                ) : null}
                             </InputItem>
                             <InputItem>
                                 <InputLabel htmlFor="password">비밀번호</InputLabel>
-                                <Input type="password" name="password" id="password" placeholder="••••••••" required={false} />
-                                <ErrorMessage>패스워드를 확인해 주세요</ErrorMessage>
+                                <Input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="••••••••"
+                                    required={false}
+                                    value={pageState.loginState.password}
+                                    onChange={loginHandler}
+                                />
+                                {pageState.checkState.status && pageState.checkState.type === 'password' ? (
+                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
+                                ) : null}
+                                {/* <ErrorMessage>패스워드를 확인해 주세요</ErrorMessage> */}
                             </InputItem>
                             <ManagerWapper>
                                 <RememberId>
@@ -48,12 +170,31 @@ const LoginSection = () => {
                                         <RememberTextLabel htmlFor="remember">아이디 기억</RememberTextLabel>
                                     </RememberTextWapper>
                                 </RememberId>
-                                <AuthText>비밀번호를 잊으셨나요?</AuthText>
+                                <AuthText
+                                    onClick={() => {
+                                        navigate('/auth/password-change');
+                                    }}>
+                                    비밀번호를 잊으셨나요?
+                                </AuthText>
                             </ManagerWapper>
-                            <Button>로그인</Button>
+                            <Button
+                                onClick={() => {
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        checkState: pageInitializeState.checkState,
+                                    }));
+                                    login();
+                                }}>
+                                로그인
+                            </Button>
                             <AuthButton>
                                 아직 계정이 없으신가요?
-                                <AuthText>회원 가입</AuthText>
+                                <AuthText
+                                    onClick={() => {
+                                        navigate('/auth/register');
+                                    }}>
+                                    회원 가입
+                                </AuthText>
                             </AuthButton>
                         </AuthForm>
                     </FormBox>
