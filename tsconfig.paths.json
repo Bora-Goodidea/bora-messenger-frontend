@@ -20,6 +20,7 @@
             "@RecoilInterface": ["src/Types/RecoilInterface"],
             "@Hooks": ["src/Hooks"],
             "@Helper": ["src/Common/Helper"],
+            "@Messages": ["src/Common/Messages"],
             "@Recoil/*": ["src/Recoil/*"]
         }
     }

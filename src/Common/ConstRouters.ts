@@ -14,6 +14,12 @@ export default {
             pathName: `/messenger`,
             Component: React.lazy(() => import('@Page/Common/PageNotFound')),
         },
+        {
+            page: `under-construction`,
+            name: `under-construction`,
+            pathName: `/under-construction`,
+            Component: React.lazy(() => import('@Page/Common/UnderConstructionPage')),
+        },
     ],
     Bora: [
         {
@@ -47,6 +53,12 @@ export default {
             name: `패스워드 변경`,
             pathName: `/password-change`,
             Component: React.lazy(() => import('@Page/Auth/PasswordChangePage')),
+        },
+        {
+            page: `auth-email-auth`,
+            name: `이메일 인증`,
+            pathName: `/:AuthCode/email-auth`,
+            Component: React.lazy(() => import('@Page/Auth/EmailAuthPage')),
         },
     ],
     Publish: [

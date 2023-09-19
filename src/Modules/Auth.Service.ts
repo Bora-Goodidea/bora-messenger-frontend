@@ -54,6 +54,14 @@ export default {
         });
     },
 
+    EmailAuth: ({ AuthCode }: { AuthCode: string }): Promise<ServicesResult<null>> => {
+        return Axios({
+            method: 'get',
+            url: `/api/auth/${AuthCode}/email-auth`,
+            payload: null,
+        });
+    },
+
     loginStatus: (
         email: string,
         password: string
