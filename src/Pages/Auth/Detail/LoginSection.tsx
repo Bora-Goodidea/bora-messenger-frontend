@@ -36,7 +36,7 @@ const pageInitializeState = {
     loginState: {
         email: '',
         password: '',
-        idRemember: false,
+        idRemember: true,
     },
 };
 
@@ -72,7 +72,6 @@ const LoginSection = () => {
         const password = pageState.loginState.password;
 
         const { status, payload, message } = await loginStatus(email, password);
-        // console.log(status, payload, message);
 
         if (status) {
             setPageState(prevState => ({
@@ -87,9 +86,10 @@ const LoginSection = () => {
                     ...prev.checkState,
                     status: true,
                     type: `password`,
-                    message: `패스워드를 확인해 주세요`, //로그인 실패하면 무조건 status가 undefined라..
+                    message: message,
                 },
             }));
+            alert(message);
         }
     };
 
@@ -164,7 +164,22 @@ const LoginSection = () => {
                             <ManagerWapper>
                                 <RememberId>
                                     <CheckBoxWapper>
-                                        <RememberCheckBox id="remember" aria-describedby="remember" type="checkbox" required={false} />
+                                        <RememberCheckBox
+                                            id="remember"
+                                            aria-describedby="remember"
+                                            type="checkbox"
+                                            required={false}
+                                            checked={pageState.loginState.idRemember}
+                                            onChange={() => {
+                                                setPageState(prev => ({
+                                                    ...prev,
+                                                    loginState: {
+                                                        ...prev.loginState,
+                                                        idRemember: !prev.loginState.idRemember,
+                                                    },
+                                                }));
+                                            }}
+                                        />
                                     </CheckBoxWapper>
                                     <RememberTextWapper>
                                         <RememberTextLabel htmlFor="remember">아이디 기억</RememberTextLabel>
