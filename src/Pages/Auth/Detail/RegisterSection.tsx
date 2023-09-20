@@ -253,7 +253,7 @@ const RegisterSection = () => {
                                     placeholder="name@company.com"
                                     required={false}
                                     value={pageState.joinupState.email}
-                                    onChange={joinupHandler}
+                                    onChange={e => joinupHandler(e)}
                                 />
                                 {pageState.checkState.status && pageState.checkState.type === 'email' ? (
                                     <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
@@ -268,7 +268,7 @@ const RegisterSection = () => {
                                     placeholder="••••••••"
                                     required={false}
                                     value={pageState.joinupState.password}
-                                    onChange={joinupHandler}
+                                    onChange={e => joinupHandler(e)}
                                     minLength={4}
                                     maxLength={15}
                                 />
@@ -285,7 +285,7 @@ const RegisterSection = () => {
                                     placeholder="••••••••"
                                     required={false}
                                     value={pageState.joinupState.passwordConfirm}
-                                    onChange={joinupHandler}
+                                    onChange={e => joinupHandler(e)}
                                 />
                                 {pageState.checkState.status && pageState.checkState.type === 'passwordConfirm' ? (
                                     <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
@@ -300,12 +300,11 @@ const RegisterSection = () => {
                                     placeholder="••••••••"
                                     required={false}
                                     value={pageState.joinupState.nickname}
-                                    onChange={joinupHandler}
+                                    onChange={e => joinupHandler(e)}
                                 />
                                 {pageState.checkState.status && pageState.checkState.type === 'nickname' ? (
                                     <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
                                 ) : null}
-                                {/* {duplicateCheck.nickname ? <ErrorMessage>이미 사용중인 닉네임 입니다.</ErrorMessage> : null} */}
                             </InputItem>
                             <Button
                                 onClick={() => {
