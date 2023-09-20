@@ -1,5 +1,5 @@
 import { PageStyles } from '@Styles';
-import { /*useEffect, */ useEffect, useState } from 'react';
+import { /*useEffect, */ useState } from 'react';
 
 const { Container, Wapper, FormWapper, FormBox, TitleBox, AuthForm, InputItem, InputLabel, Input, Button, ErrorMessage } =
     PageStyles.Auth.AuthStyles;
