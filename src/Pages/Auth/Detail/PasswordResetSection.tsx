@@ -1,8 +1,22 @@
+import { KeyboardEvent } from 'react';
 import { PageStyles } from '@Styles';
+import { ButtonSpinnerIcon } from '@Icons';
 
 const { Container, Wapper, FormWapper, FormBox, TitleBox, AuthForm, InputItem, InputLabel, Input, Button } = PageStyles.Auth.AuthStyles;
 
-const PasswordResetSection = () => {
+const PasswordResetSection = ({
+    Loading,
+    InputValue,
+    HandleOnChange,
+    HandleClickButton,
+    HandleOnKeyDown,
+}: {
+    Loading: boolean;
+    InputValue: string;
+    HandleOnChange: (Value: string) => void;
+    HandleClickButton: () => void;
+    HandleOnKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
+}) => {
     return (
         <Container>
             <Wapper>
@@ -12,9 +26,18 @@ const PasswordResetSection = () => {
                         <AuthForm>
                             <InputItem>
                                 <InputLabel htmlFor="email">이메일</InputLabel>
-                                <Input type="email" name="email" id="email" placeholder="name@company.com" required={false} />
+                                <Input
+                                    type="email"
+                                    placeholder="name@company.com"
+                                    required={false}
+                                    value={InputValue}
+                                    onChange={e => HandleOnChange(e.target.value)}
+                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                />
                             </InputItem>
-                            <Button>요청</Button>
+                            <Button onClick={() => HandleClickButton()} disabled={Loading}>
+                                {Loading ? <ButtonSpinnerIcon /> : `요청`}
+                            </Button>
                         </AuthForm>
                     </FormBox>
                 </FormWapper>

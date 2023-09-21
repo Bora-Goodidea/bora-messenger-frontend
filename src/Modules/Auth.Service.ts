@@ -80,4 +80,43 @@ export default {
             },
         });
     },
+
+    PasswordReset: ({
+        email,
+    }: {
+        email: string;
+    }): Promise<
+        ServicesResult<{
+            email: string;
+            resetcode: string;
+            resetlink: string;
+        }>
+    > => {
+        // 비밀 번호 변경 요청
+        return Axios({
+            method: 'get',
+            url: `/api/auth/${email}/password-reset`,
+            payload: null,
+        });
+    },
+
+    PasswordResetCodeCheck: ({ resetCode }: { resetCode: string }): Promise<ServicesResult<null>> => {
+        // 패스워드 변경 코드 확인
+        return Axios({
+            method: 'get',
+            url: `/api/auth/${resetCode}/password-reset-code-check`,
+            payload: null,
+        });
+    },
+
+    PasswordChange: ({ resetCode, password }: { resetCode: string; password: string }): Promise<ServicesResult<null>> => {
+        // 비밀번호 변경
+        return Axios({
+            method: 'post',
+            url: `/api/auth/${resetCode}/password-change`,
+            payload: {
+                password: password,
+            },
+        });
+    },
 };

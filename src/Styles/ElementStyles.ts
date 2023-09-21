@@ -53,6 +53,7 @@ export default {
         MessageInfoSvg: tw.svg`w-full h-full fill-current text-blue-600`,
         SearchSvg: tw.svg`w-6 h-6`,
         BackInfoSvg: tw.svg`w-5 h-5 rtl:rotate-180`,
+        ButtonSpinnerSvg: tw.svg`inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600`,
     },
     BoraInputStyle: {
         Input2: tw.input`rounded-full py-2 pr-6 pl-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none text-gray-600 focus:shadow-md transition duration-300 ease-in`,
