@@ -2,7 +2,7 @@ import tw from 'twin.macro';
 
 export default {
     DafalutLayoutStyle: {
-        MainContainer: tw.div`h-screen w-full flex antialiased text-gray-800 bg-white overflow-hidden`,
+        MainContainer: tw.div`flex-1 flex flex-col h-screen w-full antialiased text-gray-800 bg-white overflow-hidden`,
         MainWapper: tw.div`flex w-full flex-col items-center justify-center`,
         BoraLayoutStyle: {
             Wapper: tw.div`flex-1 flex flex-col`,

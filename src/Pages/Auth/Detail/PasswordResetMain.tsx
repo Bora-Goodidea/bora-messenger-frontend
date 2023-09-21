@@ -5,6 +5,7 @@ import { emailValidate } from '@Helper';
 import { AuthService } from '@Modules';
 import Messages from '@Messages';
 import { useNavigate } from 'react-router-dom';
+import { useLayout } from '@Hooks';
 
 const { PasswordReset } = AuthService;
 
@@ -21,6 +22,7 @@ const PasswordResetMain = () => {
         email: string;
     }>(pageInitializeState);
     const navigate = useNavigate();
+    const { HandleMainAlert } = useLayout();
 
     const handlePasswordReset = async () => {
         const { email } = pageState;
@@ -32,7 +34,10 @@ const PasswordResetMain = () => {
 
         const { status, message, payload } = await PasswordReset({ email: email });
         if (status) {
-            alert(Messages.Common.success);
+            HandleMainAlert({
+                state: true,
+                message: Messages.Common.success,
+            });
 
             if (process.env.REACT_APP_ENV === 'local') {
                 navigate({
@@ -40,7 +45,10 @@ const PasswordResetMain = () => {
                 });
             }
         } else {
-            alert(message);
+            HandleMainAlert({
+                state: true,
+                message: message,
+            });
         }
 
         setPageState(prevState => ({
