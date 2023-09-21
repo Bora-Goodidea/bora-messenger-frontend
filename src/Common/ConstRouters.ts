@@ -51,7 +51,7 @@ export default {
         {
             page: `auth-password-change`,
             name: `패스워드 변경`,
-            pathName: `/password-change`,
+            pathName: `/:ResetCode/password-change`,
             Component: React.lazy(() => import('@Page/Auth/PasswordChangePage')),
         },
         {

@@ -167,3 +167,5 @@ export const getRefreshToken = (): string => storageMaster.get(`refreshToken`);
  * AccessToken 저장
  */
 export const getAccessToken = (): string => storageMaster.get(`accessToken`);
+
+export const emailValidate = (emailString: string): boolean => /^[^@]+@\w+(\.\w+)+\w$/.test(emailString);
