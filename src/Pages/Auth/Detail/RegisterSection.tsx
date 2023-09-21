@@ -2,6 +2,7 @@ import { PageStyles } from '@Styles';
 import { /*useEffect,*/ useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '@Modules';
+import { useLayout } from '@Hooks';
 
 const {
     Container,
@@ -37,6 +38,7 @@ const pageInitializeState = {
 
 const RegisterSection = () => {
     const navigate = useNavigate();
+    const { HandleMainAlert } = useLayout();
 
     const [pageState, setPageState] = useState<{
         checkState: {
@@ -130,7 +132,10 @@ const RegisterSection = () => {
                     ...prevState,
                     joinupState: pageInitializeState.joinupState,
                 }));
-                alert('회원가입이 완료되었습니다.');
+                HandleMainAlert({
+                    state: true,
+                    message: `회원가입이 완료되었습니다.`,
+                });
                 navigate('/bora/messenger');
             }
         }

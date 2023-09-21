@@ -61,14 +61,20 @@ const PasswordResetMain = () => {
         const { email } = pageState;
 
         if (email === '') {
-            alert(Messages.Common.emptyEmail);
+            HandleMainAlert({
+                state: true,
+                message: Messages.Common.emptyEmail,
+            });
             return;
         }
 
         if (emailValidate(email)) {
             handlePasswordReset().then();
         } else {
-            alert(Messages.Common.emailValidate);
+            HandleMainAlert({
+                state: true,
+                message: Messages.Common.emailValidate,
+            });
             return;
         }
     };
