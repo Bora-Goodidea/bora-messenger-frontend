@@ -168,4 +168,8 @@ export const getRefreshToken = (): string => storageMaster.get(`refreshToken`);
  */
 export const getAccessToken = (): string => storageMaster.get(`accessToken`);
 
+/**
+ * 이메일 유효성 검사
+ * @param emailString
+ */
 export const emailValidate = (emailString: string): boolean => /^[^@]+@\w+(\.\w+)+\w$/.test(emailString);

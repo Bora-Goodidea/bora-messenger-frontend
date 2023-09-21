@@ -4,3 +4,4 @@ export { default as BoraButton } from './Button/BoraButton';
 export { default as MessageHeaderBox } from './Message/MessageHeaderBox';
 export { default as MessageBox } from './Message/MessageBox';
 export { default as MessageFooterBox } from './Message/MessageFooterBox';
+export { default as BoraAlert } from './Modal/BoraAlert';

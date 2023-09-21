@@ -2,6 +2,7 @@ import { PageStyles } from '@Styles';
 import { /*useEffect, */ useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '@Modules';
+import { useLayout } from '@Hooks';
 
 const {
     Container,
@@ -42,6 +43,7 @@ const pageInitializeState = {
 
 const LoginSection = () => {
     const navigate = useNavigate();
+    const { HandleMainAlert } = useLayout();
 
     const [pageState, setPageState] = useState<{
         checkState: {
@@ -89,7 +91,10 @@ const LoginSection = () => {
                     message: message,
                 },
             }));
-            alert(message);
+            HandleMainAlert({
+                state: true,
+                message: message,
+            });
         }
     };
 

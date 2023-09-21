@@ -146,4 +146,18 @@ export default {
             MessageImage: tw.img`absolute shadow-md w-full h-full rounded-l-lg object-cover`,
         },
     },
+    BoraAlertStyle: {
+        Container: tw.div`overflow-y-auto sm:p-0 pt-4 pr-4 pb-20 pl-4 bg-gray-800`,
+        Wapper: tw.div`flex justify-center items-end text-center min-h-screen sm:block`,
+        Opacity: tw.div`bg-gray-500 transition-opacity bg-opacity-75`,
+        HiddenScreen: tw.span`hidden sm:inline-block sm:align-middle sm:h-screen`,
+        AlertWapper: tw.div`inline-block bg-gray-900 rounded-lg overflow-hidden align-bottom transition-all shadow-2xl sm:my-8 sm:align-middle sm:max-w-xl sm:w-full`,
+        AlertBox: tw.div`items-center w-full mr-auto ml-auto relative max-w-7xl md:px-12 lg:px-24`,
+        AlertGrid: tw.div`grid grid-cols-1`,
+        AlertCenterWapper: tw.div`mt-4 mr-auto mb-4 ml-auto bg-gray-900 max-w-lg`,
+        AlertItem: tw.div`flex flex-col items-center`,
+        AlertMessage: tw.p`mt-3 text-base leading-relaxed text-center text-gray-200`,
+        AlertButtonWapper: tw.div`w-full mt-10`,
+        AlertButton: tw.div`text-white bg-sky-600 font-medium rounded-lg text-sm py-2.5 px-5 text-center hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 dark:bg-blue-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800`,
+    },
 };

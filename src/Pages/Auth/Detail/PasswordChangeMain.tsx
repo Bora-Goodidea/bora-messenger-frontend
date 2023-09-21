@@ -4,6 +4,7 @@ import { LayoutStyles } from '@Styles';
 import { PasswordChangeSection } from '.';
 import { AuthService } from '@Modules';
 import Messages from '@Messages';
+import { useLayout } from '@Hooks';
 
 const { PasswordResetCodeCheck, PasswordChange } = AuthService;
 
@@ -27,6 +28,7 @@ const pageInitializeState = {
 const PasswordChangeMain = () => {
     const params = useParams<{ ResetCode: string | undefined }>();
     const navigate = useNavigate();
+    const { HandleMainAlert } = useLayout();
     const enterInputRef = useRef<HTMLInputElement[]>([]);
     const [pageState, setPageState] = useState<{
         pageLoading: boolean;
@@ -53,13 +55,16 @@ const PasswordChangeMain = () => {
                     resetCode: code,
                 }));
             } else {
-                alert(message);
+                HandleMainAlert({
+                    state: true,
+                    message: message,
+                });
                 navigate({
                     pathname: process.env.PUBLIC_URL + `/auth/login`,
                 });
             }
         },
-        [navigate]
+        [HandleMainAlert, navigate]
     );
 
     const handlePasswordChange = async () => {
@@ -67,11 +72,20 @@ const PasswordChangeMain = () => {
             ...prevState,
             changeLoading: true,
         }));
-        const { status, message } = await PasswordChange({ password: pageState.input.password, resetCode: pageState.resetCode });
+        const { status, message } = await PasswordChange({
+            password: pageState.input.password,
+            resetCode: pageState.resetCode,
+        });
         if (status) {
-            alert(Messages.Common.success);
+            HandleMainAlert({
+                state: true,
+                message: Messages.Common.success,
+            });
         } else {
-            alert(message);
+            HandleMainAlert({
+                state: true,
+                message: message,
+            });
         }
 
         setPageState(prevState => ({

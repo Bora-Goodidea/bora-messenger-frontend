@@ -16,3 +16,11 @@ export interface RootStateInterface {
         };
     };
 }
+
+export interface LayoutStateInterface {
+    loading: boolean;
+    mainAlert: {
+        state: boolean;
+        message: string;
+    };
+}
