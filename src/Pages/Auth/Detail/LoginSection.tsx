@@ -71,7 +71,7 @@ const LoginSection = () => {
         const email = pageState.loginState.email;
         const password = pageState.loginState.password;
 
-        const { status, payload, message } = await loginStatus(email, password);
+        const { status, message } = await loginStatus(email, password);
 
         if (status) {
             setPageState(prevState => ({
