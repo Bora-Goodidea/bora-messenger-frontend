@@ -187,7 +187,7 @@ const LoginSection = () => {
                                 </RememberId>
                                 <AuthText
                                     onClick={() => {
-                                        navigate('/auth/password-change');
+                                        navigate('/auth/password-reset');
                                     }}>
                                     비밀번호를 잊으셨나요?
                                 </AuthText>
