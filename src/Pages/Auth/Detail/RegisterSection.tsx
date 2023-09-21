@@ -3,6 +3,7 @@ import { /*useEffect,*/ useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '@Modules';
 import { useLayout } from '@Hooks';
+import { emailValidate } from '@Helper';
 
 const {
     Container,
@@ -156,9 +157,8 @@ const RegisterSection = () => {
         }
 
         const email = pageState.joinupState.email;
-        const exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
-        if (exptext.test(email) === false) {
+        if (!emailValidate(email)) {
             //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
             setPageState(prev => ({
                 ...prev,
