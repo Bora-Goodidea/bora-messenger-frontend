@@ -7,6 +7,8 @@ export const AtomLayoutState = atom<LayoutStateInterface>({
         loading: false,
         mainAlert: {
             state: false,
+            type: `default`,
+            action: ``,
             message: ``,
         },
     },
