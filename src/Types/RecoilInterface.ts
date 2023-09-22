@@ -6,6 +6,7 @@ export interface RootStateInterface {
         server: boolean;
         notice: boolean;
         data: boolean;
+        login: boolean;
     };
     systemNotice: string;
     loginState: boolean;
