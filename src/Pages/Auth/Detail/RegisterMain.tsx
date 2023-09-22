@@ -129,7 +129,7 @@ const RegisterMain = () => {
                 });
 
                 navigate({
-                    pathname: process.env.PUBLIC_URL + `/bora/messenger`,
+                    pathname: process.env.PUBLIC_URL + `/auth/login`,
                 });
             }
         }
