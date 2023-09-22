@@ -10,6 +10,6 @@ export default {
         passwordConfirm: `비밀번호가 일치하지 않습니다.`,
         existsNickname: `이미 사용중인 닉네임 입니다.`,
         existsEmail: `이미 사용중인 이메일 입니다.`,
-        successJoinup: `회원가입이 완료되었습니다.`,
+        successJoinup: `회원가입이 완료되었습니다. 이메일 인증을 완료해 주세요.`,
     },
 };

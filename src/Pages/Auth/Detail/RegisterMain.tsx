@@ -125,11 +125,9 @@ const RegisterMain = () => {
                 }));
                 HandleMainAlert({
                     state: true,
+                    type: `move`,
                     message: Messages.Common.successJoinup,
-                });
-
-                navigate({
-                    pathname: process.env.PUBLIC_URL + `/auth/login`,
+                    action: `/auth/login`,
                 });
             }
         }

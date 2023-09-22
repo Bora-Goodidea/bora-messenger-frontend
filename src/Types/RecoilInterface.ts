@@ -21,6 +21,8 @@ export interface LayoutStateInterface {
     loading: boolean;
     mainAlert: {
         state: boolean;
+        type: string | `default` | `move`;
+        action: string;
         message: string;
     };
 }
