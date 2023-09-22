@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import lodash from 'lodash';
 import { ConstRouters } from '@Commons';
 import { BoraLayout, BlankLayout } from '@Components';
-import { PageNotFound, TemporaryMainPage } from '@Pages';
+import { PageNotFound, TemporaryMainPage, MessengerPage } from '@Pages';
 
 const RootRoutes = () => {
     return (
@@ -42,6 +42,7 @@ const RootRoutes = () => {
                     })}
                 </Route>
                 <Route element={<BoraLayout />}>
+                    <Route path={`/`} element={<MessengerPage />} />
                     {lodash.map(ConstRouters.Bora, (element, index) => {
                         const PageComponent = element.Component;
                         return (
@@ -74,7 +75,7 @@ const RootRoutes = () => {
                     })}
                 </Route>
                 {/*임시 메인 start*/}
-                <Route path={`/`} element={<TemporaryMainPage />} />
+                <Route path={`/temp`} element={<TemporaryMainPage />} />
                 {/*임시 메인 end*/}
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
