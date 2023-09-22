@@ -68,7 +68,7 @@ const RegisterMain = () => {
                         ...prev.checkState,
                         status: true,
                         type: `email`,
-                        message: `이미 사용중인 이메일 주소 입니다.`,
+                        message: Messages.Common.existsEmail,
                     },
                 }));
             }

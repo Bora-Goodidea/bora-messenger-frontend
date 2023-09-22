@@ -9,6 +9,7 @@ export default {
         passwordLength: `비밀번호는 4~15자 이내여야 합니다.`,
         passwordConfirm: `비밀번호가 일치하지 않습니다.`,
         existsNickname: `이미 사용중인 닉네임 입니다.`,
+        existsEmail: `이미 사용중인 이메일 입니다.`,
         successJoinup: `회원가입이 완료되었습니다.`,
     },
 };
