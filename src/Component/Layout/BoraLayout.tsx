@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { AtomRootState } from '@Recoil/AppRootState';
 import { useEffect } from 'react';
 import { BoraAlert } from '@Elements';
-import { useLayout } from '@Hooks';
+import { useLayout, useAuth } from '@Hooks';
 import { useNavigate } from 'react-router-dom';
 import { AtomLayoutState } from '@Recoil/LayoutState';
 import Messages from '@Messages';
@@ -16,10 +16,11 @@ const BoraLayout = () => {
     const atomRootState = useRecoilValue(AtomRootState);
     const atomLayoutState = useRecoilValue(AtomLayoutState);
     const { HandleMainAlert } = useLayout();
+    const { handleAuthCkeck } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!atomRootState.loginState) {
+        if (!handleAuthCkeck()) {
             HandleMainAlert({
                 state: true,
                 type: `move`,
