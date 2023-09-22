@@ -1,9 +1,6 @@
 import { PageStyles } from '@Styles';
-import { /*useEffect, */ useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AuthService } from '@Modules';
-import { useLayout } from '@Hooks';
-
+import { ChangeEvent, KeyboardEvent, MutableRefObject } from 'react';
+import { ButtonSpinnerIcon } from '@Icons';
 const {
     Container,
     Wapper,
@@ -26,108 +23,29 @@ const {
     AuthButton,
 } = PageStyles.Auth.AuthStyles;
 
-const { loginStatus } = AuthService;
-
-const pageInitializeState = {
-    checkState: {
-        status: false,
-        type: null,
-        message: '',
-    },
-    loginState: {
-        email: '',
-        password: '',
-        idRemember: true,
-    },
-};
-
-const LoginSection = () => {
-    const navigate = useNavigate();
-    const { HandleMainAlert } = useLayout();
-
-    const [pageState, setPageState] = useState<{
-        checkState: {
-            status: boolean;
-            type: null | string | `email` | `password` | `passwordConfirm` | `nickname`;
-            message: string;
-        };
-        loginState: {
-            email: string;
-            password: string;
-            idRemember: boolean;
-        };
-    }>(pageInitializeState);
-
-    const loginHandler = (e: { target: { name: string; value: string } }) => {
-        const { name, value } = e.target;
-        setPageState(prev => ({
-            ...prev,
-            loginState: {
-                ...prev.loginState,
-                [name]: value,
-            },
-        }));
-    };
-
-    const loginCheck = async () => {
-        const email = pageState.loginState.email;
-        const password = pageState.loginState.password;
-
-        const { status, message } = await loginStatus(email, password);
-
-        if (status) {
-            setPageState(prevState => ({
-                ...prevState,
-                joinupState: pageInitializeState.loginState,
-            }));
-            navigate('/bora/messenger');
-        } else {
-            setPageState(prev => ({
-                ...prev,
-                checkState: {
-                    ...prev.checkState,
-                    status: true,
-                    type: `password`,
-                    message: message,
-                },
-            }));
-            HandleMainAlert({
-                state: true,
-                message: message,
-            });
-        }
-    };
-
-    const login = () => {
-        if (!pageState.loginState.email) {
-            setPageState(prev => ({
-                ...prev,
-                checkState: {
-                    ...prev.checkState,
-                    status: true,
-                    type: `email`,
-                    message: `이메일을 입력해 주세요`,
-                },
-            }));
-            return;
-        }
-
-        if (!pageState.loginState.password) {
-            setPageState(prev => ({
-                ...prev,
-                checkState: {
-                    ...prev.checkState,
-                    status: true,
-                    type: `password`,
-                    message: `비밀번호를 입력해 주세요`,
-                },
-            }));
-            return;
-        }
-
-        loginCheck();
-    };
-
+const LoginSection = ({
+    Loading,
+    InputValue,
+    CheckState,
+    LoginHandler,
+    HandleIdRemember,
+    PasswordResetClick,
+    LoginButtonClick,
+    JoinButtonClick,
+    EnterRef,
+    HandleOnKeyDown,
+}: {
+    Loading: boolean;
+    InputValue: { email: string; password: string; idRemember: boolean };
+    CheckState: { status: boolean; type: null | string | `email` | `password`; message: string };
+    LoginHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+    HandleIdRemember: (check: boolean) => void;
+    PasswordResetClick: () => void;
+    LoginButtonClick: () => void;
+    JoinButtonClick: () => void;
+    EnterRef: MutableRefObject<HTMLInputElement[]>;
+    HandleOnKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
+}) => {
     return (
         <Container>
             <Wapper>
@@ -143,11 +61,13 @@ const LoginSection = () => {
                                     id="email"
                                     placeholder="name@company.com"
                                     required={false}
-                                    value={pageState.loginState.email}
-                                    onChange={loginHandler}
+                                    value={InputValue.email}
+                                    onChange={e => LoginHandler(e)}
+                                    ref={el => (EnterRef.current[0] = el as HTMLInputElement)}
+                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
                                 />
-                                {pageState.checkState.status && pageState.checkState.type === 'email' ? (
-                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
+                                {CheckState.status && CheckState.type === 'email' ? (
+                                    <ErrorMessage>{`${CheckState.message}`}</ErrorMessage>
                                 ) : null}
                             </InputItem>
                             <InputItem>
@@ -158,13 +78,14 @@ const LoginSection = () => {
                                     id="password"
                                     placeholder="••••••••"
                                     required={false}
-                                    value={pageState.loginState.password}
-                                    onChange={loginHandler}
+                                    value={InputValue.password}
+                                    onChange={e => LoginHandler(e)}
+                                    ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
+                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
                                 />
-                                {pageState.checkState.status && pageState.checkState.type === 'password' ? (
-                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
+                                {CheckState.status && CheckState.type === 'password' ? (
+                                    <ErrorMessage>{`${CheckState.message}`}</ErrorMessage>
                                 ) : null}
-                                {/* <ErrorMessage>패스워드를 확인해 주세요</ErrorMessage> */}
                             </InputItem>
                             <ManagerWapper>
                                 <RememberId>
@@ -174,15 +95,9 @@ const LoginSection = () => {
                                             aria-describedby="remember"
                                             type="checkbox"
                                             required={false}
-                                            checked={pageState.loginState.idRemember}
-                                            onChange={() => {
-                                                setPageState(prev => ({
-                                                    ...prev,
-                                                    loginState: {
-                                                        ...prev.loginState,
-                                                        idRemember: !prev.loginState.idRemember,
-                                                    },
-                                                }));
+                                            checked={InputValue.idRemember}
+                                            onChange={e => {
+                                                HandleIdRemember(e.target.checked);
                                             }}
                                         />
                                     </CheckBoxWapper>
@@ -190,31 +105,14 @@ const LoginSection = () => {
                                         <RememberTextLabel htmlFor="remember">아이디 기억</RememberTextLabel>
                                     </RememberTextWapper>
                                 </RememberId>
-                                <AuthText
-                                    onClick={() => {
-                                        navigate('/auth/password-reset');
-                                    }}>
-                                    비밀번호를 잊으셨나요?
-                                </AuthText>
+                                <AuthText onClick={() => PasswordResetClick()}>비밀번호를 잊으셨나요?</AuthText>
                             </ManagerWapper>
-                            <Button
-                                onClick={() => {
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        checkState: pageInitializeState.checkState,
-                                    }));
-                                    login();
-                                }}>
-                                로그인
+                            <Button onClick={() => LoginButtonClick()} disabled={Loading}>
+                                {Loading ? <ButtonSpinnerIcon /> : `로그인`}
                             </Button>
                             <AuthButton>
                                 아직 계정이 없으신가요?
-                                <AuthText
-                                    onClick={() => {
-                                        navigate('/auth/register');
-                                    }}>
-                                    회원 가입
-                                </AuthText>
+                                <AuthText onClick={() => JoinButtonClick()}>회원 가입</AuthText>
                             </AuthButton>
                         </AuthForm>
                     </FormBox>
