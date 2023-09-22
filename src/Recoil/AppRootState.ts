@@ -22,6 +22,7 @@ export const AtomRootState = atom<RootStateInterface>({
             server: false,
             notice: false,
             data: false,
+            login: false,
         },
         systemNotice: '',
         loginState: false,

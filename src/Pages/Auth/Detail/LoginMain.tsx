@@ -1,11 +1,13 @@
 import { LayoutStyles } from '@Styles';
 import { LoginSection } from '.';
 import { useNavigate } from 'react-router-dom';
-import { useLayout } from '@Hooks';
+import { useLayout, useAuth } from '@Hooks';
 import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { AuthService } from '@Module/index';
 import Messages from '@Messages';
 import { emailValidate, storageMaster } from '@Helper';
+import { useRecoilValue } from 'recoil';
+import { AtomRootState } from '@Recoil/AppRootState';
 
 const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 
@@ -26,6 +28,8 @@ const pageInitializeState = {
 const { loginStatus } = AuthService;
 
 const LoginMain = () => {
+    const atomRootState = useRecoilValue(AtomRootState);
+    const { handleAuthTokenSave } = useAuth();
     const navigate = useNavigate();
     const { HandleMainAlert } = useLayout();
     const enterInputRef = useRef<HTMLInputElement[]>([]);
@@ -63,7 +67,7 @@ const LoginMain = () => {
         const email = pageState.loginState.email;
         const password = pageState.loginState.password;
 
-        const { status, message } = await loginStatus(email, password);
+        const { status, message, payload } = await loginStatus(email, password);
 
         setPageState(prevState => ({
             ...prevState,
@@ -71,6 +75,10 @@ const LoginMain = () => {
         }));
 
         if (status) {
+            const { access_token, refresh_token } = payload;
+
+            handleAuthTokenSave({ access_token: access_token, refresh_token: refresh_token });
+
             if (pageState.loginState.idRemember) {
                 storageMaster.set(`boraLoginId`, email);
             } else {
@@ -150,6 +158,17 @@ const LoginMain = () => {
             login();
         }
     };
+
+    useEffect(() => {
+        if (atomRootState.loginState) {
+            HandleMainAlert({
+                state: true,
+                type: `move`,
+                message: Messages.Common.alreadyLogin,
+                action: `/bora/messenger`,
+            });
+        }
+    }, [HandleMainAlert, atomRootState.loginState]);
 
     useEffect(() => {
         const pageStart = () => {

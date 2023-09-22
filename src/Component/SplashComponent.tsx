@@ -5,6 +5,7 @@ import { colorDebug } from '@Helper';
 import { useRecoilState } from 'recoil';
 import { AtomRootState } from '@Recoil/AppRootState';
 import SystemService from '@Module/System.Service';
+import { useAuth } from '@Hooks';
 
 const { ServiceGetBaseData, ServiceCheckStatus } = SystemService;
 
@@ -16,6 +17,7 @@ const { Wapper, Text } = LayoutStyles.SplashComponentStyle;
  */
 const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `under`) => void }) => {
     const [rootState, setRootState] = useRecoilState(AtomRootState);
+    const { handleAuthCkeck } = useAuth();
 
     useEffect(() => {
         const dataCheck = async () => {
@@ -41,6 +43,16 @@ const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `
             dataCheck().then();
         }
     }, [rootState.systemStatus.notice, setRootState]);
+
+    useEffect(() => {
+        if (rootState.systemStatus.data) {
+            const loginCheck = handleAuthCkeck();
+            console.debug('loginCheck', loginCheck);
+        }
+
+        // FIXME : 종속성에서 Data1, Data2 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [rootState.systemStatus.data]);
 
     useEffect(() => {
         const noticeCheck = () => {
@@ -69,8 +81,8 @@ const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `
             LodingControl(false);
         };
 
-        const { server, notice, data } = rootState.systemStatus;
-        if (server && notice && data) {
+        const { server, notice, data, login } = rootState.systemStatus;
+        if (server && notice && data && login) {
             endCheck();
         }
     }, [rootState.systemStatus, LodingControl, setRootState]);

@@ -5,7 +5,6 @@ import { LayoutStyles } from '@Styles';
 import { BoraAlert } from '@Elements';
 import { useLayout } from '@Hooks';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 
@@ -13,10 +12,6 @@ const BlankLayout = () => {
     const atomLayoutState = useRecoilValue(AtomLayoutState);
     const { HandleMainAlert } = useLayout();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        console.debug(atomLayoutState);
-    }, [atomLayoutState]);
 
     return (
         <MainContainer>

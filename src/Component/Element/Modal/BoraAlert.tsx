@@ -16,6 +16,7 @@ const {
 } = ElementStyles.BoraAlertStyle;
 
 const BoraAlert = ({ AlertState, AlertMessage, ButtonClick }: { AlertState: boolean; AlertMessage: string; ButtonClick: () => void }) => {
+    console.debug('AlertState: ', AlertState);
     return (
         <>
             {AlertState && (
