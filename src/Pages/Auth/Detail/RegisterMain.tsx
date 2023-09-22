@@ -12,6 +12,7 @@ const { EmailCheckStatus, NicknameCheckStatus, joinupStatus } = AuthService;
 const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 
 const pageInitializeState = {
+    loading: false,
     checkState: {
         status: false,
         type: null,
@@ -31,6 +32,7 @@ const RegisterMain = () => {
     const enterInputRef = useRef<HTMLInputElement[]>([]);
 
     const [pageState, setPageState] = useState<{
+        loading: boolean;
         checkState: {
             status: boolean;
             type: null | string | `email` | `password` | `passwordConfirm` | `nickname`;
@@ -265,6 +267,7 @@ const RegisterMain = () => {
     return (
         <MainContainer>
             <RegisterSection
+                Loading={pageState.loading}
                 InputValue={pageState.joinupState}
                 CheckState={pageState.checkState}
                 JoinupHandler={e => joinupHandler(e)}

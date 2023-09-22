@@ -11,5 +11,7 @@ export default {
         existsNickname: `이미 사용중인 닉네임 입니다.`,
         existsEmail: `이미 사용중인 이메일 입니다.`,
         successJoinup: `회원가입이 완료되었습니다. 이메일 인증을 완료해 주세요.`,
+        successLogin: `로그인이 완료 되었습니다.`,
+        passwordResetSuccess: `정상 처리 하였습니다. 이메일을 확인해 주세요.`,
     },
 };

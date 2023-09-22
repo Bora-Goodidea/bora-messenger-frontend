@@ -36,12 +36,16 @@ const PasswordResetMain = () => {
         if (status) {
             HandleMainAlert({
                 state: true,
-                message: Messages.Common.success,
+                message: Messages.Common.passwordResetSuccess,
             });
 
             if (process.env.REACT_APP_ENV === 'local') {
                 navigate({
                     pathname: process.env.PUBLIC_URL + `/auth/${payload.resetcode}/password-change`,
+                });
+            } else {
+                navigate({
+                    pathname: process.env.PUBLIC_URL + `/auth/login`,
                 });
             }
         } else {

@@ -1,5 +1,6 @@
 import { PageStyles } from '@Styles';
 import { ChangeEvent, KeyboardEvent, MutableRefObject } from 'react';
+import { ButtonSpinnerIcon } from '@Icons';
 
 const {
     Container,
@@ -18,6 +19,7 @@ const {
 } = PageStyles.Auth.AuthStyles;
 
 const RegisterSection = ({
+    Loading,
     InputValue,
     JoinupHandler,
     CheckState,
@@ -26,6 +28,7 @@ const RegisterSection = ({
     EnterRef,
     HandleOnKeyDown,
 }: {
+    Loading: boolean;
     InputValue: { email: string; password: string; passwordConfirm: string; nickname: string };
     JoinupHandler: (event: ChangeEvent<HTMLInputElement>) => void;
     CheckState: { status: boolean; type: null | string | `email` | `password` | `passwordConfirm` | `nickname`; message: string };
@@ -111,7 +114,7 @@ const RegisterSection = ({
                                     <ErrorMessage>{`${CheckState.message}`}</ErrorMessage>
                                 ) : null}
                             </InputItem>
-                            <Button onClick={() => HandleJoinupButtonClick()}>회원 가입</Button>
+                            <Button onClick={() => HandleJoinupButtonClick()}>{Loading ? <ButtonSpinnerIcon /> : `회원 가입`}</Button>
                             <AuthButton>
                                 아이디가 존재 한가요?
                                 <AuthText onClick={() => LoginButtonClick()}>로그인</AuthText>
