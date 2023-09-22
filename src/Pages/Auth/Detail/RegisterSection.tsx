@@ -1,9 +1,5 @@
 import { PageStyles } from '@Styles';
-import { /*useEffect,*/ useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AuthService } from '@Modules';
-import { useLayout } from '@Hooks';
-import { emailValidate } from '@Helper';
+import { ChangeEvent, KeyboardEvent, MutableRefObject } from 'react';
 
 const {
     Container,
@@ -21,227 +17,23 @@ const {
     ErrorMessage,
 } = PageStyles.Auth.AuthStyles;
 
-const { EmailCheckStatus, NicknameCheckStatus, joinupStatus } = AuthService;
-
-const pageInitializeState = {
-    checkState: {
-        status: false,
-        type: null,
-        message: ``,
-    },
-    joinupState: {
-        email: '',
-        password: '',
-        passwordConfirm: '',
-        nickname: '',
-    },
-};
-
-const RegisterSection = () => {
-    const navigate = useNavigate();
-    const { HandleMainAlert } = useLayout();
-
-    const [pageState, setPageState] = useState<{
-        checkState: {
-            status: boolean;
-            type: null | string | `email` | `password` | `passwordConfirm` | `nickname`;
-            message: string;
-        };
-        joinupState: {
-            email: string;
-            password: string;
-            passwordConfirm: string;
-            nickname: string;
-        };
-    }>(pageInitializeState);
-
-    const joinupHandler = (e: { target: { name: string; value: string } }) => {
-        const { name, value } = e.target;
-        setPageState(prev => ({
-            ...prev,
-            joinupState: {
-                ...prev.joinupState,
-                [name]: value,
-            },
-        }));
-    };
-
-    const emailCheck = async () => {
-        const email = pageState.joinupState.email;
-
-        const { status, payload } = await EmailCheckStatus(email);
-
-        if (status) {
-            if (payload.exist) {
-                setPageState(prev => ({
-                    ...prev,
-                    checkState: {
-                        ...prev.checkState,
-                        status: true,
-                        type: `email`,
-                        message: `이미 사용중인 이메일 주소 입니다.`,
-                    },
-                }));
-            }
-            return;
-        }
-    };
-
-    const nicknameCheck = async () => {
-        const nickname = pageState.joinupState.nickname;
-
-        const { status, payload } = await NicknameCheckStatus(nickname);
-
-        if (status) {
-            if (payload.exist) {
-                setPageState(prev => ({
-                    ...prev,
-                    checkState: {
-                        ...prev.checkState,
-                        status: true,
-                        type: `nickname`,
-                        message: `이미 사용중인 닉네임 입니다.`,
-                    },
-                }));
-                return;
-            } else {
-                joinupCheck();
-            }
-        }
-    };
-
-    const joinupCheck = async () => {
-        const email = pageState.joinupState.email;
-        const password = pageState.joinupState.password;
-        const nickname = pageState.joinupState.nickname;
-
-        const { status, payload, message } = await joinupStatus(email, password, nickname);
-
-        if (status) {
-            if (!payload) {
-                setPageState(prev => ({
-                    ...prev,
-                    checkState: {
-                        ...prev.checkState,
-                        status: true,
-                        message: message,
-                    },
-                }));
-                return;
-            } else {
-                setPageState(prevState => ({
-                    ...prevState,
-                    joinupState: pageInitializeState.joinupState,
-                }));
-                HandleMainAlert({
-                    state: true,
-                    message: `회원가입이 완료되었습니다.`,
-                });
-                navigate('/bora/messenger');
-            }
-        }
-    };
-
-    const joinUp = () => {
-        if (!pageState.joinupState.email) {
-            setPageState(prev => ({
-                ...prev,
-                checkState: {
-                    ...prev.checkState,
-                    status: true,
-                    type: `email`,
-                    message: `이메일을 입력해 주세요`,
-                },
-            }));
-            return;
-        }
-
-        const email = pageState.joinupState.email;
-
-        if (!emailValidate(email)) {
-            //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
-            setPageState(prev => ({
-                ...prev,
-                checkState: {
-                    ...prev.checkState,
-                    status: true,
-                    type: `email`,
-                    message: `정확한 이메일을 입력해 주세요`,
-                },
-            }));
-            return;
-        }
-
-        emailCheck();
-
-        if (!pageState.joinupState.password) {
-            setPageState(prev => ({
-                ...prev,
-                checkState: {
-                    ...prev.checkState,
-                    status: true,
-                    type: `password`,
-                    message: `비밀번호를 입력해 주세요`,
-                },
-            }));
-            return;
-        }
-
-        if (pageState.joinupState.password.length < 4 || pageState.joinupState.password.length > 15) {
-            setPageState(prev => ({
-                ...prev,
-                checkState: {
-                    ...prev.checkState,
-                    status: true,
-                    type: `password`,
-                    message: `비밀번호는 4~15자 이내여야 합니다.`,
-                },
-            }));
-            return;
-        }
-
-        if (!pageState.joinupState.passwordConfirm) {
-            setPageState(prev => ({
-                ...prev,
-                checkState: {
-                    ...prev.checkState,
-                    status: true,
-                    type: `passwordConfirm`,
-                    message: `비밀번호를 입력해 주세요.`,
-                },
-            }));
-            return;
-        }
-
-        if (pageState.joinupState.password !== pageState.joinupState.passwordConfirm) {
-            setPageState(prev => ({
-                ...prev,
-                checkState: {
-                    ...prev.checkState,
-                    status: true,
-                    type: `passwordConfirm`,
-                    message: `비밀번호가 일치하지 않습니다.`,
-                },
-            }));
-            return;
-        }
-
-        if (!pageState.joinupState.nickname) {
-            setPageState(prev => ({
-                ...prev,
-                checkState: {
-                    ...prev.checkState,
-                    status: true,
-                    type: `nickname`,
-                    message: `닉네임을 입력헤주세요.`,
-                },
-            }));
-            return;
-        }
-
-        nicknameCheck();
-    };
-
+const RegisterSection = ({
+    InputValue,
+    JoinupHandler,
+    CheckState,
+    HandleJoinupButtonClick,
+    LoginButtonClick,
+    EnterRef,
+    HandleOnKeyDown,
+}: {
+    InputValue: { email: string; password: string; passwordConfirm: string; nickname: string };
+    JoinupHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+    CheckState: { status: boolean; type: null | string | `email` | `password` | `passwordConfirm` | `nickname`; message: string };
+    HandleJoinupButtonClick: () => void;
+    LoginButtonClick: () => void;
+    EnterRef: MutableRefObject<HTMLInputElement[]>;
+    HandleOnKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
+}) => {
     return (
         <Container>
             <Wapper>
@@ -257,11 +49,13 @@ const RegisterSection = () => {
                                     id="email"
                                     placeholder="name@company.com"
                                     required={false}
-                                    value={pageState.joinupState.email}
-                                    onChange={e => joinupHandler(e)}
+                                    value={InputValue.email}
+                                    onChange={e => JoinupHandler(e)}
+                                    ref={el => (EnterRef.current[0] = el as HTMLInputElement)}
+                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
                                 />
-                                {pageState.checkState.status && pageState.checkState.type === 'email' ? (
-                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
+                                {CheckState.status && CheckState.type === 'email' ? (
+                                    <ErrorMessage>{`${CheckState.message}`}</ErrorMessage>
                                 ) : null}
                             </InputItem>
                             <InputItem>
@@ -272,13 +66,15 @@ const RegisterSection = () => {
                                     id="password"
                                     placeholder="••••••••"
                                     required={false}
-                                    value={pageState.joinupState.password}
-                                    onChange={e => joinupHandler(e)}
+                                    value={InputValue.password}
+                                    onChange={e => JoinupHandler(e)}
                                     minLength={4}
                                     maxLength={15}
+                                    ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
+                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
                                 />
-                                {pageState.checkState.status && pageState.checkState.type === 'password' ? (
-                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
+                                {CheckState.status && CheckState.type === 'password' ? (
+                                    <ErrorMessage>{`${CheckState.message}`}</ErrorMessage>
                                 ) : null}
                             </InputItem>
                             <InputItem>
@@ -289,11 +85,13 @@ const RegisterSection = () => {
                                     id="passwordConfirm"
                                     placeholder="••••••••"
                                     required={false}
-                                    value={pageState.joinupState.passwordConfirm}
-                                    onChange={e => joinupHandler(e)}
+                                    value={InputValue.passwordConfirm}
+                                    onChange={e => JoinupHandler(e)}
+                                    ref={el => (EnterRef.current[2] = el as HTMLInputElement)}
+                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
                                 />
-                                {pageState.checkState.status && pageState.checkState.type === 'passwordConfirm' ? (
-                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
+                                {CheckState.status && CheckState.type === 'passwordConfirm' ? (
+                                    <ErrorMessage>{`${CheckState.message}`}</ErrorMessage>
                                 ) : null}
                             </InputItem>
                             <InputItem>
@@ -304,31 +102,19 @@ const RegisterSection = () => {
                                     id="nickname"
                                     placeholder="••••••••"
                                     required={false}
-                                    value={pageState.joinupState.nickname}
-                                    onChange={e => joinupHandler(e)}
+                                    value={InputValue.nickname}
+                                    onChange={e => JoinupHandler(e)}
+                                    ref={el => (EnterRef.current[3] = el as HTMLInputElement)}
+                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
                                 />
-                                {pageState.checkState.status && pageState.checkState.type === 'nickname' ? (
-                                    <ErrorMessage>{`${pageState.checkState.message}`}</ErrorMessage>
+                                {CheckState.status && CheckState.type === 'nickname' ? (
+                                    <ErrorMessage>{`${CheckState.message}`}</ErrorMessage>
                                 ) : null}
                             </InputItem>
-                            <Button
-                                onClick={() => {
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        checkState: pageInitializeState.checkState,
-                                    }));
-                                    joinUp();
-                                }}>
-                                회원 가입
-                            </Button>
+                            <Button onClick={() => HandleJoinupButtonClick()}>회원 가입</Button>
                             <AuthButton>
                                 아이디가 존재 한가요?
-                                <AuthText
-                                    onClick={() => {
-                                        navigate('/auth/login');
-                                    }}>
-                                    로그인
-                                </AuthText>
+                                <AuthText onClick={() => LoginButtonClick()}>로그인</AuthText>
                             </AuthButton>
                         </AuthForm>
                     </FormBox>
