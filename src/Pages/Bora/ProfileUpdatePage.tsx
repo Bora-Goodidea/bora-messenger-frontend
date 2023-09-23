@@ -1,20 +1,19 @@
 import { Helmet } from 'react-helmet-async';
 import Const from '@Const';
-import MainContainer from './Detail/MainContainer';
+import ProfileUpdateMain from './Detail/ProfileUpdateMain';
 
-const pageName = `회원가입`;
+const pageName = `프로필 수정`;
 
-const MessengerPage = () => {
+const ProfileUpdatePage = () => {
     return (
         <>
             <Helmet>
                 <title>{`${Const.Site.title} | ${pageName}`}</title>
                 <meta name="description" content={`${pageName} 페이지`} />
             </Helmet>
-
-            <MainContainer />
+            <ProfileUpdateMain />
         </>
     );
 };
 
-export default MessengerPage;
+export default ProfileUpdatePage;
