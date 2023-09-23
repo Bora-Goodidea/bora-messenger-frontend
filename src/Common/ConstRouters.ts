@@ -31,7 +31,7 @@ export default {
         {
             page: `profile-update`,
             name: `프로필 수정`,
-            pathName: `/profil-update`,
+            pathName: `/profile-update`,
             Component: React.lazy(() => import('@Page/Bora/ProfileUpdatePage')),
         },
     ],
