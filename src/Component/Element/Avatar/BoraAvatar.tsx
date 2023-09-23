@@ -8,15 +8,22 @@ const BoraAvatar = ({
     AvataAltString,
     AvatarShadow,
     AvatarSize,
+    AvatarOnclick,
 }: {
     AvatarShadow: boolean;
     AvatarUrl: string;
     AvataAltString: string;
     AvatarSize: AvatarStyleSizeType;
+    AvatarOnclick?: () => void;
 }) => {
     return (
         <Wapper AvatarSize={AvatarSize ? AvatarSize : `default`}>
-            <AvatarImage Shadow={AvatarShadow ? AvatarShadow : false} src={AvatarUrl} alt={AvataAltString} />
+            <AvatarImage
+                Shadow={AvatarShadow ? AvatarShadow : false}
+                src={AvatarUrl}
+                alt={AvataAltString}
+                onClick={() => AvatarOnclick && AvatarOnclick()}
+            />
         </Wapper>
     );
 };
