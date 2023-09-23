@@ -161,12 +161,12 @@ export const removeLoginToken = (): void => {
 /**
  * RefreshToken 리턴
  */
-export const getRefreshToken = (): string => storageMaster.get(`refreshToken`);
+export const getRefreshToken = (): string => storageMaster.get(`refresh_token`);
 
 /**
  * AccessToken 저장
  */
-export const getAccessToken = (): string => storageMaster.get(`accessToken`);
+export const getAccessToken = (): string => storageMaster.get(`access_token`);
 
 /**
  * 이메일 유효성 검사
