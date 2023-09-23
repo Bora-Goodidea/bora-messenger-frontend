@@ -25,7 +25,7 @@ export const axiosDefaultHeader: AxiosRequestConfig = {
         'Access-Control-Allow-Origin': '*',
         'Client-Type': lodash.isUndefined(process.env.REACT_APP_CLIENT_TYPE) ? '' : process.env.REACT_APP_CLIENT_TYPE,
         Accept: 'application/json',
-        Authorization: '',
+        Authorization: getAccessToken() ? `Bareer ${getAccessToken()}` : '',
     },
 };
 
