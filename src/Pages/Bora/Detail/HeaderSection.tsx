@@ -7,7 +7,7 @@ const { Title, NewMessage } = PageStyles.Bora.MessengerStyles.HeaderSection;
 
 const HeaderSection = () => {
     const navigate = useNavigate();
-    console.log('1');
+
     return (
         <>
             <BoraAvatar
