@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Const from '@Const';
-import MainContainer from './Detail/MainContainer';
+import MessengerMain from './Detail/MessengerMain';
 
 const pageName = `회원가입`;
 
@@ -12,7 +12,7 @@ const MessengerPage = () => {
                 <meta name="description" content={`${pageName} 페이지`} />
             </Helmet>
 
-            <MainContainer />
+            <MessengerMain />
         </>
     );
 };

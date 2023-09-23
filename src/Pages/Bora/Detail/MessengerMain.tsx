@@ -3,7 +3,7 @@ import { PageStyles } from '@Styles';
 
 const { LeftContainer, RightContainer, ActiveUsersBox, HeaderBox, SearchBox, ContactsBox } = PageStyles.Bora.MessengerStyles.Container;
 
-const MainContainer = () => {
+const MessengerMain = () => {
     return (
         <>
             <LeftContainer>
@@ -27,4 +27,4 @@ const MainContainer = () => {
     );
 };
 
-export default MainContainer;
+export default MessengerMain;
