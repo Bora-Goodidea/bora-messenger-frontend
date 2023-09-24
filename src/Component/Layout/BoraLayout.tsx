@@ -20,7 +20,7 @@ const BoraLayout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!handleAuthCkeck()) {
+        if (!handleAuthCkeck({ tokenCheck: false })) {
             HandleMainAlert({
                 state: true,
                 type: `move`,

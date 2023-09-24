@@ -45,9 +45,12 @@ const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `
     }, [rootState.systemStatus.notice, setRootState]);
 
     useEffect(() => {
+        const authCheck = async () => {
+            await handleAuthCkeck({ tokenCheck: true });
+        };
+
         if (rootState.systemStatus.data) {
-            const loginCheck = handleAuthCkeck();
-            console.debug('loginCheck', loginCheck);
+            authCheck().then();
         }
 
         // FIXME : 종속성에서 Data1, Data2 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
