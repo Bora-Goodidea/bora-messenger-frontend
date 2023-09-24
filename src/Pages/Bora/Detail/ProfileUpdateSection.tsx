@@ -1,4 +1,5 @@
 import { PageStyles } from '@Styles';
+import { ChangeEvent, KeyboardEvent, MutableRefObject } from 'react';
 
 const {
     Container,
@@ -18,7 +19,21 @@ const {
     ProfileInputLabel,
 } = PageStyles.Bora.ProfileUpdateStyles;
 
-const ProfileUpdateSection = () => {
+const ProfileUpdateSection = ({
+    // Loading,
+    InputValue,
+    // CheckState,
+    handleProfileUpdateChange,
+    EnterRef,
+    HandleOnKeyDown,
+}: {
+    Loading: boolean;
+    InputValue: { profileImage: string; email: string; nickname: string };
+    handleProfileUpdateChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    CheckState: { status: boolean; type: null | string | `profileImage` | `email` | `nickname`; message: string };
+    EnterRef: MutableRefObject<HTMLInputElement[]>;
+    HandleOnKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
+}) => {
     return (
         <Container>
             <Wapper>
@@ -35,11 +50,30 @@ const ProfileUpdateSection = () => {
                         <AuthForm>
                             <InputItem>
                                 <InputLabel form="email">이메일 주소</InputLabel>
-                                <Input type="email" name="email" id="email" placeholder="name@company.com" required={false} value={''} />
+                                <Input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    value={InputValue.email}
+                                    ref={el => (EnterRef.current[0] = el as HTMLInputElement)}
+                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                    style={{ color: 'gray' }}
+                                    readOnly
+                                />
                             </InputItem>
                             <InputItem>
                                 <InputLabel htmlFor="nickname">닉네임</InputLabel>
-                                <Input type="nickname" name="nickname" id="nickname" placeholder="••••••••" required={false} />
+                                <Input
+                                    type="nickname"
+                                    name="nickname"
+                                    id="nickname"
+                                    placeholder="••••••••"
+                                    required={false}
+                                    value={InputValue.nickname}
+                                    onChange={e => handleProfileUpdateChange(e)}
+                                    ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
+                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                />
                             </InputItem>
                             <Button onClick={() => console.log()}>프로필 수정</Button>
                         </AuthForm>
