@@ -92,7 +92,7 @@ export default {
             FormWapper: tw.div`w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700`,
             FormBox: tw.div`p-6 space-y-4 md:space-y-6 sm:p-8`,
             TitleBox: tw.h1`flex justify-center text-xl  font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white`,
-            AuthForm: tw.div`space-y-4 md:space-y-6`,
+            AuthForm: tw.form`space-y-4 md:space-y-6`,
             InputItem: tw.div``,
             InputLabel: tw.label`block mb-2 text-sm font-medium text-gray-900 dark:text-white`,
             Input: tw.input`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`,

@@ -52,7 +52,7 @@ const LoginSection = ({
                 <FormWapper>
                     <FormBox>
                         <TitleBox>로그인</TitleBox>
-                        <AuthForm>
+                        <AuthForm onSubmit={e => e.preventDefault()}>
                             <InputItem>
                                 <InputLabel htmlFor="email">이메일</InputLabel>
                                 <Input
@@ -82,6 +82,7 @@ const LoginSection = ({
                                     onChange={e => LoginHandler(e)}
                                     ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
                                     onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                    autoComplete={`off`}
                                 />
                                 {CheckState.status && CheckState.type === 'password' ? (
                                     <ErrorMessage>{`${CheckState.message}`}</ErrorMessage>

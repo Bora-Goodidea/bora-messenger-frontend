@@ -39,7 +39,7 @@ const PasswordChangeSection = ({
                     <FormWapper>
                         <FormBox>
                             <TitleBox>비밀 번호 변경</TitleBox>
-                            <AuthForm>
+                            <AuthForm onSubmit={e => e.preventDefault()}>
                                 <InputItem>
                                     <InputLabel htmlFor="password">비밀 번호</InputLabel>
                                     <Input
@@ -53,6 +53,7 @@ const PasswordChangeSection = ({
                                         maxLength={15}
                                         ref={el => (EnterRef.current[0] = el as HTMLInputElement)}
                                         onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                        autoComplete={`off`}
                                     />
                                     {InputError.status && InputError.type === 'password' ? (
                                         <ErrorMessage>{`${InputError.message}`}</ErrorMessage>
@@ -71,6 +72,7 @@ const PasswordChangeSection = ({
                                         maxLength={15}
                                         ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
                                         onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                        autoComplete={`off`}
                                     />
                                     {InputError.status && InputError.type === 'passwordConfirm' ? (
                                         <ErrorMessage>{`${InputError.message}`}</ErrorMessage>

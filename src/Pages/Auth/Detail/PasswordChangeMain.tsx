@@ -76,7 +76,9 @@ const PasswordChangeMain = () => {
         if (status) {
             HandleMainAlert({
                 state: true,
+                type: `move`,
                 message: Messages.Common.success,
+                action: `/auth/login`,
             });
         } else {
             HandleMainAlert({
@@ -190,7 +192,9 @@ const PasswordChangeMain = () => {
         if (params.ResetCode) {
             pageStart(params.ResetCode);
         }
-    }, [handlePasswordResetCodeCheck, params]);
+        // FIXME : 종속성에서 handlePasswordResetCodeCheck 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [params]);
 
     return (
         <PasswordChangeSection

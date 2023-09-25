@@ -4,7 +4,8 @@ export default {
     DafalutLayoutStyle: {
         MainContainer: tw.div`flex-1 flex flex-col h-screen w-full antialiased text-gray-800 bg-white overflow-hidden`,
         MainWapper: tw.div`flex w-full flex-col items-center justify-center`,
-        BllankWapper: tw.div`flex h-screen w-full flex-col items-center justify-center`,
+        BlankMainWapper: tw.div``,
+        BlankWapper: tw.div`flex h-screen w-full flex-col items-center justify-center`,
         BoraLayoutStyle: {
             Wapper: tw.div`flex-1 flex flex-col`,
             IconWapper: tw.div`border-b-2 p-2 flex flex-row z-20`,

@@ -3,7 +3,6 @@ import { PasswordResetSection } from '.';
 import { emailValidate } from '@Helper';
 import { AuthService } from '@Modules';
 import Messages from '@Messages';
-import { useNavigate } from 'react-router-dom';
 import { useLayout } from '@Hooks';
 
 const { PasswordReset } = AuthService;
@@ -18,7 +17,6 @@ const PasswordResetMain = () => {
         loading: boolean;
         email: string;
     }>(pageInitializeState);
-    const navigate = useNavigate();
     const { HandleMainAlert } = useLayout();
 
     const handlePasswordReset = async () => {
@@ -31,18 +29,19 @@ const PasswordResetMain = () => {
 
         const { status, message, payload } = await PasswordReset({ email: email });
         if (status) {
-            HandleMainAlert({
-                state: true,
-                message: Messages.Common.passwordResetSuccess,
-            });
-
             if (process.env.REACT_APP_ENV === 'local') {
-                navigate({
-                    pathname: process.env.PUBLIC_URL + `/auth/${payload.resetcode}/password-change`,
+                HandleMainAlert({
+                    state: true,
+                    type: `move`,
+                    message: Messages.Common.passwordResetSuccess,
+                    action: `/auth/${payload.resetcode}/password-change`,
                 });
             } else {
-                navigate({
-                    pathname: process.env.PUBLIC_URL + `/auth/login`,
+                HandleMainAlert({
+                    state: true,
+                    type: `move`,
+                    message: Messages.Common.passwordResetSuccess,
+                    action: `/auth/login`,
                 });
             }
         } else {

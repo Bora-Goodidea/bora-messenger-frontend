@@ -23,7 +23,7 @@ const PasswordResetSection = ({
                 <FormWapper>
                     <FormBox>
                         <TitleBox>비밀번호 변경 요청</TitleBox>
-                        <AuthForm>
+                        <AuthForm onSubmit={e => e.preventDefault()}>
                             <InputItem>
                                 <InputLabel htmlFor="email">이메일</InputLabel>
                                 <Input

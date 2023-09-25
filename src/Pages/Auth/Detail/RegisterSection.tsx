@@ -43,7 +43,7 @@ const RegisterSection = ({
                 <FormWapper>
                     <FormBox>
                         <TitleBox>회원 가입</TitleBox>
-                        <AuthForm>
+                        <AuthForm onSubmit={e => e.preventDefault()}>
                             <InputItem>
                                 <InputLabel form="email">이메일 주소</InputLabel>
                                 <Input
@@ -75,6 +75,7 @@ const RegisterSection = ({
                                     maxLength={15}
                                     ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
                                     onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                    autoComplete={`off`}
                                 />
                                 {CheckState.status && CheckState.type === 'password' ? (
                                     <ErrorMessage>{`${CheckState.message}`}</ErrorMessage>
@@ -92,6 +93,7 @@ const RegisterSection = ({
                                     onChange={e => JoinupHandler(e)}
                                     ref={el => (EnterRef.current[2] = el as HTMLInputElement)}
                                     onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                    autoComplete={`off`}
                                 />
                                 {CheckState.status && CheckState.type === 'passwordConfirm' ? (
                                     <ErrorMessage>{`${CheckState.message}`}</ErrorMessage>
