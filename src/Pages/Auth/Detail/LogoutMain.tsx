@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { AtomRootState } from '@Recoil/AppRootState';
 import { useNavigate } from 'react-router-dom';
 
-const { MainContainer, BllankWapper } = LayoutStyles.DafalutLayoutStyle;
+const { BllankWapper } = LayoutStyles.DafalutLayoutStyle;
 
 const LogoutMain = () => {
     const atomRootState = useRecoilValue(AtomRootState);
@@ -35,11 +35,9 @@ const LogoutMain = () => {
     }, []);
 
     return (
-        <MainContainer>
-            <BllankWapper>
-                <DefaultSpinner />
-            </BllankWapper>
-        </MainContainer>
+        <BllankWapper>
+            <DefaultSpinner />
+        </BllankWapper>
     );
 };
 

@@ -1,4 +1,3 @@
-import { LayoutStyles } from '@Styles';
 import { RegisterSection } from '.';
 import { KeyboardEvent, useRef, useState } from 'react';
 import { emailValidate } from '@Helper';
@@ -8,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import Messages from '@Messages';
 
 const { EmailCheckStatus, NicknameCheckStatus, joinupStatus } = AuthService;
-
-const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 
 const pageInitializeState = {
     loading: false,
@@ -265,18 +262,16 @@ const RegisterMain = () => {
     };
 
     return (
-        <MainContainer>
-            <RegisterSection
-                Loading={pageState.loading}
-                InputValue={pageState.joinupState}
-                CheckState={pageState.checkState}
-                JoinupHandler={e => joinupHandler(e)}
-                HandleJoinupButtonClick={() => handleJoinupButtonClick()}
-                LoginButtonClick={() => handleLoginButtonClick()}
-                EnterRef={enterInputRef}
-                HandleOnKeyDown={e => HandleOnKeyDown(e)}
-            />
-        </MainContainer>
+        <RegisterSection
+            Loading={pageState.loading}
+            InputValue={pageState.joinupState}
+            CheckState={pageState.checkState}
+            JoinupHandler={e => joinupHandler(e)}
+            HandleJoinupButtonClick={() => handleJoinupButtonClick()}
+            LoginButtonClick={() => handleLoginButtonClick()}
+            EnterRef={enterInputRef}
+            HandleOnKeyDown={e => HandleOnKeyDown(e)}
+        />
     );
 };
 

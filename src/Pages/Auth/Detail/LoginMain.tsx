@@ -1,4 +1,3 @@
-import { LayoutStyles } from '@Styles';
 import { LoginSection } from '.';
 import { useNavigate } from 'react-router-dom';
 import { useLayout, useAuth } from '@Hooks';
@@ -9,8 +8,6 @@ import { emailValidate, storageMaster } from '@Helper';
 import { useRecoilValue } from 'recoil';
 import { AtomRootState } from '@Recoil/AppRootState';
 import Const from '@Const';
-
-const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 
 const pageInitializeState = {
     loading: false,
@@ -187,7 +184,7 @@ const LoginMain = () => {
     }, []);
 
     return (
-        <MainContainer>
+        <>
             <LoginSection
                 Loading={pageState.loading}
                 InputValue={pageState.loginState}
@@ -200,7 +197,7 @@ const LoginMain = () => {
                 EnterRef={enterInputRef}
                 HandleOnKeyDown={e => HandleOnKeyDown(e)}
             />
-        </MainContainer>
+        </>
     );
 };
 

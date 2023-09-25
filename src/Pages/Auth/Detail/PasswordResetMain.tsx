@@ -1,5 +1,4 @@
 import { useState, KeyboardEvent } from 'react';
-import { LayoutStyles } from '@Styles';
 import { PasswordResetSection } from '.';
 import { emailValidate } from '@Helper';
 import { AuthService } from '@Modules';
@@ -8,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { useLayout } from '@Hooks';
 
 const { PasswordReset } = AuthService;
-
-const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 
 const pageInitializeState = {
     loading: false,
@@ -89,20 +86,18 @@ const PasswordResetMain = () => {
     };
 
     return (
-        <MainContainer>
-            <PasswordResetSection
-                Loading={pageState.loading}
-                InputValue={pageState.email}
-                HandleOnChange={v =>
-                    setPageState(prevState => ({
-                        ...prevState,
-                        email: v,
-                    }))
-                }
-                HandleClickButton={() => handleClickButton()}
-                HandleOnKeyDown={e => HandleOnKeyDown(e)}
-            />
-        </MainContainer>
+        <PasswordResetSection
+            Loading={pageState.loading}
+            InputValue={pageState.email}
+            HandleOnChange={v =>
+                setPageState(prevState => ({
+                    ...prevState,
+                    email: v,
+                }))
+            }
+            HandleClickButton={() => handleClickButton()}
+            HandleOnKeyDown={e => HandleOnKeyDown(e)}
+        />
     );
 };
 

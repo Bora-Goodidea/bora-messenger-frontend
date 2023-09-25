@@ -5,7 +5,6 @@ import { LayoutStyles } from '@Style/index';
 import { DefaultSpinner, LoginIcon } from '@Icons';
 import Messages from '@Messages';
 
-const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 const { Section, Container, Wapper, SubText, BackIcon, BackButton } = LayoutStyles.EmailAutPageStyle;
 
 const { EmailAuth: EmailAuthService } = AuthService;
@@ -52,27 +51,25 @@ const EmailAuthMain = () => {
 
     return (
         <>
-            <MainContainer>
-                {pageState.loading ? (
-                    <DefaultSpinner />
-                ) : (
-                    <Section>
-                        <Container>
-                            <Wapper>
-                                <SubText>{pageState.message}</SubText>
+            {pageState.loading ? (
+                <DefaultSpinner />
+            ) : (
+                <Section>
+                    <Container>
+                        <Wapper>
+                            <SubText>{pageState.message}</SubText>
 
-                                <BackIcon onClick={() => navigate(`${process.env.PUBLIC_URL}/auth/login`)}>
-                                    <BackButton>
-                                        <LoginIcon />
+                            <BackIcon onClick={() => navigate(`${process.env.PUBLIC_URL}/auth/login`)}>
+                                <BackButton>
+                                    <LoginIcon />
 
-                                        <span>로그인</span>
-                                    </BackButton>
-                                </BackIcon>
-                            </Wapper>
-                        </Container>
-                    </Section>
-                )}
-            </MainContainer>
+                                    <span>로그인</span>
+                                </BackButton>
+                            </BackIcon>
+                        </Wapper>
+                    </Container>
+                </Section>
+            )}
         </>
     );
 };

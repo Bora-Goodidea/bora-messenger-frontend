@@ -1,14 +1,11 @@
 import React, { ChangeEvent, useEffect, useState, useRef, KeyboardEvent, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { LayoutStyles } from '@Styles';
 import { PasswordChangeSection } from '.';
 import { AuthService } from '@Modules';
 import Messages from '@Messages';
 import { useLayout } from '@Hooks';
 
 const { PasswordResetCodeCheck, PasswordChange } = AuthService;
-
-const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 
 const pageInitializeState = {
     pageLoading: true,
@@ -196,19 +193,17 @@ const PasswordChangeMain = () => {
     }, [handlePasswordResetCodeCheck, params]);
 
     return (
-        <MainContainer>
-            <PasswordChangeSection
-                PageLoading={pageState.pageLoading}
-                PasswordValue={pageState.input.password}
-                PasswordConfirmValue={pageState.input.passwordConfirm}
-                HandleOnChange={e => handleOnChange(e)}
-                InputError={pageState.inputError}
-                EnterRef={enterInputRef}
-                HandleOnKeyDown={e => HandleOnKeyDown(e)}
-                HandleClickButton={() => handleClickButton()}
-                ChangeLoading={pageState.changeLoading}
-            />
-        </MainContainer>
+        <PasswordChangeSection
+            PageLoading={pageState.pageLoading}
+            PasswordValue={pageState.input.password}
+            PasswordConfirmValue={pageState.input.passwordConfirm}
+            HandleOnChange={e => handleOnChange(e)}
+            InputError={pageState.inputError}
+            EnterRef={enterInputRef}
+            HandleOnKeyDown={e => HandleOnKeyDown(e)}
+            HandleClickButton={() => handleClickButton()}
+            ChangeLoading={pageState.changeLoading}
+        />
     );
 };
 
