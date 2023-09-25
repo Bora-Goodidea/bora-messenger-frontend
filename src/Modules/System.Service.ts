@@ -19,4 +19,16 @@ export default {
             payload: null,
         });
     },
+    ServiceGeSystemNotice: (): Promise<
+        ServicesResult<{
+            notice: string;
+        }>
+    > => {
+        // 서버 기본 데이터
+        return Axios({
+            method: 'get',
+            url: `/api/system/notice`,
+            payload: null,
+        });
+    },
 };
