@@ -42,19 +42,6 @@ const BoraLayout = () => {
     return (
         <MainContainer>
             <Wapper>
-                <BoraAlert
-                    AlertState={atomLayoutState.mainAlert.state}
-                    AlertMessage={atomLayoutState.mainAlert.message}
-                    ButtonClick={() => {
-                        const { type, action } = atomLayoutState.mainAlert;
-                        HandleMainAlert({ state: false });
-                        if (type === `move` && action) {
-                            navigate({
-                                pathname: `${process.env.PUBLIC_URL}${action}`,
-                            });
-                        }
-                    }}
-                />
                 <IconWapper>
                     <IconStep1 onClick={() => handleLoGoutButtonClick()}></IconStep1>
                     <IconStep2></IconStep2>
@@ -64,6 +51,19 @@ const BoraLayout = () => {
                     <Outlet />
                 </MainWapper>
             </Wapper>
+            <BoraAlert
+                AlertState={atomLayoutState.mainAlert.state}
+                AlertMessage={atomLayoutState.mainAlert.message}
+                ButtonClick={() => {
+                    const { type, action } = atomLayoutState.mainAlert;
+                    HandleMainAlert({ state: false });
+                    if (type === `move` && action) {
+                        navigate({
+                            pathname: `${process.env.PUBLIC_URL}${action}`,
+                        });
+                    }
+                }}
+            />
         </MainContainer>
     );
 };

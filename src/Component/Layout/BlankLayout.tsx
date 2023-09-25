@@ -17,6 +17,9 @@ const BlankLayout = () => {
     return (
         <MainContainer>
             <Wapper>
+                <MainWapper>
+                    <Outlet />
+                </MainWapper>
                 <BoraAlert
                     AlertState={atomLayoutState.mainAlert.state}
                     AlertMessage={atomLayoutState.mainAlert.message}
@@ -30,9 +33,6 @@ const BlankLayout = () => {
                         }
                     }}
                 />
-                <MainWapper>
-                    <Outlet />
-                </MainWapper>
             </Wapper>
         </MainContainer>
     );
