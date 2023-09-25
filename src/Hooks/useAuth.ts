@@ -21,8 +21,8 @@ export default function useAuth() {
             setAtomRootState(prevState => ({
                 ...prevState,
                 loginState: false,
-                systemStatus: {
-                    ...prevState.systemStatus,
+                appCheckStatus: {
+                    ...prevState.appCheckStatus,
                     login: true,
                 },
             }));
@@ -36,8 +36,8 @@ export default function useAuth() {
                 setAtomRootState(prevState => ({
                     ...prevState,
                     loginState: false,
-                    systemStatus: {
-                        ...prevState.systemStatus,
+                    appCheckStatus: {
+                        ...prevState.appCheckStatus,
                         login: true,
                     },
                 }));
@@ -49,8 +49,8 @@ export default function useAuth() {
         setAtomRootState(prevState => ({
             ...prevState,
             loginState: true,
-            systemStatus: {
-                ...prevState.systemStatus,
+            appCheckStatus: {
+                ...prevState.appCheckStatus,
                 login: true,
             },
         }));

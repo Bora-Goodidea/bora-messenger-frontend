@@ -2,7 +2,7 @@ import { BaseDataCodeStep1Item, BaseDataCodeStep2Item } from '@CommonType';
 
 export interface RootStateInterface {
     appState: boolean;
-    systemStatus: {
+    appCheckStatus: {
         server: boolean;
         notice: boolean;
         data: boolean;

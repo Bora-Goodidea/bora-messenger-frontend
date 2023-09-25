@@ -56,14 +56,14 @@ const handleTokenRefresh = (): Promise<{
                 refresh_token: refreshToken,
             })
             .then(({ data }: { data: TokenResultInterface }) => {
-                colorDebug('success', ':: Success Token Refresh :: ');
+                colorDebug('success', ':: Token Refresh Success :: ');
                 resolve({
                     access_token: data.result.access_token,
                     refresh_token: data.result.refresh_token,
                 });
             })
             .catch(() => {
-                colorDebug('error', ':: Error Token Refresh :: ');
+                colorDebug('error', ':: Token Refresh Error :: ');
                 reject({
                     access_token: '',
                     refresh_token: '',
@@ -190,13 +190,17 @@ const _axios_ = ({ method = 'post', url, payload }: serviceInterface): any => {
                     })
                     .catch(() => {
                         // 토큰 Refresh Error
-                        colorDebug('warning', ':: Fail Token Refresh :: ');
+                        colorDebug('warning', ':: Token Refresh Fail :: ');
                         removeLoginToken();
                         // processQueue(err, '');
-                        // reject(err);
+                        // resolve(err);
 
                         //로그인 유지 시간이 만료
                         colorDebug(`warning`, `로그인 유지 시간이 만료되었습니다.`);
+                        resolve({
+                            status: false,
+                            message: `로그인 유지 시간이 만료되었습니다.`,
+                        });
                     })
                     .finally(() => {
                         isRefreshing = false;

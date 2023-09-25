@@ -7,7 +7,6 @@ import { BoraAlert } from '@Elements';
 import { useLayout, useAuth } from '@Hooks';
 import { useNavigate } from 'react-router-dom';
 import { AtomLayoutState } from '@Recoil/LayoutState';
-import Messages from '@Messages';
 
 const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 const { Wapper, IconWapper, MainWapper, IconStep1, IconStep2, IconStep3 } = LayoutStyles.DafalutLayoutStyle.BoraLayoutStyle;
@@ -28,11 +27,8 @@ const BoraLayout = () => {
     useEffect(() => {
         const authCheck = async () => {
             if (!(await handleAuthCkeck({ tokenCheck: false }))) {
-                HandleMainAlert({
-                    state: true,
-                    type: `move`,
-                    message: Messages.Common.needLogin,
-                    action: `/auth/login`,
+                navigate({
+                    pathname: `${process.env.PUBLIC_URL}/auth/login`,
                 });
             }
         };

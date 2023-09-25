@@ -25,8 +25,8 @@ const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `
             if (status) {
                 setRootState(prevState => ({
                     ...prevState,
-                    systemStatus: {
-                        ...prevState.systemStatus,
+                    appCheckStatus: {
+                        ...prevState.appCheckStatus,
                         data: true,
                     },
                     rootData: {
@@ -39,39 +39,39 @@ const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `
             }
         };
 
-        if (rootState.systemStatus.notice) {
+        if (rootState.appCheckStatus.notice) {
             dataCheck().then();
         }
-    }, [rootState.systemStatus.notice, setRootState]);
+    }, [rootState.appCheckStatus.notice, setRootState]);
 
     useEffect(() => {
         const authCheck = async () => {
             await handleAuthCkeck({ tokenCheck: true });
         };
 
-        if (rootState.systemStatus.data) {
+        if (rootState.appCheckStatus.data) {
             authCheck().then();
         }
 
         // FIXME : 종속성에서 Data1, Data2 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [rootState.systemStatus.data]);
+    }, [rootState.appCheckStatus.data]);
 
     useEffect(() => {
         const noticeCheck = () => {
             setRootState(prevState => ({
                 ...prevState,
-                systemStatus: {
-                    ...prevState.systemStatus,
+                appCheckStatus: {
+                    ...prevState.appCheckStatus,
                     notice: true,
                 },
             }));
         };
 
-        if (rootState.systemStatus.server) {
+        if (rootState.appCheckStatus.server) {
             noticeCheck();
         }
-    }, [rootState.systemStatus.server, setRootState]);
+    }, [rootState.appCheckStatus.server, setRootState]);
 
     // 모두 체크후
     useEffect(() => {
@@ -84,11 +84,11 @@ const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `
             LodingControl(false);
         };
 
-        const { server, notice, data, login } = rootState.systemStatus;
+        const { server, notice, data, login } = rootState.appCheckStatus;
         if (server && notice && data && login) {
             endCheck();
         }
-    }, [rootState.systemStatus, LodingControl, setRootState]);
+    }, [rootState.appCheckStatus, LodingControl, setRootState]);
 
     useEffect(() => {
         const startCheck = async () => {
@@ -98,8 +98,8 @@ const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `
             if (status) {
                 setRootState(prevState => ({
                     ...prevState,
-                    systemStatus: {
-                        ...prevState.systemStatus,
+                    appCheckStatus: {
+                        ...prevState.appCheckStatus,
                         server: true,
                     },
                 }));

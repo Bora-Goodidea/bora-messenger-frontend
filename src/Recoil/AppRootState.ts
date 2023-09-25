@@ -18,7 +18,7 @@ export const AtomRootState = atom<RootStateInterface>({
     key: `app/RootState`,
     default: {
         appState: false,
-        systemStatus: {
+        appCheckStatus: {
             server: false,
             notice: false,
             data: false,
