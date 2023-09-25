@@ -1,3 +1,5 @@
+import Const from '@Const';
+
 /**
  * 컬러 콘솔 디버그
  * @param color
@@ -142,8 +144,8 @@ export const storageMaster = {
  * @param refreshToken
  */
 export const saveRefreshToken = ({ accessToken, refreshToken }: { accessToken: string; refreshToken: string }): void => {
-    storageMaster.set(`accessToken`, accessToken);
-    storageMaster.set(`refreshToken`, refreshToken);
+    storageMaster.set(Const.Naming.accessToken, accessToken);
+    storageMaster.set(Const.Naming.refreshToken, refreshToken);
 
     return;
 };
@@ -152,8 +154,8 @@ export const saveRefreshToken = ({ accessToken, refreshToken }: { accessToken: s
  * RefreshToken 삭제
  */
 export const removeLoginToken = (): void => {
-    storageMaster.remove(`accessToken`);
-    storageMaster.remove(`refreshToken`);
+    storageMaster.remove(Const.Naming.accessToken);
+    storageMaster.remove(Const.Naming.refreshToken);
 
     return;
 };
@@ -161,12 +163,12 @@ export const removeLoginToken = (): void => {
 /**
  * RefreshToken 리턴
  */
-export const getRefreshToken = (): string => storageMaster.get(`refresh_token`);
+export const getRefreshToken = (): string => storageMaster.get(Const.Naming.refreshToken);
 
 /**
  * AccessToken 저장
  */
-export const getAccessToken = (): string => storageMaster.get(`access_token`);
+export const getAccessToken = (): string => storageMaster.get(Const.Naming.accessToken);
 
 /**
  * 이메일 유효성 검사

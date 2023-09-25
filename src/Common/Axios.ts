@@ -2,9 +2,12 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } f
 import { colorDebug, saveRefreshToken, getRefreshToken, getAccessToken, removeLoginToken } from '@Helper';
 import lodash from 'lodash';
 
-export interface LocalTokenInterface {
-    access_token: string;
-    refresh_token: string;
+export interface TokenResultInterface {
+    messages: string;
+    result: {
+        access_token: string;
+        refresh_token: string;
+    };
 }
 
 // FIXME: 2021-02-09 00:04  console 에 에러 메시지 안보이게 처리...
@@ -29,7 +32,7 @@ export const axiosDefaultHeader: AxiosRequestConfig = {
     },
 };
 
-const setTokenData = ({ access_token, refresh_token }: LocalTokenInterface): void => {
+const setTokenData = ({ access_token, refresh_token }: { access_token: string; refresh_token: string }): void => {
     saveRefreshToken({
         accessToken: access_token,
         refreshToken: refresh_token,
@@ -40,20 +43,23 @@ const setTokenData = ({ access_token, refresh_token }: LocalTokenInterface): voi
  * refresh Token.
  * 토큰 리프레쉬
  */
-const handleTokenRefresh = (): Promise<LocalTokenInterface> => {
+const handleTokenRefresh = (): Promise<{
+    access_token: string;
+    refresh_token: string;
+}> => {
     colorDebug('warning', ':: Try Token Refresh :: ');
     const refreshToken = getRefreshToken();
     return new Promise((resolve, reject) => {
         const _thisAxios_: AxiosInstance = axios.create(axiosDefaultHeader);
         _thisAxios_
-            .post<LocalTokenInterface>(`${apiBaseURLL}/api/v1/auth/token-refresh`, {
+            .post<TokenResultInterface>(`${apiBaseURLL}/api/auth/token-refresh`, {
                 refresh_token: refreshToken,
             })
-            .then(({ data }) => {
+            .then(({ data }: { data: TokenResultInterface }) => {
                 colorDebug('success', ':: Success Token Refresh :: ');
                 resolve({
-                    access_token: data.access_token,
-                    refresh_token: data.refresh_token,
+                    access_token: data.result.access_token,
+                    refresh_token: data.result.refresh_token,
                 });
             })
             .catch(() => {
