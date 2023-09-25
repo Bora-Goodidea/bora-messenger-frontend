@@ -1,4 +1,4 @@
-import { LayoutStyles } from '@Styles';
+import { LayoutStyles, ElementStyles } from '@Styles';
 import { DefaultSpinner } from '@Icons';
 import { useEffect } from 'react';
 import { colorDebug } from '@Helper';
@@ -6,11 +6,14 @@ import { useRecoilState } from 'recoil';
 import { AtomRootState } from '@Recoil/AppRootState';
 import SystemService from '@Module/System.Service';
 import { useAuth } from '@Hooks';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
-const { ServiceGetBaseData, ServiceCheckStatus } = SystemService;
+const { ServiceGetBaseData, ServiceCheckStatus, ServiceGeSystemNotice } = SystemService;
 
 const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 const { Wapper, Text } = LayoutStyles.SplashComponentStyle;
+const { Title, Content } = ElementStyles.Sweetalert;
 
 /**
  * 최초 서버 상태 체크 -> 공지사항 체크 -> 데이터 조회
@@ -18,6 +21,7 @@ const { Wapper, Text } = LayoutStyles.SplashComponentStyle;
 const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `under`) => void }) => {
     const [rootState, setRootState] = useRecoilState(AtomRootState);
     const { handleAuthCkeck } = useAuth();
+    const MySwal = withReactContent(Swal);
 
     useEffect(() => {
         const dataCheck = async () => {
@@ -58,7 +62,15 @@ const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `
     }, [rootState.appCheckStatus.data]);
 
     useEffect(() => {
-        const noticeCheck = () => {
+        const noticeCheck = async () => {
+            const { payload } = await ServiceGeSystemNotice();
+            if (payload) {
+                MySwal.fire({
+                    title: <Title>공지 사항</Title>,
+                    html: <Content>{payload.notice}</Content>,
+                }).then();
+            }
+
             setRootState(prevState => ({
                 ...prevState,
                 appCheckStatus: {
@@ -69,8 +81,11 @@ const SplashComponent = ({ LodingControl }: { LodingControl: (state: boolean | `
         };
 
         if (rootState.appCheckStatus.server) {
-            noticeCheck();
+            noticeCheck().then();
         }
+
+        // FIXME : 종속성에서 MySwal 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rootState.appCheckStatus.server, setRootState]);
 
     // 모두 체크후

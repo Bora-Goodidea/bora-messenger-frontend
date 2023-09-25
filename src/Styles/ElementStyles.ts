@@ -160,4 +160,8 @@ export default {
         AlertButtonWapper: tw.div`w-full mt-10`,
         AlertButton: tw.div`text-white bg-sky-600 font-medium rounded-lg text-sm py-2.5 px-5 text-center hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 dark:bg-blue-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800`,
     },
+    Sweetalert: {
+        Title: tw.p`text-2xl`,
+        Content: tw.p`text-sm whitespace-pre-line text-left`,
+    },
 };
