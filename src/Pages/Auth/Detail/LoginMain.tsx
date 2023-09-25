@@ -8,6 +8,7 @@ import Messages from '@Messages';
 import { emailValidate, storageMaster } from '@Helper';
 import { useRecoilValue } from 'recoil';
 import { AtomRootState } from '@Recoil/AppRootState';
+import Const from '@Const';
 
 const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 
@@ -80,16 +81,13 @@ const LoginMain = () => {
             handleAuthTokenSave({ access_token: access_token, refresh_token: refresh_token });
 
             if (pageState.loginState.idRemember) {
-                storageMaster.set(`boraLoginId`, email);
+                storageMaster.set(Const.Naming.rememberId, email);
             } else {
-                storageMaster.remove(`boraLoginId`);
+                storageMaster.remove(Const.Naming.rememberId);
             }
 
-            HandleMainAlert({
-                state: true,
-                type: `move`,
-                message: Messages.Common.successLogin,
-                action: `/bora/messenger`,
+            navigate({
+                pathname: `${process.env.PUBLIC_URL}/bora/messenger`,
             });
         } else {
             setPageState(prev => ({
@@ -172,7 +170,7 @@ const LoginMain = () => {
 
     useEffect(() => {
         const pageStart = () => {
-            const loginId = storageMaster.get(`boraLoginId`);
+            const loginId = storageMaster.get(Const.Naming.rememberId);
             if (loginId && emailValidate(loginId)) {
                 setPageState(prevState => ({
                     ...prevState,

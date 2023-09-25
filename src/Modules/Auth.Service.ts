@@ -119,4 +119,17 @@ export default {
             },
         });
     },
+    getTokenInfo: (): Promise<
+        ServicesResult<{
+            email: string;
+            status: string;
+            level: string;
+        }>
+    > => {
+        return Axios({
+            method: 'get',
+            url: `/api/auth/token-info`,
+            payload: null,
+        });
+    },
 };

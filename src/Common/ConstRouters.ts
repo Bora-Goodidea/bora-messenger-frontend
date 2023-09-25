@@ -43,6 +43,12 @@ export default {
             Component: React.lazy(() => import('@Page/Auth/LoginPage')),
         },
         {
+            page: `auth-login`,
+            name: `로그아웃`,
+            pathName: `/logout`,
+            Component: React.lazy(() => import('@Page/Auth/LogoutPage')),
+        },
+        {
             page: `auth-register`,
             name: `회원가입`,
             pathName: `/register`,

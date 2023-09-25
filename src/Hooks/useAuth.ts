@@ -1,26 +1,28 @@
 import { useSetRecoilState } from 'recoil';
 import lodash from 'lodash';
-import { storageMaster } from '@Helper';
+import { getAccessToken, getRefreshToken, saveRefreshToken, removeLoginToken } from '@Helper';
 import { AtomRootState } from '@Recoil/AppRootState';
+import AuthService from '@Module/Auth.Service';
+
+const { getTokenInfo } = AuthService;
 
 export default function useAuth() {
     const setAtomRootState = useSetRecoilState(AtomRootState);
 
     const handleAuthTokenSave = ({ access_token, refresh_token }: { access_token: string; refresh_token: string }) => {
-        storageMaster.set('access_token', access_token);
-        storageMaster.set('refresh_token', refresh_token);
+        saveRefreshToken({ accessToken: access_token, refreshToken: refresh_token });
     };
 
-    const handleAuthCkeck = (): boolean => {
-        const access_token = storageMaster.get('access_token');
-        const refresh_token = storageMaster.get('refresh_token');
+    const handleAuthCkeck = async ({ tokenCheck }: { tokenCheck: boolean }): Promise<boolean> => {
+        const access_token = getAccessToken();
+        const refresh_token = getRefreshToken();
 
         if (lodash.isEmpty(access_token) || lodash.isEmpty(refresh_token)) {
             setAtomRootState(prevState => ({
                 ...prevState,
                 loginState: false,
-                systemStatus: {
-                    ...prevState.systemStatus,
+                appCheckStatus: {
+                    ...prevState.appCheckStatus,
                     login: true,
                 },
             }));
@@ -28,11 +30,27 @@ export default function useAuth() {
             return false;
         }
 
+        if (tokenCheck) {
+            const { status } = await getTokenInfo();
+            if (!status) {
+                setAtomRootState(prevState => ({
+                    ...prevState,
+                    loginState: false,
+                    appCheckStatus: {
+                        ...prevState.appCheckStatus,
+                        login: true,
+                    },
+                }));
+
+                return false;
+            }
+        }
+
         setAtomRootState(prevState => ({
             ...prevState,
             loginState: true,
-            systemStatus: {
-                ...prevState.systemStatus,
+            appCheckStatus: {
+                ...prevState.appCheckStatus,
                 login: true,
             },
         }));
@@ -40,8 +58,7 @@ export default function useAuth() {
     };
 
     const handleLogOut = () => {
-        storageMaster.remove('access_token');
-        storageMaster.remove('refresh_token');
+        removeLoginToken();
 
         setAtomRootState(prevState => ({
             ...prevState,
