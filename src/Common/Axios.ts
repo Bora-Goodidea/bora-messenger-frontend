@@ -234,6 +234,8 @@ const _axios_ = ({ method = 'post', url, payload }: serviceInterface): any => {
 
     axiosDefaultHeader.headers!.Authorization = getAccessToken() ? `Bearer ${getAccessToken()}` : ``;
 
+    if (url === '/api/media/image-create') axiosDefaultHeader.headers!['Content-Type'] = 'multipart/form-data';
+
     const _Axios_: AxiosInstance = axios.create(axiosDefaultHeader);
 
     _Axios_.interceptors.response.use(
