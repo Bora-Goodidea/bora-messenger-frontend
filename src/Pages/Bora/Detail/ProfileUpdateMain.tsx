@@ -55,7 +55,10 @@ const ProfileUpdateMain = () => {
                 message: message,
             });
             return;
-        } // eslint-disable-next-line
+        }
+
+        // FIXME : 종속성에서 HandleMainAlert 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleProfileUpdateChange = (e: { target: { name: string; value: string } }) => {
