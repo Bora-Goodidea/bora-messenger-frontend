@@ -82,7 +82,7 @@ export default {
             ProfileImage: tw.span`inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100`,
             DefaultProfileImage: tw.img``,
             ProfileInputItem: tw.input`absolute w-0 h-0 mx-0.5`,
-            ProfileInputLabel: tw.label`ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`,
+            ProfileInputLabel: tw.label`ml-5 bg-gray-50 py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`,
         },
     },
     Auth: {

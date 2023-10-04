@@ -18,4 +18,25 @@ export default {
             payload: null,
         });
     },
+    ImageCreate: (
+        formData: FormData
+    ): Promise<
+        ServicesResult<{
+            status: boolean;
+            data: {
+                id: number;
+                original_name: string;
+                mimetype: string;
+                filename: string;
+                media_url: string;
+            };
+        }>
+    > => {
+        console.log('Payload:', formData); // 추가
+        return Axios({
+            method: 'post',
+            url: `/api/media/image-create`,
+            payload: formData,
+        });
+    },
 };

@@ -5,7 +5,7 @@ import { KeyboardEvent, useEffect, useRef, useState, useCallback } from 'react';
 import { ProfileService } from '@Modules';
 
 const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
-const { MyProfile } = ProfileService;
+const { MyProfile, ImageCreate } = ProfileService;
 
 const pageInitializeState = {
     loading: true,
@@ -54,8 +54,9 @@ const ProfileUpdateMain = () => {
                 state: true,
                 message: message,
             });
-        }
-    }, [HandleMainAlert]);
+            return;
+        } // eslint-disable-next-line
+    }, []);
 
     const handleProfileUpdateChange = (e: { target: { name: string; value: string } }) => {
         const { name, value } = e.target;
@@ -76,12 +77,38 @@ const ProfileUpdateMain = () => {
         }
     };
 
+    const handleImgUploadChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPageState(prevState => ({
+            ...prevState,
+            loading: true,
+        }));
+
+        const files = e.target.files as FileList;
+
+        if (files.length > 0) {
+            const formData = new FormData();
+            formData.append('image', files[0]);
+
+            const { status, payload, message } = await ImageCreate(formData);
+            console.log('Response:', status, payload, message);
+        }
+
+        setPageState(prevState => ({
+            ...prevState,
+            loading: false,
+        }));
+    };
+
     useEffect(() => {
         const pageStart = () => {
             handleGetMyProfileData().then();
         };
         pageStart();
     }, [handleGetMyProfileData]);
+
+    // useEffect(() => {
+    //     handleGetMyProfileData().then();
+    // }, []);
 
     return (
         <MainContainer>
@@ -92,6 +119,7 @@ const ProfileUpdateMain = () => {
                 handleProfileUpdateChange={e => handleProfileUpdateChange(e)}
                 EnterRef={enterInputRef}
                 HandleOnKeyDown={e => HandleOnKeyDown(e)}
+                handleImgUploadChange={e => handleImgUploadChange(e)}
             />
         </MainContainer>
     );

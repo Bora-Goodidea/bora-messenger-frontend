@@ -1,5 +1,5 @@
 import { PageStyles } from '@Styles';
-import { ChangeEvent, KeyboardEvent, MutableRefObject } from 'react';
+import { ChangeEvent, KeyboardEvent, MutableRefObject, useRef } from 'react';
 
 const {
     Container,
@@ -26,6 +26,7 @@ const ProfileUpdateSection = ({
     handleProfileUpdateChange,
     EnterRef,
     HandleOnKeyDown,
+    handleImgUploadChange,
 }: {
     Loading: boolean;
     InputValue: { profileImage: string; email: string; nickname: string };
@@ -33,7 +34,10 @@ const ProfileUpdateSection = ({
     CheckState: { status: boolean; type: null | string | `profileImage` | `email` | `nickname`; message: string };
     EnterRef: MutableRefObject<HTMLInputElement[]>;
     HandleOnKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
+    handleImgUploadChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
     return (
         <Container>
             <Wapper>
@@ -44,7 +48,13 @@ const ProfileUpdateSection = ({
                             <ProfileImage>
                                 <DefaultProfileImage src="http://psmever.iptime.org:8052/profile/default_profile.jpg" />
                             </ProfileImage>
-                            <ProfileInputItem type="file" id="uploadProfile" accept="image/*" />
+                            <ProfileInputItem
+                                type="file"
+                                id="uploadProfile"
+                                accept="image/*"
+                                onChange={e => handleImgUploadChange(e)}
+                                ref={fileInputRef}
+                            />
                             <ProfileInputLabel htmlFor="uploadProfile">프로필사진 바꾸기</ProfileInputLabel>
                         </ProfileImageForm>
                         <AuthForm>
