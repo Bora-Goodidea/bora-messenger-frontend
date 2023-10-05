@@ -5,17 +5,14 @@ import { KeyboardEvent, useEffect, useRef, useState, useCallback } from 'react';
 import { ProfileService } from '@Modules';
 
 const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
-const { MyProfile, ImageCreate } = ProfileService;
+const { MyProfile, ImageCreate, ProfileUpdate } = ProfileService;
 
 const pageInitializeState = {
-    loading: true,
-    checkState: {
-        status: false,
-        type: null,
-        message: ``,
-    },
     profileState: {
-        profileImage: '',
+        profileImage: {
+            id: null,
+            url: '',
+        },
         email: '',
         nickname: '',
     },
@@ -26,14 +23,11 @@ const ProfileUpdateMain = () => {
     const enterInputRef = useRef<HTMLInputElement[]>([]);
 
     const [pageState, setPageState] = useState<{
-        loading: boolean;
-        checkState: {
-            status: boolean;
-            type: null | string | `profileImage` | `email` | `nickname`;
-            message: string;
-        };
         profileState: {
-            profileImage: string;
+            profileImage: {
+                id: number | null;
+                url: string;
+            };
             email: string;
             nickname: string;
         };
@@ -47,6 +41,11 @@ const ProfileUpdateMain = () => {
                 profileState: {
                     ...prev.profileState,
                     email: payload.email,
+                    nickname: payload.nickname,
+                    profileImage: {
+                        id: payload.profile_image.id,
+                        url: payload.profile_image.url,
+                    },
                 },
             }));
         } else {
@@ -93,7 +92,51 @@ const ProfileUpdateMain = () => {
             formData.append('image', files[0]);
 
             const { status, payload, message } = await ImageCreate(formData);
-            console.log('Response:', status, payload, message);
+
+            if (status) {
+                setPageState(prev => ({
+                    ...prev,
+                    profileState: {
+                        ...prev.profileState,
+                        profileImage: {
+                            id: payload.id,
+                            url: payload.media_url,
+                        },
+                    },
+                }));
+            } else {
+                HandleMainAlert({
+                    state: true,
+                    message: message,
+                });
+                return;
+            }
+        }
+
+        setPageState(prevState => ({
+            ...prevState,
+            loading: false,
+        }));
+    };
+
+    const handleProfileUpdateSubmit = async () => {
+        setPageState(prevState => ({
+            ...prevState,
+            loading: true,
+        }));
+        const { status, message } = await ProfileUpdate(pageState.profileState.profileImage.id, pageState.profileState.nickname);
+        if (status) {
+            HandleMainAlert({
+                state: true,
+                message: '프로필을 수정하였습니다.',
+            });
+            handleGetMyProfileData();
+        } else {
+            HandleMainAlert({
+                state: true,
+                message: message,
+            });
+            return;
         }
 
         setPageState(prevState => ({
@@ -109,20 +152,15 @@ const ProfileUpdateMain = () => {
         pageStart();
     }, [handleGetMyProfileData]);
 
-    // useEffect(() => {
-    //     handleGetMyProfileData().then();
-    // }, []);
-
     return (
         <MainContainer>
             <ProfileUpdateSection
-                Loading={pageState.loading}
                 InputValue={pageState.profileState}
-                CheckState={pageState.checkState}
                 handleProfileUpdateChange={e => handleProfileUpdateChange(e)}
                 EnterRef={enterInputRef}
                 HandleOnKeyDown={e => HandleOnKeyDown(e)}
                 handleImgUploadChange={e => handleImgUploadChange(e)}
+                handleProfileUpdateSubmit={() => handleProfileUpdateSubmit()}
             />
         </MainContainer>
     );
