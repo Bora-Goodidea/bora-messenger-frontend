@@ -22,6 +22,8 @@ export default {
         formData: FormData
     ): Promise<
         ServicesResult<{
+            id: number | null;
+            media_url: string;
             status: boolean;
             data: {
                 id: number;
@@ -32,11 +34,35 @@ export default {
             };
         }>
     > => {
-        console.log('Payload:', formData); // 추가
         return Axios({
             method: 'post',
             url: `/api/media/image-create`,
             payload: formData,
+        });
+    },
+    ProfileUpdate: (
+        profileImage: number | null,
+        nickname: string
+    ): Promise<
+        ServicesResult<{
+            media_url: string;
+            status: boolean;
+            data: {
+                id: number;
+                original_name: string;
+                mimetype: string;
+                filename: string;
+                media_url: string;
+            };
+        }>
+    > => {
+        return Axios({
+            method: 'post',
+            url: `/api/member/profile-update`,
+            payload: {
+                profileImage: profileImage,
+                nickname: nickname,
+            },
         });
     },
 };

@@ -20,21 +20,19 @@ const {
 } = PageStyles.Bora.ProfileUpdateStyles;
 
 const ProfileUpdateSection = ({
-    // Loading,
     InputValue,
-    // CheckState,
     handleProfileUpdateChange,
     EnterRef,
     HandleOnKeyDown,
     handleImgUploadChange,
+    handleProfileUpdateSubmit,
 }: {
-    Loading: boolean;
-    InputValue: { profileImage: string; email: string; nickname: string };
+    InputValue: { profileImage: { id: number | null; url: string }; email: string; nickname: string };
     handleProfileUpdateChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    CheckState: { status: boolean; type: null | string | `profileImage` | `email` | `nickname`; message: string };
     EnterRef: MutableRefObject<HTMLInputElement[]>;
     HandleOnKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
     handleImgUploadChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleProfileUpdateSubmit: () => void;
 }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -46,7 +44,9 @@ const ProfileUpdateSection = ({
                         <TitleBox>프로필 수정</TitleBox>
                         <ProfileImageForm>
                             <ProfileImage>
-                                <DefaultProfileImage src="http://psmever.iptime.org:8052/profile/default_profile.jpg" />
+                                <DefaultProfileImage
+                                    /*src="http://psmever.iptime.org:8052/profile/default_profile.jpg" */ src={InputValue.profileImage.url}
+                                />
                             </ProfileImage>
                             <ProfileInputItem
                                 type="file"
@@ -85,7 +85,7 @@ const ProfileUpdateSection = ({
                                     onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
                                 />
                             </InputItem>
-                            <Button onClick={() => console.log()}>프로필 수정</Button>
+                            <Button onClick={() => handleProfileUpdateSubmit()}>프로필 수정</Button>
                         </AuthForm>
                     </FormBox>
                 </FormWapper>
