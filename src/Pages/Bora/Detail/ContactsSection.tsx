@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { MessengerRoomListState } from '@Recoil/MessengerState';
 import lodash from 'lodash';
 import { PageStyles } from '@Styles';
+import { useNavigate } from 'react-router-dom';
+import { DefaultSpinner } from '@Icons';
 
 const {
     Wapper,
@@ -24,10 +26,12 @@ const pageInitializeState = {
 };
 
 const ContactsSection = () => {
+    const navigate = useNavigate();
     const messengerRoomListState = useRecoilValue(MessengerRoomListState);
     const [pageState, setPageState] = useState<{
         loading: boolean;
         rooms: Array<{
+            roomCode: string;
             select: boolean;
             profileImage: string;
             now: boolean;
@@ -46,6 +50,7 @@ const ContactsSection = () => {
                 rooms: lodash.map(rooms, room => {
                     const last = lodash.last(room.target);
                     return {
+                        roomCode: room.room_code,
                         select: false,
                         profileImage: last ? last.profile.image : '',
                         now: true,
@@ -62,29 +67,38 @@ const ContactsSection = () => {
 
     return (
         <>
-            {lodash.map(pageState.rooms, (c, index) => {
-                return (
-                    <Wapper SelectStyle={c.select} key={`contacts-section-item-${index}`}>
-                        <AvatarBox>
-                            <AvatarImage src={`${c.profileImage}`} alt="" />
-                            {c.now && (
-                                <AvatarActive>
-                                    <AvatarActiveMark />
-                                </AvatarActive>
-                            )}
-                        </AvatarBox>
-                        <MessageWapper>
-                            <MessageName>{`${c.name}`}</MessageName>
-                            <MessageBox>
-                                <MessageMin>
-                                    <Message>{`${c.message}`}</Message>
-                                </MessageMin>
-                            </MessageBox>
-                            <MessageTime>{`${c.time}`}</MessageTime>
-                        </MessageWapper>
-                    </Wapper>
-                );
-            })}
+            {pageState.loading ? (
+                <DefaultSpinner />
+            ) : (
+                <>
+                    {lodash.map(pageState.rooms, (room, index) => {
+                        return (
+                            <Wapper
+                                SelectStyle={room.select}
+                                key={`contacts-section-item-${index}`}
+                                onClick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/${room.roomCode}/messenger` })}>
+                                <AvatarBox>
+                                    <AvatarImage src={`${room.profileImage}`} alt="" />
+                                    {room.now && (
+                                        <AvatarActive>
+                                            <AvatarActiveMark />
+                                        </AvatarActive>
+                                    )}
+                                </AvatarBox>
+                                <MessageWapper>
+                                    <MessageName>{`${room.name}`}</MessageName>
+                                    <MessageBox>
+                                        <MessageMin>
+                                            <Message>{`${room.message}`}</Message>
+                                        </MessageMin>
+                                    </MessageBox>
+                                    <MessageTime>{`${room.time}`}</MessageTime>
+                                </MessageWapper>
+                            </Wapper>
+                        );
+                    })}
+                </>
+            )}
         </>
     );
 };
