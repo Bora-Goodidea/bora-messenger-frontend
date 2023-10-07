@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RecoilRoot } from 'recoil';
-import { RootRoutes } from '@Modules';
+import RootRoutes from '@Module/RootRoutes';
 import { SplashComponent } from '@Components';
 import UnderConstructionPage from '@Page/Common/UnderConstructionPage';
 

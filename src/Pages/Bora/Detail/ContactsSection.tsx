@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { MessengerRoomListState } from '@Recoil/MessengerState';
 import lodash from 'lodash';
-import { TemporaryData } from '@Commons';
 import { PageStyles } from '@Styles';
 
 const {
@@ -16,10 +18,51 @@ const {
     MessageMin,
 } = PageStyles.Bora.MessengerStyles.ContactsSection;
 
+const pageInitializeState = {
+    loading: false,
+    rooms: [],
+};
+
 const ContactsSection = () => {
+    const messengerRoomListState = useRecoilValue(MessengerRoomListState);
+    const [pageState, setPageState] = useState<{
+        loading: boolean;
+        rooms: Array<{
+            select: boolean;
+            profileImage: string;
+            now: boolean;
+            name: string;
+            message: string;
+            time: string;
+        }>;
+    }>(pageInitializeState);
+
+    useEffect(() => {
+        const fnSetRoomList = () => {
+            const { loading, rooms } = messengerRoomListState;
+            setPageState(prevState => ({
+                ...prevState,
+                loading: loading,
+                rooms: lodash.map(rooms, room => {
+                    const last = lodash.last(room.target);
+                    return {
+                        select: false,
+                        profileImage: last ? last.profile.image : '',
+                        now: true,
+                        name: last ? last.nickname : '',
+                        message: room.chart.content,
+                        time: room.chart.updated_at ? room.chart.updated_at.sinceString : '',
+                    };
+                }),
+            }));
+        };
+
+        fnSetRoomList();
+    }, [messengerRoomListState]);
+
     return (
         <>
-            {lodash.map(TemporaryData.Contacts, (c, index) => {
+            {lodash.map(pageState.rooms, (c, index) => {
                 return (
                     <Wapper SelectStyle={c.select} key={`contacts-section-item-${index}`}>
                         <AvatarBox>
