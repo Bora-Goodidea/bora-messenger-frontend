@@ -14,7 +14,7 @@ export default {
     > => {
         return Axios({
             method: 'get',
-            url: `/api/member/my-profile`,
+            url: `/api/user/my-profile`,
             payload: null,
         });
     },
@@ -58,7 +58,7 @@ export default {
     > => {
         return Axios({
             method: 'post',
-            url: `/api/member/profile-update`,
+            url: `/api/user/profile-update`,
             payload: {
                 profileImage: profileImage,
                 nickname: nickname,
