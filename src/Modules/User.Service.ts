@@ -25,7 +25,7 @@ export default {
     > => {
         return Axios({
             method: 'get',
-            url: `/api/member/member-list`,
+            url: `/api/user/user-list`,
             payload: null,
         });
     },

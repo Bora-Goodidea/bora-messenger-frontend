@@ -1,4 +1,10 @@
-import { BaseDataCodeStep1Item, BaseDataCodeStep2Item, CommonCodesItemInterface, CommonSimplyTimeFormatInterface } from '@CommonType';
+import {
+    BaseDataCodeStep1Item,
+    BaseDataCodeStep2Item,
+    CommonCodesItemInterface,
+    CommonSimplyTimeFormatInterface,
+    CommonUserInfoInterface,
+} from '@CommonType';
 
 // Root State
 export interface RootStateInterface {
@@ -30,6 +36,7 @@ export interface LayoutStateInterface {
     };
 }
 
+// 사용자 리스트
 export interface MessengerUserListInterface {
     loading: boolean;
     users: Array<{
@@ -44,6 +51,21 @@ export interface MessengerUserListInterface {
         };
         active: {
             state: `Y` | `N`;
+            updated_at: CommonSimplyTimeFormatInterface | null;
+        };
+        created_at: CommonSimplyTimeFormatInterface;
+        updated_at: CommonSimplyTimeFormatInterface;
+    }>;
+}
+
+// 내 채팅방 리스트
+export interface MessengerRoomListInterface {
+    loading: boolean;
+    rooms: Array<{
+        room_code: string;
+        target: Array<CommonUserInfoInterface>;
+        chart: {
+            content: string;
             updated_at: CommonSimplyTimeFormatInterface | null;
         };
         created_at: CommonSimplyTimeFormatInterface;
