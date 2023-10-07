@@ -1,5 +1,6 @@
-import { BaseDataCodeStep1Item, BaseDataCodeStep2Item } from '@CommonType';
+import { BaseDataCodeStep1Item, BaseDataCodeStep2Item, CommonCodesItemInterface, CommonSimplyTimeFormatInterface } from '@CommonType';
 
+// Root State
 export interface RootStateInterface {
     appState: boolean;
     appCheckStatus: {
@@ -18,6 +19,7 @@ export interface RootStateInterface {
     };
 }
 
+// 레이아웃 스테이트
 export interface LayoutStateInterface {
     loading: boolean;
     mainAlert: {
@@ -26,4 +28,25 @@ export interface LayoutStateInterface {
         action: string;
         message: string;
     };
+}
+
+export interface MessengerUserListInterface {
+    loading: boolean;
+    users: Array<{
+        uid: string;
+        type: CommonCodesItemInterface;
+        level: CommonCodesItemInterface;
+        status: CommonCodesItemInterface;
+        email: string;
+        nickname: string;
+        profile: {
+            image: string;
+        };
+        active: {
+            state: `Y` | `N`;
+            updated_at: CommonSimplyTimeFormatInterface | null;
+        };
+        created_at: CommonSimplyTimeFormatInterface;
+        updated_at: CommonSimplyTimeFormatInterface;
+    }>;
 }

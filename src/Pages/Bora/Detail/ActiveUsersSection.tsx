@@ -1,22 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { MessengerUserListState } from '@Recoil/MessengerState';
 import lodash from 'lodash';
-import { TemporaryData } from '@Commons';
 import { BoraButton, BoraAvatar } from '@Elements';
 import { YourStoryIcon } from '@Icons';
 import { PageStyles } from '@Styles';
 
 const { IconWapper, AvatarWapper, AvatarBox } = PageStyles.Bora.MessengerStyles.ActiveUsersSection;
 
-const { ActiveUsers: ActiveUserList } = TemporaryData;
+const pageInitializeState = {
+    loading: false,
+    users: [],
+};
 
 const ActiveUsersSection = () => {
+    const messengerUserListState = useRecoilValue(MessengerUserListState);
+
+    const [pageState, setPageState] = useState<{
+        loading: boolean;
+        users: Array<{
+            active: boolean;
+            profileImage: string;
+            name: string;
+        }>;
+    }>(pageInitializeState);
+
+    useEffect(() => {
+        const fnSetUserList = () => {
+            const { loading, users } = messengerUserListState;
+            setPageState(prevState => ({
+                ...prevState,
+                loading: loading,
+                users: lodash.map(users, user => {
+                    return {
+                        active: user.active.state === 'Y',
+                        profileImage: user.profile.image,
+                        name: user.nickname,
+                    };
+                }),
+            }));
+        };
+
+        if (!messengerUserListState.loading && messengerUserListState.users.length > 0) {
+            fnSetUserList();
+        }
+    }, [messengerUserListState]);
+
     return (
         <>
             <IconWapper>
                 <BoraButton ButtonType={`RoundIcon`} ButtonChildren={<YourStoryIcon />} />
                 <p>Your Story</p>
             </IconWapper>
-            {lodash.map(ActiveUserList, (user, index) => {
+            {lodash.map(pageState.users, (user, index) => {
                 return (
                     <AvatarBox key={`Active-Users-avatar-item-${index}`}>
                         <AvatarWapper ActiveStyle={user.active}>

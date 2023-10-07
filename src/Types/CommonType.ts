@@ -28,3 +28,28 @@ export interface BaseDataCodeStep2Item {
         name: string;
     }>;
 }
+
+// 공통 코드 아이템
+export interface CommonCodesItemInterface {
+    code: string;
+    name: string;
+}
+
+// 공통 사용자 인터페이스
+export interface CommonUserInfoInterface {
+    uid: string;
+    nickname: string;
+    profile: {
+        image: string;
+    };
+}
+
+// 공통 날짜 포멧 (Simply)
+export interface CommonSimplyTimeFormatInterface {
+    format: {
+        step1: string; // ex) '2023년 10월 6일 금요일'
+        step2: string; // ex) '2023년 10월 6일 금요일 23시 3분'
+        step3: string; // ex) '2023년 10월 6일 금요일 23시 3분 5초'
+    };
+    sinceString: string; // ex) '2분 전'
+}
