@@ -33,7 +33,7 @@ const ContactsSection = () => {
         rooms: Array<{
             roomCode: string;
             select: boolean;
-            profileImage: string;
+            profileImage: Array<string> | null;
             now: boolean;
             name: string;
             message: string;
@@ -48,13 +48,16 @@ const ContactsSection = () => {
                 ...prevState,
                 loading: loading,
                 rooms: lodash.map(rooms, room => {
-                    const last = lodash.last(room.target);
+                    const target = lodash.filter(room.target, (e, index) => e && index !== 0); // 첫번째는 자기 자신이므로 제외
                     return {
                         roomCode: room.room_code,
                         select: false,
-                        profileImage: last ? last.profile.image : '',
+                        profileImage: lodash.map(
+                            lodash.filter(target, (f, findex) => f && findex < 2),
+                            e => e.profile.image
+                        ),
                         now: true,
-                        name: last ? last.nickname : '',
+                        name: target[0].nickname, // 첫번쨰 닉네임만 표시
                         message: room.chart.content,
                         time: room.chart.updated_at ? room.chart.updated_at.sinceString : '',
                     };
@@ -65,6 +68,7 @@ const ContactsSection = () => {
         fnSetRoomList();
     }, [messengerRoomListState]);
 
+    // TODO: 채팅창 상단 이미지 작업?
     return (
         <>
             {pageState.loading ? (
@@ -78,7 +82,17 @@ const ContactsSection = () => {
                                 key={`contacts-section-item-${index}`}
                                 onClick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/${room.roomCode}/messenger` })}>
                                 <AvatarBox>
-                                    <AvatarImage src={`${room.profileImage}`} alt="" />
+                                    {lodash.map(room.profileImage, (e, i, list) => {
+                                        return (
+                                            <AvatarImage
+                                                key={`contacts-section-avatar-box-image-item-${i}`}
+                                                src={`${e}`}
+                                                alt=""
+                                                Multiple={list.length > 1}
+                                                Index={i}
+                                            />
+                                        );
+                                    })}
                                     {room.now && (
                                         <AvatarActive>
                                             <AvatarActiveMark />
