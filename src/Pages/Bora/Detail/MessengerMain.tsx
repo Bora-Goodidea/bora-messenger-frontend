@@ -1,24 +1,33 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { HeaderSection, ActiveUsersSection, SearchSection, ContactsSection, MessageSection } from '.';
 import { PageStyles } from '@Styles';
 import { UserService, MessengerService } from '@Modules';
 import { useSetRecoilState, useResetRecoilState } from 'recoil';
 import { MessengerUserListState, MessengerRoomListState, MessengerChatListState } from '@Recoil/MessengerState';
 import { useParams } from 'react-router-dom';
+import Messages from '@Messages';
+import { useLayout } from '@Hooks';
 
 const { LeftContainer, RightContainer, ActiveUsersBox, HeaderBox, SearchBox, ContactsBox } = PageStyles.Bora.MessengerStyles.Container;
 
 const { ServiceUserList } = UserService;
-const { ServiceMessengerRoomList, ServiceMessengerChatList } = MessengerService;
+const { ServiceMessengerRoomList, ServiceMessengerChatList, ServiceMessengerCreate } = MessengerService;
+
+const pageInitializeState = {
+    createLoading: false,
+};
 
 const MessengerMain = () => {
     const { roomCode } = useParams<{ roomCode?: string }>();
+    const { HandleMainAlert } = useLayout();
     const setMessengerUserListState = useSetRecoilState(MessengerUserListState);
     const resetMessengerUserListState = useResetRecoilState(MessengerUserListState);
     const setMessengerRoomListState = useSetRecoilState(MessengerRoomListState);
     const resetMessengerRoomListState = useResetRecoilState(MessengerUserListState);
     const setMessengerChatListState = useSetRecoilState(MessengerChatListState);
     const resetMessengerChatListState = useResetRecoilState(MessengerChatListState);
+
+    const [pageState, setPageState] = useState<{ createLoading: boolean }>(pageInitializeState);
 
     // 현재 사용자 리스트
     const handleGetUserList = useCallback(async () => {
@@ -78,6 +87,48 @@ const MessengerMain = () => {
         [resetMessengerChatListState, setMessengerChatListState]
     );
 
+    // 채팅 방생성
+    const handleMessengerCreate = async (uid: Array<string>) => {
+        if (uid.length === 0) {
+            HandleMainAlert({
+                state: true,
+                message: Messages.Common.emptySelectUser,
+            });
+            return;
+        }
+        setPageState(prevState => ({
+            ...prevState,
+            createLoading: true,
+        }));
+
+        const { status, payload, message } = await ServiceMessengerCreate({ target: uid });
+        if (status) {
+            handleGetMessengerRoomList().then();
+
+            HandleMainAlert({
+                state: true,
+                type: `move`,
+                message: Messages.Common.successCreateRoom,
+                action: `/bora/${payload.room_code}/messenger`,
+            });
+
+            setPageState(prevState => ({
+                ...prevState,
+                createLoading: false,
+            }));
+        } else {
+            HandleMainAlert({
+                state: true,
+                message: message,
+            });
+
+            setPageState(prevState => ({
+                ...prevState,
+                createLoading: false,
+            }));
+        }
+    };
+
     useEffect(() => {
         if (roomCode) {
             handleGetMessengerChatList(roomCode).then();
@@ -98,7 +149,7 @@ const MessengerMain = () => {
                     <SearchSection />
                 </SearchBox>
                 <ActiveUsersBox>
-                    <ActiveUsersSection />
+                    <ActiveUsersSection CreateLoading={pageState.createLoading} MessengerCreate={uid => handleMessengerCreate(uid)} />
                 </ActiveUsersBox>
                 <ContactsBox>
                     <ContactsSection />

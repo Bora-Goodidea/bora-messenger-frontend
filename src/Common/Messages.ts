@@ -1,6 +1,7 @@
 export default {
     Common: {
         success: `정상 처리 하였습니다.`,
+        error: `정상 처리 하였습니다.`,
         emptyEmail: `이메일을 입력해주세요.`,
         emailValidate: `정확한 이메일을 입력해 주세요.`,
         emptyPassword: `패스워드를 입력해 주세요.`,
@@ -15,5 +16,7 @@ export default {
         alreadyLogin: `이미 로그인이 되어 있습니다.`,
         passwordResetSuccess: `정상 처리 하였습니다. 이메일을 확인해 주세요.`,
         needLogin: `로그인이 필요한 서비스 입니다.`,
+        emptySelectUser: `사용자를 선택해 주세요`,
+        successCreateRoom: `채팅방을 생성 하였습니다.`,
     },
 };

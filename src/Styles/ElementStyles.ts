@@ -3,8 +3,12 @@ import { BoraButtonType, LocationStyleType, AvatarStyleSizeType, BoraInputType }
 
 export default {
     BoraAvatarStyle: {
-        Wapper: styled.div(({ AvatarSize }: { AvatarSize: AvatarStyleSizeType }) => {
+        Wapper: styled.div(({ AvatarSize, AvatarSelect }: { AvatarSelect: boolean; AvatarSize: AvatarStyleSizeType }) => {
             const twStyled = [tw`relative flex flex-shrink-0`];
+
+            if (AvatarSelect) {
+                twStyled.push(tw`border-4 border-blue-600 rounded-full`);
+            }
 
             if (AvatarSize === 'default') {
                 twStyled.push(tw`w-16 h-16`);
