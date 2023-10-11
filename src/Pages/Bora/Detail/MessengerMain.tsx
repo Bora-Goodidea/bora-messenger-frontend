@@ -149,7 +149,7 @@ const MessengerMain = () => {
         <>
             <LeftContainer>
                 <HeaderBox>
-                    <HeaderSection />
+                    <HeaderSection MessengerCreate={uid => handleMessengerCreate(uid)} />
                 </HeaderBox>
                 <SearchBox>
                     <SearchSection />

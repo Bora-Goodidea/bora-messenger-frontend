@@ -13,7 +13,22 @@ export default {
             },
             HeaderSection: {
                 Title: tw.p`font-bold hidden md:block`,
-                NewMessage: tw.div`block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2`,
+                NewMessage: tw.div`block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2 cursor-pointer`,
+                UserList: {
+                    Container: tw.div`w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700`,
+                    Title: tw.div`flex items-center justify-between mb-4`,
+                    TitleText: tw.h5`text-xl font-bold leading-none text-gray-900 dark:text-white`,
+                    ListFlow: tw.div`flow-root`,
+                    ListWapper: tw.ul`divide-y divide-gray-200 dark:divide-gray-700`,
+                    ListRow: tw.li`py-3 sm:py-4 cursor-pointer`,
+                    ListCard: tw.div`flex items-center space-x-4`,
+                    ListCardImageWapper: tw.div`shrink-0`,
+                    ListCardImage: tw.img`w-8 h-8 rounded-full`,
+                    ListCardNameWapper: tw.div`flex-1 min-w-0`,
+                    ListCardName: tw.p`text-sm font-medium text-gray-900 truncate dark:text-white`,
+                    ListCardEmail: tw.p`text-sm text-gray-500 truncate dark:text-gray-400`,
+                    ListCardDate: tw.div`inline-flex items-center text-base font-semibold text-gray-900 dark:text-white`,
+                },
             },
             SearchSection: {
                 Container: tw.div``,
