@@ -23,7 +23,8 @@ export default {
             },
             ActiveUsersSection: {
                 IconWapper: tw.div`text-sm text-center mr-4`,
-                AvatarBox: tw.div`text-sm text-center mr-4`,
+                LoadingWapper: tw.div`flex items-center justify-center mr-4`,
+                AvatarBox: tw.div`text-sm text-center mr-4 cursor-pointer`,
                 AvatarWapper: styled.div(({ ActiveStyle }: { ActiveStyle: boolean }) => {
                     const twStyled = [tw`p-1 border-4 rounded-full`];
 
@@ -49,7 +50,24 @@ export default {
                     return twStyled;
                 }),
                 AvatarBox: tw.div`w-16 h-16 relative flex flex-shrink-0`,
-                AvatarImage: tw.img`shadow-md rounded-full w-full h-full object-cover`,
+                AvatarImage1: tw.img`shadow-md rounded-full w-full h-full object-cover`,
+                AvatarImage: styled.img(({ Index, Multiple }: { Multiple: boolean; Index: number }) => {
+                    const twStyled = [tw`shadow-md rounded-full object-cover`];
+
+                    if (Multiple) {
+                        twStyled.push(tw`w-10 h-10 absolute`);
+                    } else {
+                        twStyled.push(tw`w-full h-full`);
+                    }
+
+                    if (Multiple && Index === 0) {
+                        twStyled.push(tw`ml-6`);
+                    } else if (Multiple && Index !== 0) {
+                        twStyled.push(tw`mt-6`);
+                    }
+
+                    return twStyled;
+                }),
                 AvatarActive: tw.div`absolute bg-white p-1 rounded-full bottom-0 right-0`,
                 AvatarActiveMark: tw.div`bg-green-500 rounded-full w-3 h-3`,
                 MessageWapper: tw.div`flex-auto min-w-0 ml-4 mr-6 hidden md:block`,

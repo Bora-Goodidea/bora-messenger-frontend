@@ -29,6 +29,12 @@ export default {
             Component: React.lazy(() => import('@Page/Bora/MessengerPage')),
         },
         {
+            page: `messenger-chat`,
+            name: `메신저 채팅`,
+            pathName: `/:roomCode/messenger`,
+            Component: React.lazy(() => import('@Page/Bora/MessengerPage')),
+        },
+        {
             page: `profile-update`,
             name: `프로필 수정`,
             pathName: `/profile-update`,

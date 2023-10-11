@@ -12,12 +12,11 @@ const HeaderSection = () => {
         <>
             <BoraAvatar
                 AvatarShadow={true}
-                AvatarUrl={`https://avatars3.githubusercontent.com/u/22351907?s=60`}
-                AvataAltString={`ravisankarchinnam`}
+                AvatarImage={[{ url: `https://avatars3.githubusercontent.com/u/22351907?s=60`, alt: `ravisankarchinnam` }]}
                 AvatarSize={`default`}
                 AvatarOnclick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/profile-update` })}
             />
-            <Title>Messenger</Title>
+            <Title>Bora-Messenger</Title>
             <NewMessage>
                 <NewMessageIcon />
             </NewMessage>
