@@ -11,6 +11,17 @@ const { HeaderBox, MessageBox: MessageBoxStyle, FooterBox, MessageDate } = PageS
 
 const pageInitializeState = {
     loading: false,
+    messenger: {
+        target: [],
+        last: {
+            last: false,
+            message: ``,
+            profileImage: ``,
+            nickname: ``,
+            time: ``,
+        },
+        sinceString: ``,
+    },
     chats: [],
 };
 
@@ -18,6 +29,20 @@ const MessageSection = () => {
     const messengerChatListState = useRecoilValue(MessengerChatListState);
     const [pageState, setPageState] = useState<{
         loading: boolean;
+        messenger: {
+            target: Array<{
+                profileImage: string;
+                name: string;
+            }>;
+            last: {
+                last: boolean;
+                message: string;
+                profileImage: string;
+                nickname: string;
+                time: string;
+            };
+            sinceString: string;
+        };
         chats: Array<{
             date: string;
             message: Array<{
@@ -35,10 +60,27 @@ const MessageSection = () => {
 
     useEffect(() => {
         const fnSetChatList = () => {
-            const { loading, chats } = messengerChatListState;
+            const { loading, chats, messenger } = messengerChatListState;
+            // console.debug(lodash.last(chats));
             setPageState(prevState => ({
                 ...prevState,
                 loading: loading,
+                messenger: {
+                    target: lodash.map(messenger.target, m => {
+                        return {
+                            profileImage: m.profile.image,
+                            name: m.nickname,
+                        };
+                    }),
+                    last: {
+                        last: messenger.last.last,
+                        message: messenger.last.message ? messenger.last.message : ``,
+                        profileImage: messenger.last.profileImage ? messenger.last.profileImage : ``,
+                        nickname: messenger.last.nickname ? messenger.last.nickname : ``,
+                        time: messenger.last.time ? messenger.last.time.sinceString : ``,
+                    },
+                    sinceString: messenger.created_at ? messenger.created_at.sinceString : ``,
+                },
                 chats: lodash.map(chats, chat => {
                     return {
                         date: chat.date,
@@ -70,7 +112,30 @@ const MessageSection = () => {
             ) : (
                 <>
                     <HeaderBox>
-                        <MessageHeaderBox />
+                        <MessageHeaderBox
+                            Params={(() => {
+                                const { last, profileImage, nickname, time } = pageState.messenger.last;
+                                const { target, sinceString } = pageState.messenger;
+                                if (last) {
+                                    return {
+                                        AvatarImage: [{ url: profileImage, alt: nickname }],
+                                        Name: nickname,
+                                        Date: time,
+                                    };
+                                } else {
+                                    return {
+                                        AvatarImage: [
+                                            {
+                                                url: target.length > 0 ? target[0].profileImage : ``,
+                                                alt: target.length > 0 ? target[0].name : ``,
+                                            },
+                                        ],
+                                        Name: target.length > 0 ? target[0].name : ``,
+                                        Date: sinceString,
+                                    };
+                                }
+                            })()}
+                        />
                     </HeaderBox>
                     <MessageBoxStyle>
                         {lodash.map(pageState.chats, (chat, dateIndex) => {

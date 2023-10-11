@@ -77,7 +77,13 @@ const MessengerMain = () => {
                 setMessengerChatListState(prevState => ({
                     ...prevState,
                     loading: false,
-                    messenger: payload.messenger,
+                    messenger: {
+                        room_code: payload.messenger.room_code,
+                        target: payload.messenger.target,
+                        last: payload.messenger.last,
+                        created_at: payload.messenger.created_at,
+                    },
+                    last: payload.messenger.last,
                     chats: payload.chat,
                 }));
             } else {

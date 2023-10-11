@@ -20,8 +20,29 @@ export default {
 
             return twStyled;
         }),
-        AvatarImage: styled.img(({ Shadow }: { Shadow: boolean }) => {
+        AvatarImage1: styled.img(({ Shadow }: { Shadow: boolean }) => {
             const twStyled = [tw`rounded-full w-full h-full object-cover`];
+
+            if (Shadow) {
+                twStyled.push(tw`shadow-md`);
+            }
+
+            return twStyled;
+        }),
+        AvatarImage: styled.img(({ Index, Multiple, Shadow }: { Shadow: boolean; Multiple: boolean; Index: number }) => {
+            const twStyled = [tw`shadow-md rounded-full object-cover`];
+
+            if (Multiple) {
+                twStyled.push(tw`w-10 h-10 absolute`);
+            } else {
+                twStyled.push(tw`w-full h-full`);
+            }
+
+            if (Multiple && Index === 0) {
+                twStyled.push(tw`ml-6`);
+            } else if (Multiple && Index !== 0) {
+                twStyled.push(tw`mt-6`);
+            }
 
             if (Shadow) {
                 twStyled.push(tw`shadow-md`);

@@ -117,8 +117,7 @@ const ActiveUsersSection = ({
                                 <AvatarWapper ActiveStyle={user.active}>
                                     <BoraAvatar
                                         AvatarSelect={lodash.findIndex(pageState.selectList, { uid: user.uid }) > -1}
-                                        AvatarUrl={user.profileImage}
-                                        AvataAltString={user.name}
+                                        AvatarImage={[{ url: user.profileImage, alt: user.name }]}
                                         AvatarShadow={false}
                                         AvatarSize={`default`}
                                     />

@@ -27,6 +27,14 @@ export const MessengerChatListState = atom<MessengeChatListInterface>({
         messenger: {
             room_code: ``,
             target: [],
+            last: {
+                last: false,
+                message: ``,
+                profileImage: ``,
+                nickname: ``,
+                time: null,
+            },
+            created_at: null,
         },
         chats: [],
     },

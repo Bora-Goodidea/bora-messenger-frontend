@@ -48,6 +48,14 @@ export default {
             messenger: {
                 room_code: string;
                 target: Array<CommonUserInfoInterface>;
+                last: {
+                    last: boolean;
+                    message: string | null;
+                    profileImage: string | null;
+                    nickname: string | null;
+                    time: CommonSimplyTimeFormatInterface | null;
+                };
+                created_at: CommonSimplyTimeFormatInterface;
             };
             chat: Array<{
                 date: string;
