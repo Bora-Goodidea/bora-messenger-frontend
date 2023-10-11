@@ -17,7 +17,7 @@ const HeaderSection = () => {
                 AvatarSize={`default`}
                 AvatarOnclick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/profile-update` })}
             />
-            <Title>Messenger</Title>
+            <Title>Bora-Messenger</Title>
             <NewMessage>
                 <NewMessageIcon />
             </NewMessage>
