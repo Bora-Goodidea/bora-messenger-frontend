@@ -1,19 +1,33 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { HeaderSection, ActiveUsersSection, SearchSection, ContactsSection, MessageSection } from '.';
 import { PageStyles } from '@Styles';
-import { useEffect } from 'react';
 import { UserService, MessengerService } from '@Modules';
-import { useSetRecoilState } from 'recoil';
-import { MessengerUserListState, MessengerRoomListState } from '@Recoil/MessengerState';
+import { useSetRecoilState, useResetRecoilState } from 'recoil';
+import { MessengerUserListState, MessengerRoomListState, MessengerChatListState } from '@Recoil/MessengerState';
+import { useParams } from 'react-router-dom';
+import Messages from '@Messages';
+import { useLayout } from '@Hooks';
 
 const { LeftContainer, RightContainer, ActiveUsersBox, HeaderBox, SearchBox, ContactsBox } = PageStyles.Bora.MessengerStyles.Container;
 
 const { ServiceUserList } = UserService;
-const { ServiceMessengerRoomList } = MessengerService;
+const { ServiceMessengerRoomList, ServiceMessengerChatList, ServiceMessengerCreate } = MessengerService;
+
+const pageInitializeState = {
+    createLoading: false,
+};
 
 const MessengerMain = () => {
+    const { roomCode } = useParams<{ roomCode?: string }>();
+    const { HandleMainAlert } = useLayout();
     const setMessengerUserListState = useSetRecoilState(MessengerUserListState);
+    const resetMessengerUserListState = useResetRecoilState(MessengerUserListState);
     const setMessengerRoomListState = useSetRecoilState(MessengerRoomListState);
+    const resetMessengerRoomListState = useResetRecoilState(MessengerUserListState);
+    const setMessengerChatListState = useSetRecoilState(MessengerChatListState);
+    const resetMessengerChatListState = useResetRecoilState(MessengerChatListState);
+
+    const [pageState, setPageState] = useState<{ createLoading: boolean }>(pageInitializeState);
 
     // 현재 사용자 리스트
     const handleGetUserList = useCallback(async () => {
@@ -29,13 +43,9 @@ const MessengerMain = () => {
                 users: payload,
             }));
         } else {
-            setMessengerUserListState(prevState => ({
-                ...prevState,
-                loading: false,
-                users: [],
-            }));
+            resetMessengerUserListState();
         }
-    }, [setMessengerUserListState]);
+    }, [resetMessengerUserListState, setMessengerUserListState]);
 
     // 내 채팅방 리스트
     const handleGetMessengerRoomList = useCallback(async () => {
@@ -51,13 +61,85 @@ const MessengerMain = () => {
                 rooms: payload,
             }));
         } else {
-            setMessengerRoomListState(prevState => ({
+            resetMessengerRoomListState();
+        }
+    }, [resetMessengerRoomListState, setMessengerRoomListState]);
+
+    const handleGetMessengerChatList = useCallback(
+        async (code: string) => {
+            setMessengerChatListState(prevState => ({
                 ...prevState,
-                loading: false,
-                rooms: [],
+                loading: true,
+            }));
+
+            const { status, payload } = await ServiceMessengerChatList({ roomCode: code });
+            if (status) {
+                setMessengerChatListState(prevState => ({
+                    ...prevState,
+                    loading: false,
+                    messenger: {
+                        room_code: payload.messenger.room_code,
+                        target: payload.messenger.target,
+                        last: payload.messenger.last,
+                        created_at: payload.messenger.created_at,
+                    },
+                    last: payload.messenger.last,
+                    chats: payload.chat,
+                }));
+            } else {
+                resetMessengerChatListState();
+            }
+        },
+        [resetMessengerChatListState, setMessengerChatListState]
+    );
+
+    // 채팅 방생성
+    const handleMessengerCreate = async (uid: Array<string>) => {
+        if (uid.length === 0) {
+            HandleMainAlert({
+                state: true,
+                message: Messages.Common.emptySelectUser,
+            });
+            return;
+        }
+        setPageState(prevState => ({
+            ...prevState,
+            createLoading: true,
+        }));
+
+        const { status, payload, message } = await ServiceMessengerCreate({ target: uid });
+        if (status) {
+            handleGetMessengerRoomList().then();
+
+            HandleMainAlert({
+                state: true,
+                type: `move`,
+                message: Messages.Common.successCreateRoom,
+                action: `/bora/${payload.room_code}/messenger`,
+            });
+
+            setPageState(prevState => ({
+                ...prevState,
+                createLoading: false,
+            }));
+        } else {
+            HandleMainAlert({
+                state: true,
+                message: message,
+            });
+
+            setPageState(prevState => ({
+                ...prevState,
+                createLoading: false,
             }));
         }
-    }, [setMessengerRoomListState]);
+    };
+
+    useEffect(() => {
+        if (roomCode) {
+            handleGetMessengerChatList(roomCode).then();
+        }
+    }, [handleGetMessengerChatList, roomCode]);
 
     useEffect(() => {
         handleGetUserList().then(() => handleGetMessengerRoomList().then());
@@ -67,13 +149,13 @@ const MessengerMain = () => {
         <>
             <LeftContainer>
                 <HeaderBox>
-                    <HeaderSection />
+                    <HeaderSection MessengerCreate={uid => handleMessengerCreate(uid)} />
                 </HeaderBox>
                 <SearchBox>
                     <SearchSection />
                 </SearchBox>
                 <ActiveUsersBox>
-                    <ActiveUsersSection />
+                    <ActiveUsersSection CreateLoading={pageState.createLoading} MessengerCreate={uid => handleMessengerCreate(uid)} />
                 </ActiveUsersBox>
                 <ContactsBox>
                     <ContactsSection />

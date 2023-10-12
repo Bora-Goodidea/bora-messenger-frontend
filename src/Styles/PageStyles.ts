@@ -13,7 +13,22 @@ export default {
             },
             HeaderSection: {
                 Title: tw.p`font-bold hidden md:block`,
-                NewMessage: tw.div`block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2`,
+                NewMessage: tw.div`block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2 cursor-pointer`,
+                UserList: {
+                    Container: tw.div`w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700`,
+                    Title: tw.div`flex items-center justify-between mb-4`,
+                    TitleText: tw.h5`text-xl font-bold leading-none text-gray-900 dark:text-white`,
+                    ListFlow: tw.div`flow-root`,
+                    ListWapper: tw.ul`divide-y divide-gray-200 dark:divide-gray-700`,
+                    ListRow: tw.li`py-3 sm:py-4 cursor-pointer`,
+                    ListCard: tw.div`flex items-center space-x-4`,
+                    ListCardImageWapper: tw.div`shrink-0`,
+                    ListCardImage: tw.img`w-8 h-8 rounded-full`,
+                    ListCardNameWapper: tw.div`flex-1 min-w-0`,
+                    ListCardName: tw.p`text-sm font-medium text-gray-900 truncate dark:text-white`,
+                    ListCardEmail: tw.p`text-sm text-gray-500 truncate dark:text-gray-400`,
+                    ListCardDate: tw.div`inline-flex items-center text-base font-semibold text-gray-900 dark:text-white`,
+                },
             },
             SearchSection: {
                 Container: tw.div``,
@@ -23,7 +38,8 @@ export default {
             },
             ActiveUsersSection: {
                 IconWapper: tw.div`text-sm text-center mr-4`,
-                AvatarBox: tw.div`text-sm text-center mr-4`,
+                LoadingWapper: tw.div`flex items-center justify-center mr-4`,
+                AvatarBox: tw.div`text-sm text-center mr-4 cursor-pointer`,
                 AvatarWapper: styled.div(({ ActiveStyle }: { ActiveStyle: boolean }) => {
                     const twStyled = [tw`p-1 border-4 rounded-full`];
 
@@ -49,7 +65,24 @@ export default {
                     return twStyled;
                 }),
                 AvatarBox: tw.div`w-16 h-16 relative flex flex-shrink-0`,
-                AvatarImage: tw.img`shadow-md rounded-full w-full h-full object-cover`,
+                AvatarImage1: tw.img`shadow-md rounded-full w-full h-full object-cover`,
+                AvatarImage: styled.img(({ Index, Multiple }: { Multiple: boolean; Index: number }) => {
+                    const twStyled = [tw`shadow-md rounded-full object-cover`];
+
+                    if (Multiple) {
+                        twStyled.push(tw`w-10 h-10 absolute`);
+                    } else {
+                        twStyled.push(tw`w-full h-full`);
+                    }
+
+                    if (Multiple && Index === 0) {
+                        twStyled.push(tw`ml-6`);
+                    } else if (Multiple && Index !== 0) {
+                        twStyled.push(tw`mt-6`);
+                    }
+
+                    return twStyled;
+                }),
                 AvatarActive: tw.div`absolute bg-white p-1 rounded-full bottom-0 right-0`,
                 AvatarActiveMark: tw.div`bg-green-500 rounded-full w-3 h-3`,
                 MessageWapper: tw.div`flex-auto min-w-0 ml-4 mr-6 hidden md:block`,

@@ -3,8 +3,12 @@ import { BoraButtonType, LocationStyleType, AvatarStyleSizeType, BoraInputType }
 
 export default {
     BoraAvatarStyle: {
-        Wapper: styled.div(({ AvatarSize }: { AvatarSize: AvatarStyleSizeType }) => {
+        Wapper: styled.div(({ AvatarSize, AvatarSelect }: { AvatarSelect: boolean; AvatarSize: AvatarStyleSizeType }) => {
             const twStyled = [tw`relative flex flex-shrink-0`];
+
+            if (AvatarSelect) {
+                twStyled.push(tw`border-4 border-blue-600 rounded-full`);
+            }
 
             if (AvatarSize === 'default') {
                 twStyled.push(tw`w-16 h-16`);
@@ -16,8 +20,29 @@ export default {
 
             return twStyled;
         }),
-        AvatarImage: styled.img(({ Shadow }: { Shadow: boolean }) => {
+        AvatarImage1: styled.img(({ Shadow }: { Shadow: boolean }) => {
             const twStyled = [tw`rounded-full w-full h-full object-cover`];
+
+            if (Shadow) {
+                twStyled.push(tw`shadow-md`);
+            }
+
+            return twStyled;
+        }),
+        AvatarImage: styled.img(({ Index, Multiple, Shadow }: { Shadow: boolean; Multiple: boolean; Index: number }) => {
+            const twStyled = [tw`shadow-md rounded-full object-cover`];
+
+            if (Multiple) {
+                twStyled.push(tw`w-10 h-10 absolute`);
+            } else {
+                twStyled.push(tw`w-full h-full`);
+            }
+
+            if (Multiple && Index === 0) {
+                twStyled.push(tw`ml-6`);
+            } else if (Multiple && Index !== 0) {
+                twStyled.push(tw`mt-6`);
+            }
 
             if (Shadow) {
                 twStyled.push(tw`shadow-md`);
@@ -154,6 +179,13 @@ export default {
         MessageBox: tw.p`text-base leading-relaxed text-gray-500 dark:text-gray-400`,
         ButtonWapper: tw.div`flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600`,
         Button: tw.button`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`,
+    },
+    BoraModalStyle: {
+        Container: tw.div`flex fixed z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-screen items-center justify-center`,
+        MainWapper: tw.div`relative bg-white w-full max-w-2xl max-h-full rounded-lg shadow dark:bg-gray-700`,
+        Wapper: tw.div`relative bg-white p-4 rounded-lg shadow dark:bg-gray-700 max-h-60 overflow-x-hidden overflow-y-auto`,
+        ButtonWapper: tw.div`flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600`,
+        Button: tw.button`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`,
     },
     Sweetalert: {
         Title: tw.p`text-2xl`,

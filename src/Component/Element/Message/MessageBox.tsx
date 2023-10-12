@@ -18,7 +18,7 @@ const MessageBox = ({
     return (
         <Container LocationStyle={MessageLocation}>
             {MessageLocation === `left` && ProfileImage && (
-                <BoraAvatar AvatarUrl={ProfileImage} AvataAltString={``} AvatarShadow={true} AvatarSize={`small`} />
+                <BoraAvatar AvatarImage={[{ url: ProfileImage, alt: `` }]} AvatarShadow={true} AvatarSize={`small`} />
             )}
             <MessageWapper LocationStyle={MessageLocation}>
                 {lodash.map(MessageList, (m, index, mList) => {

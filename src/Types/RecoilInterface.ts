@@ -72,3 +72,37 @@ export interface MessengerRoomListInterface {
         updated_at: CommonSimplyTimeFormatInterface;
     }>;
 }
+
+// 채팅 리스트
+export interface MessengeChatListInterface {
+    loading: boolean;
+    messenger: {
+        room_code: string;
+        target: Array<CommonUserInfoInterface>;
+        last: {
+            last: boolean;
+            message: string | null;
+            profileImage: string | null;
+            nickname: string | null;
+            time: CommonSimplyTimeFormatInterface | null;
+        };
+        created_at: CommonSimplyTimeFormatInterface | null;
+    };
+    chats: Array<{
+        date: string;
+        list: {
+            [index: string]: {
+                location: string | `left` | `right`;
+                user: CommonUserInfoInterface;
+                message: Array<{
+                    type: CommonCodesItemInterface;
+                    chat_code: string;
+                    contents: string;
+                    checked: `Y` | `N`;
+                    checked_at: CommonSimplyTimeFormatInterface | null;
+                    created_at: CommonSimplyTimeFormatInterface;
+                }>;
+            };
+        };
+    }>;
+}
