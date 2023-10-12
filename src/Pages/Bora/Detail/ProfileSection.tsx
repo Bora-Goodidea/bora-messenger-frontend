@@ -17,7 +17,7 @@ const {
     DefaultProfileImage,
     ProfileInputItem,
     ProfileInputLabel,
-} = PageStyles.Bora.ProfileUpdateStyles;
+} = PageStyles.Bora.ProfileStyles;
 
 const ProfileUpdateSection = ({
     InputValue,
@@ -34,28 +34,29 @@ const ProfileUpdateSection = ({
     handleImgUploadChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleProfileUpdateSubmit: () => void;
 }) => {
-    const fileInputRef = useRef<HTMLInputElement>(null);
-
     return (
         <Container>
             <Wapper>
                 <FormWapper>
                     <FormBox>
-                        <TitleBox>프로필 수정</TitleBox>
+                        <TitleBox>프로필</TitleBox>
                         <ProfileImageForm>
                             <ProfileImage>
-                                <DefaultProfileImage
-                                    /*src="http://psmever.iptime.org:8052/profile/default_profile.jpg" */ src={InputValue.profileImage.url}
-                                />
+                                <DefaultProfileImage src={InputValue.profileImage.url} />
                             </ProfileImage>
-                            <ProfileInputItem
-                                type="file"
-                                id="uploadProfile"
-                                accept="image/*"
-                                onChange={e => handleImgUploadChange(e)}
-                                ref={fileInputRef}
-                            />
-                            <ProfileInputLabel htmlFor="uploadProfile">프로필사진 바꾸기</ProfileInputLabel>
+                            <AuthForm>
+                                <InputItem>
+                                    {/* <InputLabel htmlFor="nickname">닉네임</InputLabel> */}
+                                    <Input
+                                        type="text"
+                                        name="nickname"
+                                        id="nickname"
+                                        required={false}
+                                        value={InputValue.nickname}
+                                        readOnly
+                                    />
+                                </InputItem>
+                            </AuthForm>
                         </ProfileImageForm>
                         <AuthForm>
                             <InputItem>
@@ -67,7 +68,6 @@ const ProfileUpdateSection = ({
                                     value={InputValue.email}
                                     ref={el => (EnterRef.current[0] = el as HTMLInputElement)}
                                     onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
-                                    style={{ color: 'gray' }}
                                     readOnly
                                 />
                             </InputItem>
@@ -79,13 +79,26 @@ const ProfileUpdateSection = ({
                                     id="nickname"
                                     placeholder="••••••••"
                                     required={false}
-                                    // value={InputValue.nickname}
+                                    value={InputValue.nickname}
                                     onChange={e => handleProfileUpdateChange(e)}
                                     ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
                                     onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
                                 />
                             </InputItem>
-                            <Button onClick={() => handleProfileUpdateSubmit()}>프로필 수정</Button>
+                            <InputItem>
+                                <InputLabel htmlFor="nickname">최근 접속정보</InputLabel>
+                                <Input
+                                    type="text"
+                                    name="latestLogin"
+                                    id="nickname"
+                                    placeholder="••••••••"
+                                    required={false}
+                                    value={InputValue.nickname}
+                                    onChange={e => handleProfileUpdateChange(e)}
+                                    ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
+                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                />
+                            </InputItem>
                         </AuthForm>
                     </FormBox>
                 </FormWapper>
