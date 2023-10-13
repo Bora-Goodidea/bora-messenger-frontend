@@ -3,6 +3,7 @@ export type LocationStyleType = string | `left` | `right`;
 export type AvatarStyleSizeType = string | `default` | `middle` | `small`;
 export type BoraInputType = string | `search` | `send`;
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure';
+export type MessageType = '040010' | '040020';
 
 // 서비스 결과 인터페이스
 export interface ServicesResult<T> {

@@ -4,6 +4,7 @@ import {
     CommonCodesItemInterface,
     CommonSimplyTimeFormatInterface,
     CommonUserInfoInterface,
+    MessageType,
 } from '@CommonType';
 
 // Root State
@@ -105,4 +106,14 @@ export interface MessengeChatListInterface {
             };
         };
     }>;
+}
+
+// 메시지
+export interface MessengeChatCreateInterface {
+    loading: boolean;
+    message: {
+        type: MessageType;
+        contents: string;
+        image: string;
+    };
 }

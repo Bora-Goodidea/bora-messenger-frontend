@@ -9,7 +9,13 @@ const SearchSection = () => {
         <Container>
             <Wapper>
                 <Label>
-                    <BoraInput StyleType={`search`} InputType={`text`} InputValue={``} Placeholder={`Search Messenger`} />
+                    <BoraInput
+                        StyleType={`search`}
+                        InputType={`text`}
+                        InputValue={``}
+                        Placeholder={`Search Messenger`}
+                        OnChange={e => console.debug('SearchSection OnChange: ', e)}
+                    />
                     <Icon>
                         <SearchIcon />
                     </Icon>

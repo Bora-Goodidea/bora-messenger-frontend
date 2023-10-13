@@ -25,7 +25,7 @@ const pageInitializeState = {
     chats: [],
 };
 
-const MessageSection = () => {
+const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }) => {
     const messengerChatListState = useRecoilValue(MessengerChatListState);
     const [pageState, setPageState] = useState<{
         loading: boolean;
@@ -164,7 +164,7 @@ const MessageSection = () => {
                 </>
             )}
             <FooterBox>
-                <MessageFooterBox />
+                <MessageFooterBox HandleSendMessage={() => HandleSendMessage()} />
             </FooterBox>
         </>
     );

@@ -1,5 +1,10 @@
 import { atom } from 'recoil';
-import { MessengerUserListInterface, MessengerRoomListInterface, MessengeChatListInterface } from '@RecoilInterface';
+import {
+    MessengerUserListInterface,
+    MessengerRoomListInterface,
+    MessengeChatListInterface,
+    MessengeChatCreateInterface,
+} from '@RecoilInterface';
 
 // 사용자 리스트 스테이트
 export const MessengerUserListState = atom<MessengerUserListInterface>({
@@ -37,5 +42,18 @@ export const MessengerChatListState = atom<MessengeChatListInterface>({
             created_at: null,
         },
         chats: [],
+    },
+});
+
+// 신규 메시지 스테이트
+export const MessengerChatCretaeState = atom<MessengeChatCreateInterface>({
+    key: `messenger/chat-create`,
+    default: {
+        loading: false,
+        message: {
+            type: '040010',
+            contents: ``,
+            image: ``,
+        },
     },
 });

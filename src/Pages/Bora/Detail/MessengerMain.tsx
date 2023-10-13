@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { HeaderSection, ActiveUsersSection, SearchSection, ContactsSection, MessageSection } from '.';
 import { PageStyles } from '@Styles';
 import { UserService, MessengerService } from '@Modules';
-import { useSetRecoilState, useResetRecoilState } from 'recoil';
-import { MessengerUserListState, MessengerRoomListState, MessengerChatListState } from '@Recoil/MessengerState';
+import { useSetRecoilState, useResetRecoilState, useRecoilState } from 'recoil';
+import { MessengerUserListState, MessengerRoomListState, MessengerChatListState, MessengerChatCretaeState } from '@Recoil/MessengerState';
 import { useParams } from 'react-router-dom';
 import Messages from '@Messages';
 import { useLayout } from '@Hooks';
@@ -11,7 +11,7 @@ import { useLayout } from '@Hooks';
 const { LeftContainer, RightContainer, ActiveUsersBox, HeaderBox, SearchBox, ContactsBox } = PageStyles.Bora.MessengerStyles.Container;
 
 const { ServiceUserList } = UserService;
-const { ServiceMessengerRoomList, ServiceMessengerChatList, ServiceMessengerCreate } = MessengerService;
+const { ServiceMessengerRoomList, ServiceMessengerChatList, ServiceMessengerCreate, ServiceMessengerChartCreate } = MessengerService;
 
 const pageInitializeState = {
     createLoading: false,
@@ -26,6 +26,8 @@ const MessengerMain = () => {
     const resetMessengerRoomListState = useResetRecoilState(MessengerUserListState);
     const setMessengerChatListState = useSetRecoilState(MessengerChatListState);
     const resetMessengerChatListState = useResetRecoilState(MessengerChatListState);
+    const [messengerChatCretaeState, setMessengerChatCretaeState] = useRecoilState(MessengerChatCretaeState);
+    const resetMessengerChatCretaeState = useResetRecoilState(MessengerChatCretaeState);
 
     const [pageState, setPageState] = useState<{ createLoading: boolean }>(pageInitializeState);
 
@@ -135,6 +137,52 @@ const MessengerMain = () => {
         }
     };
 
+    // 메시지 등록
+    const HandleSendMessage = async () => {
+        const {
+            message: { contents, type },
+        } = messengerChatCretaeState;
+
+        if (contents === '') {
+            HandleMainAlert({
+                state: true,
+                message: Messages.Common.emptyContents,
+            });
+
+            return;
+        }
+
+        if (roomCode) {
+            setMessengerChatCretaeState(prevState => ({
+                ...prevState,
+                loading: true,
+            }));
+            const { status } = await ServiceMessengerChartCreate({ roomCode: roomCode, messageType: type, messageContents: contents });
+            if (status) {
+                handleGetMessengerChatList(roomCode).then(() => resetMessengerChatCretaeState());
+            } else {
+                HandleMainAlert({
+                    state: true,
+                    message: Messages.Common.unknownError,
+                });
+            }
+
+            setMessengerChatCretaeState(prevState => ({
+                ...prevState,
+                loading: false,
+            }));
+
+            return;
+        }
+
+        HandleMainAlert({
+            state: true,
+            message: Messages.Common.unknownError,
+        });
+
+        return;
+    };
+
     useEffect(() => {
         if (roomCode) {
             handleGetMessengerChatList(roomCode).then();
@@ -144,6 +192,10 @@ const MessengerMain = () => {
     useEffect(() => {
         handleGetUserList().then(() => handleGetMessengerRoomList().then());
     }, [handleGetMessengerRoomList, handleGetUserList]);
+
+    useEffect(() => {
+        console.debug(messengerChatCretaeState);
+    }, [messengerChatCretaeState]);
 
     return (
         <>
@@ -162,7 +214,7 @@ const MessengerMain = () => {
                 </ContactsBox>
             </LeftContainer>
             <RightContainer>
-                <MessageSection />
+                <MessageSection HandleSendMessage={() => HandleSendMessage()} />
             </RightContainer>
         </>
     );
