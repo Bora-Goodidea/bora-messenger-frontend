@@ -18,5 +18,7 @@ export default {
         needLogin: `로그인이 필요한 서비스 입니다.`,
         emptySelectUser: `사용자를 선택해 주세요`,
         successCreateRoom: `채팅방을 생성 하였습니다.`,
+        emptyContents: `내용을 입력해 주세요.`,
+        unknownError: `알수 없는 문제가 발생했습니다.`,
     },
 };

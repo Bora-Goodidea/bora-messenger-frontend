@@ -1,5 +1,11 @@
 import { Axios } from '@Commons';
-import { ServicesResult, CommonSimplyTimeFormatInterface, CommonUserInfoInterface, CommonCodesItemInterface } from '@CommonType';
+import {
+    ServicesResult,
+    CommonSimplyTimeFormatInterface,
+    CommonUserInfoInterface,
+    CommonCodesItemInterface,
+    MessageType,
+} from '@CommonType';
 
 export default {
     ServiceMessengerCreate: ({
@@ -96,6 +102,24 @@ export default {
             url: `/api/messenger/chart-checked`,
             payload: {
                 chart: chart,
+            },
+        });
+    },
+    ServiceMessengerChartCreate: ({
+        roomCode,
+        messageType,
+        messageContents,
+    }: {
+        roomCode: string;
+        messageType: MessageType;
+        messageContents: string;
+    }): Promise<ServicesResult<null>> => {
+        return Axios({
+            method: 'post',
+            url: `/api/messenger/${roomCode}/messenger-chat-create`,
+            payload: {
+                messageType: messageType,
+                message: messageContents,
             },
         });
     },
