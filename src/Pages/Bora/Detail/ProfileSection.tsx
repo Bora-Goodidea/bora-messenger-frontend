@@ -1,5 +1,4 @@
 import { PageStyles } from '@Styles';
-import { ChangeEvent, KeyboardEvent, MutableRefObject, useRef } from 'react';
 
 const {
     Container,
@@ -11,28 +10,15 @@ const {
     InputItem,
     InputLabel,
     Input,
-    Button,
     ProfileImageForm,
     ProfileImage,
     DefaultProfileImage,
-    ProfileInputItem,
-    ProfileInputLabel,
 } = PageStyles.Bora.ProfileStyles;
 
 const ProfileUpdateSection = ({
     InputValue,
-    handleProfileUpdateChange,
-    EnterRef,
-    HandleOnKeyDown,
-    handleImgUploadChange,
-    handleProfileUpdateSubmit,
 }: {
     InputValue: { profileImage: { id: number | null; url: string }; email: string; nickname: string };
-    handleProfileUpdateChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    EnterRef: MutableRefObject<HTMLInputElement[]>;
-    HandleOnKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
-    handleImgUploadChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    handleProfileUpdateSubmit: () => void;
 }) => {
     return (
         <Container>
@@ -46,7 +32,6 @@ const ProfileUpdateSection = ({
                             </ProfileImage>
                             <AuthForm>
                                 <InputItem>
-                                    {/* <InputLabel htmlFor="nickname">닉네임</InputLabel> */}
                                     <Input
                                         type="text"
                                         name="nickname"
@@ -61,32 +46,10 @@ const ProfileUpdateSection = ({
                         <AuthForm>
                             <InputItem>
                                 <InputLabel form="email">이메일 주소</InputLabel>
-                                <Input
-                                    type="text"
-                                    name="email"
-                                    id="email"
-                                    value={InputValue.email}
-                                    ref={el => (EnterRef.current[0] = el as HTMLInputElement)}
-                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
-                                    readOnly
-                                />
+                                <Input type="text" name="email" id="email" value={InputValue.email} readOnly />
                             </InputItem>
                             <InputItem>
-                                <InputLabel htmlFor="nickname">닉네임</InputLabel>
-                                <Input
-                                    type="text"
-                                    name="nickname"
-                                    id="nickname"
-                                    placeholder="••••••••"
-                                    required={false}
-                                    value={InputValue.nickname}
-                                    onChange={e => handleProfileUpdateChange(e)}
-                                    ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
-                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
-                                />
-                            </InputItem>
-                            <InputItem>
-                                <InputLabel htmlFor="nickname">최근 접속정보</InputLabel>
+                                <InputLabel htmlFor="nickname">최근 접속 정보</InputLabel>
                                 <Input
                                     type="text"
                                     name="latestLogin"
@@ -94,9 +57,6 @@ const ProfileUpdateSection = ({
                                     placeholder="••••••••"
                                     required={false}
                                     value={InputValue.nickname}
-                                    onChange={e => handleProfileUpdateChange(e)}
-                                    ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
-                                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
                                 />
                             </InputItem>
                         </AuthForm>
