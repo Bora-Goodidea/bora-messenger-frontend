@@ -47,7 +47,7 @@ const RegisterSection = ({
                             <InputItem>
                                 <InputLabel form="email">이메일 주소</InputLabel>
                                 <Input
-                                    type="email"
+                                    type="text"
                                     name="email"
                                     id="email"
                                     placeholder="name@company.com"
@@ -102,7 +102,7 @@ const RegisterSection = ({
                             <InputItem>
                                 <InputLabel htmlFor="nickname">닉네임</InputLabel>
                                 <Input
-                                    type="nickname"
+                                    type="text"
                                     name="nickname"
                                     id="nickname"
                                     placeholder="••••••••"

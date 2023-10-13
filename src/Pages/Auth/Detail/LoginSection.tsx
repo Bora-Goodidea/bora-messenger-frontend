@@ -56,7 +56,7 @@ const LoginSection = ({
                             <InputItem>
                                 <InputLabel htmlFor="email">이메일</InputLabel>
                                 <Input
-                                    type="email"
+                                    type="text"
                                     name="email"
                                     id="email"
                                     placeholder="name@company.com"
