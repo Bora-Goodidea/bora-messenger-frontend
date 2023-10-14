@@ -61,7 +61,6 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
     useEffect(() => {
         const fnSetChatList = () => {
             const { loading, chats, messenger } = messengerChatListState;
-            // console.debug(lodash.last(chats));
             setPageState(prevState => ({
                 ...prevState,
                 loading: loading,
