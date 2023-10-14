@@ -41,7 +41,7 @@ export default {
     > => {
         return Axios({
             method: 'get',
-            url: `/api/messenger/messenger-room-list`,
+            url: `/api/messenger/messenger-user-room-list`,
             payload: null,
         });
     },
