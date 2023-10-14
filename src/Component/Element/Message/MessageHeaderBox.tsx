@@ -15,12 +15,14 @@ const MessageHeader = ({
         }>;
         Name: string;
         Date: string;
+        Uid: string;
     };
 }) => {
     const navigate = useNavigate();
+
     return (
         <>
-            <Wapper onClick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/profile` })}>
+            <Wapper onClick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/${Params.Uid}/profile` })}>
                 <BoraAvatar AvatarImage={Params.AvatarImage} AvatarShadow={true} AvatarSize={`middle`}></BoraAvatar>
                 <TextWapper>
                     <NameStyle>{Params.Name}</NameStyle>

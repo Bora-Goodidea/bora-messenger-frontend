@@ -19,6 +19,7 @@ const pageInitializeState = {
             profileImage: ``,
             nickname: ``,
             time: ``,
+            uid: ``,
         },
         sinceString: ``,
     },
@@ -40,6 +41,7 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                 profileImage: string;
                 nickname: string;
                 time: string;
+                uid: string;
             };
             sinceString: string;
         };
@@ -78,6 +80,7 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                         profileImage: messenger.last.profileImage ? messenger.last.profileImage : ``,
                         nickname: messenger.last.nickname ? messenger.last.nickname : ``,
                         time: messenger.last.time ? messenger.last.time.sinceString : ``,
+                        uid: messenger.last.uid ? messenger.last.uid : ``,
                     },
                     sinceString: messenger.created_at ? messenger.created_at.sinceString : ``,
                 },
@@ -111,32 +114,38 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                 <DefaultSpinner />
             ) : (
                 <>
-                    <HeaderBox>
-                        <MessageHeaderBox
-                            Params={(() => {
-                                const { last, profileImage, nickname, time } = pageState.messenger.last;
-                                const { target, sinceString } = pageState.messenger;
-                                if (last) {
-                                    return {
-                                        AvatarImage: [{ url: profileImage, alt: nickname }],
-                                        Name: nickname,
-                                        Date: time,
-                                    };
-                                } else {
-                                    return {
-                                        AvatarImage: [
-                                            {
-                                                url: target.length > 0 ? target[0].profileImage : ``,
-                                                alt: target.length > 0 ? target[0].name : ``,
-                                            },
-                                        ],
-                                        Name: target.length > 0 ? target[0].name : ``,
-                                        Date: sinceString,
-                                    };
-                                }
-                            })()}
-                        />
-                    </HeaderBox>
+                    {!pageState.messenger.last.uid ? (
+                        <></>
+                    ) : (
+                        <HeaderBox>
+                            <MessageHeaderBox
+                                Params={(() => {
+                                    const { last, profileImage, nickname, time, uid } = pageState.messenger.last;
+                                    const { target, sinceString } = pageState.messenger;
+                                    if (last) {
+                                        return {
+                                            AvatarImage: [{ url: profileImage, alt: nickname }],
+                                            Name: nickname,
+                                            Date: time,
+                                            Uid: uid,
+                                        };
+                                    } else {
+                                        return {
+                                            AvatarImage: [
+                                                {
+                                                    url: target.length > 0 ? target[0].profileImage : ``,
+                                                    alt: target.length > 0 ? target[0].name : ``,
+                                                },
+                                            ],
+                                            Name: target.length > 0 ? target[0].name : ``,
+                                            Date: sinceString,
+                                            Uid: uid,
+                                        };
+                                    }
+                                })()}
+                            />
+                        </HeaderBox>
+                    )}
                     <MessageBoxStyle>
                         {lodash.map(pageState.chats, (chat, dateIndex) => {
                             return (

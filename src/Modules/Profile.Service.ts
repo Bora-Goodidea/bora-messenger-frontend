@@ -65,4 +65,24 @@ export default {
             },
         });
     },
+    YourProfile: ({
+        profileUid,
+    }: {
+        profileUid: string;
+    }): Promise<
+        ServicesResult<{
+            email: string;
+            nickname: string;
+            profile_image: {
+                id: number;
+                url: string;
+            };
+        }>
+    > => {
+        return Axios({
+            method: 'get',
+            url: `/api/user/${profileUid}/profile`,
+            payload: null,
+        });
+    },
 };

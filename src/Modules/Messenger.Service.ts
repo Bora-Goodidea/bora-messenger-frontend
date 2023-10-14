@@ -41,7 +41,7 @@ export default {
     > => {
         return Axios({
             method: 'get',
-            url: `/api/messenger/messenger-room-list`,
+            url: `/api/messenger/messenger-user-room-list`,
             payload: null,
         });
     },
@@ -60,6 +60,7 @@ export default {
                     profileImage: string | null;
                     nickname: string | null;
                     time: CommonSimplyTimeFormatInterface | null;
+                    uid: string | null;
                 };
                 created_at: CommonSimplyTimeFormatInterface;
             };

@@ -35,9 +35,9 @@ export default {
             Component: React.lazy(() => import('@Page/Bora/MessengerPage')),
         },
         {
-            page: `profile`,
+            page: `your-profile`,
             name: `프로필`,
-            pathName: `/profile`,
+            pathName: `/:profileUid/profile`,
             Component: React.lazy(() => import('@Page/Bora/ProfilePage')),
         },
         {
