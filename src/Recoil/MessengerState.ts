@@ -38,6 +38,7 @@ export const MessengerChatListState = atom<MessengeChatListInterface>({
                 profileImage: ``,
                 nickname: ``,
                 time: null,
+                uid: ``,
             },
             created_at: null,
         },

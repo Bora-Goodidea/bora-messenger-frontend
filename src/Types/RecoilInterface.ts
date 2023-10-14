@@ -86,6 +86,7 @@ export interface MessengeChatListInterface {
             profileImage: string | null;
             nickname: string | null;
             time: CommonSimplyTimeFormatInterface | null;
+            uid: string | null;
         };
         created_at: CommonSimplyTimeFormatInterface | null;
     };
