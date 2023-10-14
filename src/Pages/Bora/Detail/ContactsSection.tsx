@@ -48,16 +48,12 @@ const ContactsSection = () => {
                 ...prevState,
                 loading: loading,
                 rooms: lodash.map(rooms, room => {
-                    const target = lodash.filter(room.target, (e, index) => e && index !== 0); // 첫번째는 자기 자신이므로 제외
                     return {
                         roomCode: room.room_code,
                         select: false,
-                        profileImage: lodash.map(
-                            lodash.filter(target, (f, findex) => f && findex < 2),
-                            e => e.profile.image
-                        ),
+                        profileImage: lodash.map(room.target, e => e.profile.image),
                         now: true,
-                        name: target[0].nickname, // 첫번쨰 닉네임만 표시
+                        name: room.target[0].nickname, // 첫번쨰 닉네임만 표시
                         message: room.chart.content,
                         time: room.chart.updated_at ? room.chart.updated_at.sinceString : '',
                     };

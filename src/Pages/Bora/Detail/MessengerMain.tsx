@@ -157,7 +157,11 @@ const MessengerMain = () => {
                 ...prevState,
                 loading: true,
             }));
-            const { status } = await ServiceMessengerChartCreate({ roomCode: roomCode, messageType: type, messageContents: contents });
+            const { status } = await ServiceMessengerChartCreate({
+                roomCode: roomCode,
+                messageType: type,
+                messageContents: contents,
+            });
             if (status) {
                 handleGetMessengerChatList(roomCode).then(() => resetMessengerChatCretaeState());
             } else {
@@ -192,10 +196,6 @@ const MessengerMain = () => {
     useEffect(() => {
         handleGetUserList().then(() => handleGetMessengerRoomList().then());
     }, [handleGetMessengerRoomList, handleGetUserList]);
-
-    useEffect(() => {
-        console.debug(messengerChatCretaeState);
-    }, [messengerChatCretaeState]);
 
     return (
         <>
