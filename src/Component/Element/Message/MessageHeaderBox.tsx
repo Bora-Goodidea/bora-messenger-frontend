@@ -31,7 +31,7 @@ const MessageHeader = ({
             </Wapper>
 
             <Wapper>
-                <IconWapper>
+                <IconWapper onClick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/messenger` })}>
                     <MessageInfoIcon />
                 </IconWapper>
             </Wapper>
