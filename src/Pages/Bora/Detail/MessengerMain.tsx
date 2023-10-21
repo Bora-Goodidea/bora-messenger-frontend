@@ -299,7 +299,7 @@ const MessengerMain = () => {
         <>
             <LeftContainer>
                 <HeaderBox>
-                    <HeaderSection MessengerCreate={uid => handleMessengerCreate(uid)} />
+                    <HeaderSection MessengerCreate={uid => handleMessengerCreate(uid)} ResetMessenger={resetMessengerChatListState} />
                 </HeaderBox>
                 <SearchBox>
                     <SearchSection />

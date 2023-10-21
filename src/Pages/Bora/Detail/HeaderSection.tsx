@@ -20,7 +20,13 @@ const pageInitializeState = {
     },
 };
 
-const HeaderSection = ({ MessengerCreate }: { MessengerCreate: (uid: Array<string>) => void }) => {
+const HeaderSection = ({
+    MessengerCreate,
+    ResetMessenger,
+}: {
+    MessengerCreate: (uid: Array<string>) => void;
+    ResetMessenger: () => void;
+}) => {
     const navigate = useNavigate();
     const { HandleMainAlert } = useLayout();
     const messengerUserListState = useRecoilValue(MessengerUserListState);
@@ -108,7 +114,13 @@ const HeaderSection = ({ MessengerCreate }: { MessengerCreate: (uid: Array<strin
                 AvatarSize={`default`}
                 AvatarOnclick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/profile-update` })}
             />
-            <Title>Bora-Messenger</Title>
+            <Title
+                onClick={() => {
+                    navigate({ pathname: `${process.env.PUBLIC_URL}/bora/messenger` });
+                    ResetMessenger();
+                }}>
+                Bora-Messenger
+            </Title>
             <NewMessage
                 onClick={() =>
                     setPageState(prevState => ({
