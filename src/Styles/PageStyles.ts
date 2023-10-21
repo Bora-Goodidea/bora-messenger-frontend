@@ -40,10 +40,10 @@ export default {
                 IconWapper: tw.div`text-sm text-center mr-4`,
                 LoadingWapper: tw.div`flex items-center justify-center mr-4`,
                 AvatarBox: tw.div`text-sm text-center mr-4 cursor-pointer`,
-                AvatarWapper: styled.div(({ ActiveStyle }: { ActiveStyle: boolean }) => {
+                AvatarWapper: styled.div(({ SelectStyle }: { SelectStyle: boolean }) => {
                     const twStyled = [tw`p-1 border-4 rounded-full`];
 
-                    if (ActiveStyle) {
+                    if (SelectStyle) {
                         twStyled.push(tw`border-blue-600`);
                     } else {
                         twStyled.push(tw`border-transparent`);

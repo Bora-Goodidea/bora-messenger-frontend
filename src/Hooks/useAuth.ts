@@ -9,8 +9,13 @@ const { getTokenInfo } = AuthService;
 export default function useAuth() {
     const setAtomRootState = useSetRecoilState(AtomRootState);
 
-    const handleAuthTokenSave = ({ access_token, refresh_token }: { access_token: string; refresh_token: string }) => {
+    const handleAuthTokenSave = ({ uid, access_token, refresh_token }: { uid: string; access_token: string; refresh_token: string }) => {
         saveRefreshToken({ accessToken: access_token, refreshToken: refresh_token });
+        setAtomRootState(prevState => ({
+            ...prevState,
+            loginState: true,
+            uid: uid,
+        }));
     };
 
     const handleAuthCkeck = async ({ tokenCheck }: { tokenCheck: boolean }): Promise<boolean> => {
@@ -21,6 +26,7 @@ export default function useAuth() {
             setAtomRootState(prevState => ({
                 ...prevState,
                 loginState: false,
+                uid: ``,
                 appCheckStatus: {
                     ...prevState.appCheckStatus,
                     login: true,
@@ -31,11 +37,12 @@ export default function useAuth() {
         }
 
         if (tokenCheck) {
-            const { status } = await getTokenInfo();
+            const { status, payload } = await getTokenInfo();
             if (!status) {
                 setAtomRootState(prevState => ({
                     ...prevState,
                     loginState: false,
+                    uid: ``,
                     appCheckStatus: {
                         ...prevState.appCheckStatus,
                         login: true,
@@ -43,17 +50,28 @@ export default function useAuth() {
                 }));
 
                 return false;
+            } else {
+                setAtomRootState(prevState => ({
+                    ...prevState,
+                    loginState: true,
+                    uid: payload.uid,
+                    appCheckStatus: {
+                        ...prevState.appCheckStatus,
+                        login: true,
+                    },
+                }));
             }
+        } else {
+            setAtomRootState(prevState => ({
+                ...prevState,
+                loginState: true,
+                appCheckStatus: {
+                    ...prevState.appCheckStatus,
+                    login: true,
+                },
+            }));
         }
 
-        setAtomRootState(prevState => ({
-            ...prevState,
-            loginState: true,
-            appCheckStatus: {
-                ...prevState.appCheckStatus,
-                login: true,
-            },
-        }));
         return true;
     };
 
@@ -63,6 +81,7 @@ export default function useAuth() {
         setAtomRootState(prevState => ({
             ...prevState,
             loginState: false,
+            uid: ``,
         }));
     };
 

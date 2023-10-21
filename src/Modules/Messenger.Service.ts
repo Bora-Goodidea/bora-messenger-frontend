@@ -1,11 +1,6 @@
 import { Axios } from '@Commons';
-import {
-    ServicesResult,
-    CommonSimplyTimeFormatInterface,
-    CommonUserInfoInterface,
-    CommonCodesItemInterface,
-    MessageType,
-} from '@CommonType';
+import { ServicesResult, MessageType } from '@CommonType';
+import { MessengerChatListInterface, MessengerRoomListItemInterface } from '@ServiceInterface';
 
 export default {
     ServiceMessengerCreate: ({
@@ -25,64 +20,14 @@ export default {
             },
         });
     },
-    ServiceMessengerRoomList: (): Promise<
-        ServicesResult<
-            Array<{
-                room_code: string;
-                target: Array<CommonUserInfoInterface>;
-                chart: {
-                    content: string;
-                    updated_at: CommonSimplyTimeFormatInterface | null;
-                };
-                created_at: CommonSimplyTimeFormatInterface;
-                updated_at: CommonSimplyTimeFormatInterface;
-            }>
-        >
-    > => {
+    ServiceMessengerRoomList: (): Promise<ServicesResult<Array<MessengerRoomListItemInterface>>> => {
         return Axios({
             method: 'get',
             url: `/api/messenger/messenger-user-room-list`,
             payload: null,
         });
     },
-    ServiceMessengerChatList: ({
-        roomCode,
-    }: {
-        roomCode: string;
-    }): Promise<
-        ServicesResult<{
-            messenger: {
-                room_code: string;
-                target: Array<CommonUserInfoInterface>;
-                last: {
-                    last: boolean;
-                    message: string | null;
-                    profileImage: string | null;
-                    nickname: string | null;
-                    time: CommonSimplyTimeFormatInterface | null;
-                    uid: string | null;
-                };
-                created_at: CommonSimplyTimeFormatInterface;
-            };
-            chat: Array<{
-                date: string;
-                list: {
-                    [index: string]: {
-                        location: `left` | `right`;
-                        user: CommonUserInfoInterface;
-                        message: Array<{
-                            type: CommonCodesItemInterface;
-                            chat_code: string;
-                            contents: string;
-                            checked: `Y` | `N`;
-                            checked_at: CommonSimplyTimeFormatInterface | null;
-                            created_at: CommonSimplyTimeFormatInterface;
-                        }>;
-                    };
-                };
-            }>;
-        }>
-    > => {
+    ServiceMessengerChatList: ({ roomCode }: { roomCode: string }): Promise<ServicesResult<MessengerChatListInterface>> => {
         return Axios({
             method: 'get',
             url: `/api/messenger/${roomCode}/chart-list`,

@@ -54,3 +54,8 @@ export interface CommonSimplyTimeFormatInterface {
     };
     sinceString: string; // ex) '2분 전'
 }
+
+// 소켄통신 pyload - 사용 안함
+export interface CommonSocketServerOrderInterface {
+    name: `active-user` | `message` | `join-room-send-message`;
+}
