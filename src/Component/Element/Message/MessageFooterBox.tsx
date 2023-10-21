@@ -56,6 +56,7 @@ const MessageFooterBox = ({ HandleSendMessage }: { HandleSendMessage: () => void
     };
 
     const HandleOnKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.nativeEvent.isComposing) return;
         if (e.key !== 'Enter') return;
 
         HandleSendMessage();
