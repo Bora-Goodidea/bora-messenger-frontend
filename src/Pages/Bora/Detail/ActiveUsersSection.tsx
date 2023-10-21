@@ -114,9 +114,10 @@ const ActiveUsersSection = ({
                     {lodash.map(pageState.users, (user, index) => {
                         return (
                             <AvatarBox key={`Active-Users-avatar-item-${index}`} onClick={() => handleUserSelection({ uid: user.uid })}>
-                                <AvatarWapper ActiveStyle={user.active}>
+                                <AvatarWapper SelectStyle={lodash.findIndex(pageState.selectList, { uid: user.uid }) > -1}>
                                     <BoraAvatar
-                                        AvatarSelect={lodash.findIndex(pageState.selectList, { uid: user.uid }) > -1}
+                                        AvatarActive={user.active}
+                                        AvatarSelect={false}
                                         AvatarImage={[{ url: user.profileImage, alt: user.name }]}
                                         AvatarShadow={false}
                                         AvatarSize={`default`}

@@ -3,7 +3,7 @@ import { BoraButton, BoraInput } from '@Elements';
 import { MessagePictureIcon, MessageEmojiIcon, MessageSendIcon } from '@Icons';
 import { ElementStyles } from '@Styles';
 import { useRecoilState } from 'recoil';
-import { MessengerChatCretaeState } from '@Recoil/MessengerState';
+import { MessengerChatCreateState } from '@Recoil/MessengerState';
 import { MessageType } from '@CommonType';
 import { ProfileService } from '@Modules';
 import { useLayout } from '@Hooks';
@@ -12,7 +12,7 @@ const { Container, InputBox, InputWapper } = ElementStyles.MessageStyle.MessageF
 const { ImageCreate } = ProfileService;
 
 const MessageFooterBox = ({ HandleSendMessage }: { HandleSendMessage: () => void }) => {
-    const [messengerChatCretaeState, setMessengerChatCretaeState] = useRecoilState(MessengerChatCretaeState);
+    const [messengerChatCreateState, setMessengerChatCretaeState] = useRecoilState(MessengerChatCreateState);
     const hiddenFileInput = useRef<HTMLInputElement>(null);
     const { HandleMainAlert } = useLayout();
 
@@ -75,7 +75,7 @@ const MessageFooterBox = ({ HandleSendMessage }: { HandleSendMessage: () => void
                         <BoraInput
                             StyleType={`send`}
                             InputType={`text`}
-                            InputValue={messengerChatCretaeState.message.contents}
+                            InputValue={messengerChatCreateState.message.contents}
                             Placeholder="Aa"
                             OnChange={e => handleInputOnchange(e)}
                             HandleOnKeyDown={e => HandleOnKeyDown(e)}
