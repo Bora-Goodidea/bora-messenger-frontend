@@ -76,7 +76,25 @@ const ContactsSection = () => {
                             <Wapper
                                 SelectStyle={room.select}
                                 key={`contacts-section-item-${index}`}
-                                onClick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/${room.roomCode}/messenger` })}>
+                                onClick={() => {
+                                    navigate({ pathname: `${process.env.PUBLIC_URL}/bora/${room.roomCode}/messenger` });
+                                    const { loading, rooms } = messengerRoomListState;
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        loading: loading,
+                                        rooms: lodash.map(rooms, el => {
+                                            return {
+                                                roomCode: el.room_code,
+                                                select: el.room_code === room.roomCode ? true : false,
+                                                profileImage: lodash.map(el.target, e => e.profile.image),
+                                                now: true,
+                                                name: el.target[0].nickname,
+                                                message: el.chart.content,
+                                                time: el.chart.updated_at ? el.chart.updated_at.sinceString : '',
+                                            };
+                                        }),
+                                    }));
+                                }}>
                                 <AvatarBox>
                                     {lodash.map(room.profileImage, (e, i, list) => {
                                         return (
