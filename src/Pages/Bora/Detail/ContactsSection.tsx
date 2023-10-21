@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { MessengerRoomListState } from '@Recoil/MessengerState';
 import lodash from 'lodash';
 import { PageStyles } from '@Styles';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DefaultSpinner } from '@Icons';
 
 const {
@@ -27,6 +27,7 @@ const pageInitializeState = {
 
 const ContactsSection = () => {
     const navigate = useNavigate();
+    const { roomCode } = useParams();
     const messengerRoomListState = useRecoilValue(MessengerRoomListState);
     const [pageState, setPageState] = useState<{
         loading: boolean;
@@ -50,7 +51,7 @@ const ContactsSection = () => {
                 rooms: lodash.map(rooms, room => {
                     return {
                         roomCode: room.room_code,
-                        select: false,
+                        select: roomCode === room.room_code ? true : false,
                         profileImage: lodash.map(room.target, e => e.profile.image),
                         now: true,
                         name: room.target[0].nickname, // 첫번쨰 닉네임만 표시
@@ -62,7 +63,7 @@ const ContactsSection = () => {
         };
 
         fnSetRoomList();
-    }, [messengerRoomListState]);
+    }, [messengerRoomListState, roomCode]);
 
     // TODO: 채팅창 상단 이미지 작업?
     return (
@@ -76,25 +77,7 @@ const ContactsSection = () => {
                             <Wapper
                                 SelectStyle={room.select}
                                 key={`contacts-section-item-${index}`}
-                                onClick={() => {
-                                    navigate({ pathname: `${process.env.PUBLIC_URL}/bora/${room.roomCode}/messenger` });
-                                    const { loading, rooms } = messengerRoomListState;
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        loading: loading,
-                                        rooms: lodash.map(rooms, el => {
-                                            return {
-                                                roomCode: el.room_code,
-                                                select: el.room_code === room.roomCode ? true : false,
-                                                profileImage: lodash.map(el.target, e => e.profile.image),
-                                                now: true,
-                                                name: el.target[0].nickname,
-                                                message: el.chart.content,
-                                                time: el.chart.updated_at ? el.chart.updated_at.sinceString : '',
-                                            };
-                                        }),
-                                    }));
-                                }}>
+                                onClick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/${room.roomCode}/messenger` })}>
                                 <AvatarBox>
                                     {lodash.map(room.profileImage, (e, i, list) => {
                                         return (
