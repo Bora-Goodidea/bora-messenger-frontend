@@ -73,9 +73,9 @@ const LoginMain = () => {
         }));
 
         if (status) {
-            const { access_token, refresh_token } = payload;
+            const { access_token, refresh_token, uid } = payload;
 
-            handleAuthTokenSave({ access_token: access_token, refresh_token: refresh_token });
+            handleAuthTokenSave({ uid: uid, access_token: access_token, refresh_token: refresh_token });
 
             if (pageState.loginState.idRemember) {
                 storageMaster.set(Const.Naming.rememberId, email);
@@ -163,7 +163,9 @@ const LoginMain = () => {
                 action: `/bora/messenger`,
             });
         }
-    }, [HandleMainAlert, atomRootState.loginState]);
+        // FIXME : 종속성에서 로그인성공시 alert 작동으로 인해 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         const pageStart = () => {

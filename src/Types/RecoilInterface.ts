@@ -3,9 +3,9 @@ import {
     BaseDataCodeStep2Item,
     CommonCodesItemInterface,
     CommonSimplyTimeFormatInterface,
-    CommonUserInfoInterface,
     MessageType,
 } from '@CommonType';
+import { MessengerChatListInterface, MessengerRoomListItemInterface } from '@ServiceInterface';
 
 // Root State
 export interface RootStateInterface {
@@ -18,6 +18,7 @@ export interface RootStateInterface {
     };
     systemNotice: string;
     loginState: boolean;
+    uid: string;
     rootData: {
         code: {
             step1: Array<BaseDataCodeStep1Item>;
@@ -37,76 +38,41 @@ export interface LayoutStateInterface {
     };
 }
 
+// 회원 리스트 아이템ㄴ
+export interface MessengerUserListItemInterface {
+    uid: string;
+    type: CommonCodesItemInterface;
+    level: CommonCodesItemInterface;
+    status: CommonCodesItemInterface;
+    email: string;
+    nickname: string;
+    profile: {
+        image: string;
+    };
+    active: {
+        state: `Y` | `N`;
+        updated_at: CommonSimplyTimeFormatInterface | null;
+    };
+    created_at: CommonSimplyTimeFormatInterface;
+    updated_at: CommonSimplyTimeFormatInterface;
+}
+
 // 사용자 리스트
 export interface MessengerUserListInterface {
     loading: boolean;
-    users: Array<{
-        uid: string;
-        type: CommonCodesItemInterface;
-        level: CommonCodesItemInterface;
-        status: CommonCodesItemInterface;
-        email: string;
-        nickname: string;
-        profile: {
-            image: string;
-        };
-        active: {
-            state: `Y` | `N`;
-            updated_at: CommonSimplyTimeFormatInterface | null;
-        };
-        created_at: CommonSimplyTimeFormatInterface;
-        updated_at: CommonSimplyTimeFormatInterface;
-    }>;
+    users: Array<MessengerUserListItemInterface>;
 }
 
 // 내 채팅방 리스트
 export interface MessengerRoomListInterface {
     loading: boolean;
-    rooms: Array<{
-        room_code: string;
-        target: Array<CommonUserInfoInterface>;
-        chart: {
-            content: string;
-            updated_at: CommonSimplyTimeFormatInterface | null;
-        };
-        created_at: CommonSimplyTimeFormatInterface;
-        updated_at: CommonSimplyTimeFormatInterface;
-    }>;
+    rooms: Array<MessengerRoomListItemInterface>;
 }
 
 // 채팅 리스트
 export interface MessengeChatListInterface {
     loading: boolean;
-    messenger: {
-        room_code: string;
-        target: Array<CommonUserInfoInterface>;
-        last: {
-            last: boolean;
-            message: string | null;
-            profileImage: string | null;
-            nickname: string | null;
-            time: CommonSimplyTimeFormatInterface | null;
-            uid: string | null;
-        };
-        created_at: CommonSimplyTimeFormatInterface | null;
-    };
-    chats: Array<{
-        date: string;
-        list: {
-            [index: string]: {
-                location: string | `left` | `right`;
-                user: CommonUserInfoInterface;
-                message: Array<{
-                    type: CommonCodesItemInterface;
-                    chat_code: string;
-                    contents: string;
-                    checked: `Y` | `N`;
-                    checked_at: CommonSimplyTimeFormatInterface | null;
-                    created_at: CommonSimplyTimeFormatInterface;
-                }>;
-            };
-        };
-    }>;
+    resultData: MessengerChatListInterface;
 }
 
 // 메시지

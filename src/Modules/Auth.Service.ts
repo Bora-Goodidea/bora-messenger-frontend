@@ -67,6 +67,7 @@ export default {
         password: string
     ): Promise<
         ServicesResult<{
+            uid: string;
             access_token: string;
             refresh_token: string;
         }>
@@ -122,6 +123,7 @@ export default {
     getTokenInfo: (): Promise<
         ServicesResult<{
             email: string;
+            uid: string;
             status: string;
             level: string;
         }>
@@ -129,7 +131,7 @@ export default {
         return Axios({
             method: 'get',
             url: `/api/auth/token-info`,
-            payload: null,
+            payload: {},
         });
     },
 };

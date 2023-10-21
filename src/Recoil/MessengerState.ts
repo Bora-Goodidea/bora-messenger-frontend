@@ -29,25 +29,34 @@ export const MessengerChatListState = atom<MessengeChatListInterface>({
     key: `messenger/chat-list`,
     default: {
         loading: false,
-        messenger: {
-            room_code: ``,
-            target: [],
-            last: {
-                last: false,
-                message: ``,
-                profileImage: ``,
-                nickname: ``,
-                time: null,
-                uid: ``,
+        resultData: {
+            messenger: {
+                room_code: ``,
+                target: [],
+                last: {
+                    last: false,
+                    message: ``,
+                    profileImage: ``,
+                    nickname: ``,
+                    time: null,
+                    uid: ``,
+                },
+                created_at: {
+                    format: {
+                        step1: ``,
+                        step2: ``,
+                        step3: ``,
+                    },
+                    sinceString: ``,
+                },
             },
-            created_at: null,
+            chat: [],
         },
-        chats: [],
     },
 });
 
 // 신규 메시지 스테이트
-export const MessengerChatCretaeState = atom<MessengeChatCreateInterface>({
+export const MessengerChatCreateState = atom<MessengeChatCreateInterface>({
     key: `messenger/chat-create`,
     default: {
         loading: false,
