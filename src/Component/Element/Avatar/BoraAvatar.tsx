@@ -1,7 +1,6 @@
 import { ElementStyles } from '@Styles';
 import { AvatarStyleSizeType } from '@CommonType';
 import lodash from 'lodash';
-import React from 'react';
 
 const { Wapper, AvatarImage: AvatarImageStyle } = ElementStyles.BoraAvatarStyle;
 
@@ -32,6 +31,7 @@ const BoraAvatar = ({
                         Multiple={list.length > 1}
                         Index={i}
                         onClick={() => AvatarOnclick && AvatarOnclick()}
+                        className="cursor-pointer"
                     />
                 );
             })}

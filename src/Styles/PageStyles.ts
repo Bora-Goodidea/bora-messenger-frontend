@@ -12,7 +12,7 @@ export default {
                 ContactsBox: tw.div`p-2 flex-1 overflow-y-scroll border-t`,
             },
             HeaderSection: {
-                Title: tw.p`font-bold hidden md:block`,
+                Title: tw.p`font-bold hidden md:block cursor-pointer`,
                 NewMessage: tw.div`block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2 cursor-pointer`,
                 UserList: {
                     Container: tw.div`w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700`,
