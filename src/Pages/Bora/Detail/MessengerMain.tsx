@@ -6,11 +6,7 @@ import { useSetRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
 import { MessengerUserListState, MessengerRoomListState, MessengerChatListState, MessengerChatCreateState } from '@Recoil/MessengerState';
 import { useParams } from 'react-router-dom';
 import Messages from '@Messages';
-import { useLayout } from '@Hooks';
-import { socketConnect } from '@Common/Socket';
-import { MessengerChatListItemInterface, MessengerRoomListItemInterface, MessengerRoomNewMessage } from '@ServiceInterface';
-import lodash from 'lodash';
-import { MessengerUserListItemInterface } from '@RecoilInterface';
+import { useLayout, useSockets } from '@Hooks';
 
 const { LeftContainer, RightContainer, ActiveUsersBox, HeaderBox, SearchBox, ContactsBox } = PageStyles.Bora.MessengerStyles.Container;
 
@@ -24,6 +20,8 @@ const pageInitializeState = {
 const MessengerMain = () => {
     const { roomCode } = useParams<{ roomCode?: string }>();
     const { HandleMainAlert } = useLayout();
+    const { handleSocketConnent, handleSocketDisconnect, handleJoinRoom, handleCreateRoom, handleRoomSendMessage, socketConnentState } =
+        useSockets();
     const setMessengerUserListState = useSetRecoilState(MessengerUserListState);
     const resetMessengerUserListState = useResetRecoilState(MessengerUserListState);
     const setMessengerRoomListState = useSetRecoilState(MessengerRoomListState);
@@ -89,11 +87,6 @@ const MessengerMain = () => {
                     loading: false,
                     resultData: payload,
                 }));
-
-                socketConnect.emit('client-request', {
-                    name: `join-room`,
-                    room_code: `${code}`,
-                });
             } else {
                 resetMessengerChatListState();
                 HandleMainAlert({
@@ -123,9 +116,7 @@ const MessengerMain = () => {
 
         const { status, payload, message } = await ServiceMessengerCreate({ target: uid });
         if (status) {
-            socketConnect.emit('create-room', {
-                room_code: `${payload.room_code}`,
-            });
+            handleCreateRoom({ roomCode: payload.room_code });
 
             handleGetMessengerRoomList().then();
 
@@ -168,130 +159,34 @@ const MessengerMain = () => {
             return;
         }
 
-        socketConnect.emit('room-send-message', {
-            room_code: roomCode,
-            type: `${type}`,
-            contents: `${contents}`,
-        });
+        if (roomCode) {
+            handleRoomSendMessage({ roomCode: roomCode, type: type, message: contents });
+        }
+
         resetMessengerChatCretaeState();
         return;
     };
-
-    useEffect(() => {
-        if (roomCode) {
-            handleGetMessengerChatList(roomCode).then();
-            socketConnect.emit('join-room', {
-                sid: roomCode,
-            });
-        }
-        // FIXME : 종속성에서 handleGetMessengerChatList 업데이트시 disable 리펙토링시에 수정 필요.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [roomCode]);
 
     useEffect(() => {
         handleGetUserList({ loading: true }).then(() => handleGetMessengerRoomList().then());
     }, [handleGetMessengerRoomList, handleGetUserList]);
 
     useEffect(() => {
-        socketConnect.on('connect', () => {
-            console.debug('connect');
-        });
+        if (socketConnentState && roomCode) {
+            handleGetMessengerChatList(roomCode).then(() => handleJoinRoom({ roomCode: roomCode }));
+        }
+        // FIXME : 종속성에서 handleJoinRoom 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [socketConnentState, roomCode]);
 
-        socketConnect.on('welcome', payload => {
-            console.debug(payload);
-        });
-
-        socketConnect.on('invite-room', (payload: MessengerRoomListItemInterface) => {
-            setMessengerRoomListState(prevState => ({
-                ...prevState,
-                rooms: lodash.concat(prevState.rooms, payload),
-            }));
-        });
-
-        socketConnect.on('active-user', (payload: MessengerUserListItemInterface) => {
-            setMessengerUserListState(prevState => ({
-                ...prevState,
-                users: (() => {
-                    const findUser = lodash.find(prevState.users, { uid: payload.uid });
-                    if (findUser) {
-                        return lodash.map(prevState.users, e => {
-                            if (e.uid === payload.uid) {
-                                return payload;
-                            } else {
-                                return e;
-                            }
-                        });
-                    } else {
-                        return [...prevState.users, payload];
-                    }
-                })(),
-            }));
-        });
-
-        socketConnect.on('new-message', (payload: MessengerChatListItemInterface) => {
-            setMessengerChatListState(prevState => ({
-                ...prevState,
-                loading: false,
-                resultData: {
-                    ...prevState.resultData,
-                    chat: lodash.concat(prevState.resultData.chat, payload),
-                },
-            }));
-        });
-
-        socketConnect.on('room-new-message', (payload: MessengerRoomNewMessage) => {
-            setMessengerRoomListState(prevState => ({
-                ...prevState,
-                rooms: (() => {
-                    const findRoom = lodash.find(prevState.rooms, { room_code: payload.roomCode });
-
-                    if (findRoom) {
-                        return lodash.map(prevState.rooms, e => {
-                            if (e.room_code === payload.roomCode) {
-                                return {
-                                    ...e,
-                                    chart: {
-                                        content: payload.content,
-                                        updated_at: payload.updated_at,
-                                    },
-                                };
-                            } else {
-                                return e;
-                            }
-                        });
-                    } else {
-                        return prevState.rooms;
-                    }
-                })(),
-            }));
-        });
-
-        socketConnect.on('client-error', (payload: { message: string }) => {
-            HandleMainAlert({
-                state: true,
-                message: payload.message,
-            });
-        });
+    useEffect(() => {
+        handleSocketConnent();
 
         return () => {
-            console.debug('clean');
-            socketConnect.off('connect', () => {
-                console.debug('clean : connect');
-            });
-            socketConnect.off('disconnect', () => {
-                console.debug('clean : disconnect');
-            });
-            socketConnect.off('message', message => {
-                console.debug('clean message: ', message);
-            });
-
-            socketConnect.off('room-message', payload => {
-                console.debug('room-message', payload);
-            });
-
-            socketConnect.disconnect();
+            handleSocketDisconnect();
         };
-        // FIXME : 종속성에서 업데이트시 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+
+        // FIXME : 종속성에서 handleSocketConnent 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
