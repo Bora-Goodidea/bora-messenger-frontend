@@ -215,12 +215,15 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                 }),
             }));
         };
-        fnSetChatList();
 
-        if (messageBoxRef.current) {
+        fnSetChatList();
+    }, [atomRootState.uid, messengerChatListState, messengerChatListState.resultData.chat]);
+
+    useEffect(() => {
+        if (messengerChatListState.resultData.chat.length > 0 && messageBoxRef.current) {
             messageBoxRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-    }, [atomRootState.uid, messengerChatListState]);
+    }, [messengerChatListState.resultData.chat.length, pageState.chats]);
 
     return (
         <>
@@ -283,8 +286,8 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                                 </React.Fragment>
                             );
                         })}
+                        <div ref={messageBoxRef} />
                     </MessageBoxStyle>
-                    <div ref={messageBoxRef} />
                 </>
             )}
             <FooterBox>
