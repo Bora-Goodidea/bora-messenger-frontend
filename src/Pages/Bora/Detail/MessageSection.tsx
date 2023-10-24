@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import lodash from 'lodash';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { MessengerChatListState } from '@Recoil/MessengerState';
 import { AtomRootState } from '@Recoil/AppRootState';
 import { MessageHeaderBox, MessageBox, MessageFooterBox } from '@Elements';
 import { PageStyles } from '@Styles';
 import { CommonCodesItemInterface } from '@CommonType';
 import { DefaultSpinner } from '@Icons';
+import MessengerService from '@Module/Messenger.Service';
 
 const { HeaderBox, MessageBox: MessageBoxStyle, FooterBox, MessageDate } = PageStyles.Bora.MessengerStyles.MessageSection;
+const { ServiceMessengerChartChecked } = MessengerService;
 
 const pageInitializeState = {
     loading: false,
@@ -26,10 +28,11 @@ const pageInitializeState = {
         sinceString: ``,
     },
     chats: [],
+    doChecks: [],
 };
 
 const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }) => {
-    const messengerChatListState = useRecoilValue(MessengerChatListState);
+    const [messengerChatListState, setMessengerChatListState] = useRecoilState(MessengerChatListState);
     const atomRootState = useRecoilValue(AtomRootState);
     const messageBoxRef = useRef<HTMLDivElement>(null);
     const [pageState, setPageState] = useState<{
@@ -57,11 +60,14 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                     profileImage: string | null;
                 };
                 list: Array<{
+                    cid: string;
+                    checked: string | `Y` | `N`;
                     type: CommonCodesItemInterface;
                     contents: string;
                 }>;
             }>;
         }>;
+        doChecks: Array<string>;
     }>(pageInitializeState);
 
     useEffect(() => {
@@ -70,6 +76,7 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                 loading,
                 resultData: { chat, messenger },
             } = messengerChatListState;
+            const doChecks: Array<string> = [];
             setPageState(prevState => ({
                 ...prevState,
                 loading: loading,
@@ -200,7 +207,12 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                                         profileImage: e.user.profile.image ? e.user.profile.image : null,
                                     },
                                     list: lodash.map(e.message, m => {
+                                        if (atomRootState.uid !== e.user.uid && m.checked === 'N') {
+                                            doChecks.push(m.chat_code);
+                                        }
                                         return {
+                                            cid: m.chat_code,
+                                            checked: m.checked,
                                             type: {
                                                 code: m.type.code ? m.type.code : '',
                                                 name: m.type.name ? m.type.name : '',
@@ -213,6 +225,7 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                         })(),
                     };
                 }),
+                doChecks: doChecks,
             }));
         };
 
@@ -224,6 +237,41 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
             messageBoxRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messengerChatListState.resultData.chat.length, pageState.chats]);
+
+    useEffect(() => {
+        const funcMsgChecked = async (list: Array<string>) => {
+            const { status, payload } = await ServiceMessengerChartChecked({ chart: list });
+            if (status) {
+                setMessengerChatListState(prevState => ({
+                    ...prevState,
+                    resultData: {
+                        ...prevState.resultData,
+                        chat: lodash.map(prevState.resultData.chat, e => {
+                            if (lodash.includes(payload.chart_code, e.item.chat_code)) {
+                                return {
+                                    ...e,
+                                    item: {
+                                        ...e.item,
+                                        checked: 'Y',
+                                    },
+                                };
+                            } else {
+                                return e;
+                            }
+                        }),
+                    },
+                }));
+            }
+        };
+        if (pageState.doChecks.length > 0) {
+            funcMsgChecked(pageState.doChecks).then(() => {
+                setPageState(prevState => ({
+                    ...prevState,
+                    doChecks: [],
+                }));
+            });
+        }
+    }, [pageState.doChecks, setMessengerChatListState]);
 
     return (
         <>
@@ -274,10 +322,10 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                                                 key={`message-section-message-box-message-${dateIndex}-${index}`}
                                                 ProfileImage={msg.user.profileImage ? msg.user.profileImage : null}
                                                 MessageLocation={msg.location}
-                                                MessageList={lodash.map(msg.list, list => {
+                                                MessageList={lodash.map(msg.list, item => {
                                                     return {
-                                                        type: list.type.name,
-                                                        message: list.contents,
+                                                        type: item.type.name,
+                                                        message: item.contents,
                                                     };
                                                 })}
                                             />

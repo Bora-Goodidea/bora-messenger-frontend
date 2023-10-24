@@ -2,14 +2,16 @@ import { useEffect, useState, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { getAccessToken } from '@Helper';
 import { MessengerRoomListItemInterface, MessengerChatListItemInterface, MessengerRoomNewMessage } from '@ServiceInterface';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { MessengerChatListState, MessengerRoomListState, MessengerUserListState } from '@Recoil/MessengerState';
 import lodash from 'lodash';
 import { MessengerUserListItemInterface } from '@RecoilInterface';
+import { AtomRootState } from '@Recoil/AppRootState';
 
 export default function useSockets() {
     const [socketConnentState, setSocketConnentState] = useState<boolean>(false);
     const socketConnection = useRef<Socket>();
+    const atomRootState = useRecoilValue(AtomRootState);
     const setMessengerRoomListState = useSetRecoilState(MessengerRoomListState);
     const setMessengerUserListState = useSetRecoilState(MessengerUserListState);
     const setMessengerChatListState = useSetRecoilState(MessengerChatListState);
@@ -108,7 +110,13 @@ export default function useSockets() {
                     loading: false,
                     resultData: {
                         ...prevState.resultData,
-                        chat: lodash.concat(prevState.resultData.chat, payload),
+                        chat: lodash.concat(prevState.resultData.chat, {
+                            ...payload,
+                            item: {
+                                ...payload.item,
+                                checked: payload.item.user.uid === atomRootState.uid ? 'Y' : 'N',
+                            },
+                        }),
                     },
                 }));
             });
