@@ -44,7 +44,7 @@ export default {
         }>
     > => {
         return Axios({
-            method: 'get',
+            method: 'post',
             url: `/api/messenger/chart-checked`,
             payload: {
                 chart: chart,
