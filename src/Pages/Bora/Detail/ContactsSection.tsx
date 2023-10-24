@@ -51,7 +51,7 @@ const ContactsSection = () => {
                 rooms: lodash.map(rooms, room => {
                     return {
                         roomCode: room.room_code,
-                        select: roomCode === room.room_code ? true : false,
+                        select: roomCode === room.room_code,
                         profileImage: lodash.map(room.target, e => e.profile.image),
                         now: true,
                         name: room.target[0].nickname, // 첫번쨰 닉네임만 표시
