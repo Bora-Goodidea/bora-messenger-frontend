@@ -35,7 +35,7 @@ const ContactsSection = () => {
             roomCode: string;
             select: boolean;
             profileImage: Array<string> | null;
-            now: boolean;
+            checked: boolean;
             name: string;
             message: string;
             time: string;
@@ -53,7 +53,7 @@ const ContactsSection = () => {
                         roomCode: room.room_code,
                         select: roomCode === room.room_code,
                         profileImage: lodash.map(room.target, e => e.profile.image),
-                        now: true,
+                        checked: room.checked === 'N',
                         name: room.target[0].nickname, // 첫번쨰 닉네임만 표시
                         message: room.chart.content,
                         time: room.chart.updated_at ? room.chart.updated_at.sinceString : '',
@@ -65,7 +65,6 @@ const ContactsSection = () => {
         fnSetRoomList();
     }, [messengerRoomListState, roomCode]);
 
-    // TODO: 채팅창 상단 이미지 작업?
     return (
         <>
             {pageState.loading ? (
@@ -90,7 +89,7 @@ const ContactsSection = () => {
                                             />
                                         );
                                     })}
-                                    {room.now && (
+                                    {room.checked && (
                                         <AvatarActive>
                                             <AvatarActiveMark />
                                         </AvatarActive>

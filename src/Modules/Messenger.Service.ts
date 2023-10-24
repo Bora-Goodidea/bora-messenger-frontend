@@ -41,6 +41,7 @@ export default {
     }): Promise<
         ServicesResult<{
             chart_code: Array<string>;
+            room: MessengerRoomListItemInterface;
         }>
     > => {
         return Axios({

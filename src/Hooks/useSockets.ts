@@ -133,6 +133,7 @@ export default function useSockets() {
                                 if (e.room_code === payload.roomCode) {
                                     return {
                                         ...e,
+                                        checked: 'N',
                                         chart: {
                                             content: payload.content,
                                             updated_at: payload.updated_at,

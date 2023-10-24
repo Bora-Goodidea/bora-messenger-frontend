@@ -55,6 +55,7 @@ export interface MessengerRoomListItemInterface {
         content: string;
         updated_at: CommonSimplyTimeFormatInterface | null;
     };
+    checked: `Y` | `N`;
     created_at: CommonSimplyTimeFormatInterface;
     updated_at: CommonSimplyTimeFormatInterface;
 }
@@ -62,6 +63,7 @@ export interface MessengerRoomListItemInterface {
 // 채팅방 신규 메시지
 export interface MessengerRoomNewMessage {
     roomCode: string;
+    checked: `Y` | `N`;
     content: string;
     updated_at: CommonSimplyTimeFormatInterface;
 }
