@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import lodash from 'lodash';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { MessengerChatListState } from '@Recoil/MessengerState';
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
+import { MessengerChatListState, MessengerRoomListState } from '@Recoil/MessengerState';
 import { AtomRootState } from '@Recoil/AppRootState';
 import { MessageHeaderBox, MessageBox, MessageFooterBox } from '@Elements';
 import { PageStyles } from '@Styles';
@@ -33,6 +33,7 @@ const pageInitializeState = {
 
 const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }) => {
     const [messengerChatListState, setMessengerChatListState] = useRecoilState(MessengerChatListState);
+    const setMessengerRoomListState = useSetRecoilState(MessengerRoomListState);
     const atomRootState = useRecoilValue(AtomRootState);
     const messageBoxRef = useRef<HTMLDivElement>(null);
     const [pageState, setPageState] = useState<{
@@ -261,6 +262,19 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                         }),
                     },
                 }));
+                setMessengerRoomListState(prevState => ({
+                    ...prevState,
+                    rooms: lodash.map(prevState.rooms, room => {
+                        if (room.room_code === payload.room.room_code) {
+                            return {
+                                ...room,
+                                checked: payload.room.checked,
+                                chart: payload.room.chart,
+                            };
+                        }
+                        return room;
+                    }),
+                }));
             }
         };
         if (pageState.doChecks.length > 0) {
@@ -271,7 +285,7 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                 }));
             });
         }
-    }, [pageState.doChecks, setMessengerChatListState]);
+    }, [pageState.doChecks, setMessengerChatListState, setMessengerRoomListState]);
 
     return (
         <>
