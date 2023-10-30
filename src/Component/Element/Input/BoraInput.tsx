@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, MutableRefObject } from 'react';
+import { ChangeEvent, KeyboardEvent, MutableRefObject, FocusEvent } from 'react';
 import { ElementStyles } from '@Styles';
 import { BoraInputType } from '@CommonType';
 
@@ -12,6 +12,8 @@ const BoraInput = ({
     OnChange,
     EnterInputRef,
     HandleOnKeyDown,
+    HandleOnInput,
+    HandleOnBlur,
 }: {
     StyleType: BoraInputType;
     InputType: string;
@@ -20,6 +22,8 @@ const BoraInput = ({
     OnChange: (e: ChangeEvent<HTMLInputElement>) => void;
     EnterInputRef?: MutableRefObject<HTMLInputElement>;
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
+    HandleOnInput?: (e: ChangeEvent<HTMLInputElement>) => void;
+    HandleOnBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }) => {
     return (
         <Input
@@ -30,6 +34,8 @@ const BoraInput = ({
             placeholder={Placeholder}
             onChange={(e: ChangeEvent<HTMLInputElement>) => OnChange(e)}
             onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown && HandleOnKeyDown(e)}
+            onInput={(e: ChangeEvent<HTMLInputElement>) => HandleOnInput && HandleOnInput(e)}
+            onBlur={(e: FocusEvent<HTMLInputElement>) => HandleOnBlur && HandleOnBlur(e)}
         />
     );
 };

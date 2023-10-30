@@ -97,6 +97,22 @@ export default {
                 MessageBox: tw.div`p-4 flex-1 overflow-y-scroll`,
                 MessageDate: tw.p`p-4 text-center text-sm text-gray-500`,
                 FooterBox: tw.div`flex-none`,
+                MessageBubbleWapper2: tw.div`flex flex-row w-full justify-start pt-7`,
+                MessageBubbleWapper: styled.div(({ location }: { location: `left` | `right` }) => {
+                    const twStyled = [tw`flex flex-row w-full justify-start pt-7`];
+
+                    if (location === `left`) {
+                        twStyled.push(tw`justify-start`);
+                    } else if (location === `right`) {
+                        twStyled.push(tw`justify-end`);
+                    } else {
+                        twStyled.push(tw`justify-end`);
+                    }
+
+                    return twStyled;
+                }),
+                MessageBubbleBox: tw.div`text-sm grid grid-flow-row gap-2 px-1`,
+                MessageBubbleIconWapper: tw.div`flex items-center`,
             },
         },
         ProfileUpdateStyles: {

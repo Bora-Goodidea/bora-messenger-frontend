@@ -20,8 +20,16 @@ const pageInitializeState = {
 const MessengerMain = () => {
     const { roomCode } = useParams<{ roomCode?: string }>();
     const { HandleMainAlert } = useLayout();
-    const { handleSocketConnent, handleSocketDisconnect, handleJoinRoom, handleCreateRoom, handleRoomSendMessage, socketConnentState } =
-        useSockets();
+    const {
+        handleSocketConnent,
+        handleSocketDisconnect,
+        handleJoinRoom,
+        handleCreateRoom,
+        handleRoomSendMessage,
+        socketConnentState,
+        hdnaleSendBubble,
+        roomBubbleState,
+    } = useSockets();
     const setMessengerUserListState = useSetRecoilState(MessengerUserListState);
     const resetMessengerUserListState = useResetRecoilState(MessengerUserListState);
     const setMessengerRoomListState = useSetRecoilState(MessengerRoomListState);
@@ -167,6 +175,22 @@ const MessengerMain = () => {
         return;
     };
 
+    const HandleSendBubble = ({ state }: { state: `start` | `end` }) => {
+        if (roomCode) {
+            if (state === `start`) {
+                hdnaleSendBubble({ roomCode: roomCode, state: `start` });
+                return;
+            }
+
+            if (state === `end`) {
+                hdnaleSendBubble({ roomCode: roomCode, state: `end` });
+                return;
+            }
+        }
+
+        return;
+    };
+
     useEffect(() => {
         handleGetUserList({ loading: true }).then(() => handleGetMessengerRoomList().then());
     }, [handleGetMessengerRoomList, handleGetUserList]);
@@ -207,7 +231,11 @@ const MessengerMain = () => {
                 </ContactsBox>
             </LeftContainer>
             <RightContainer>
-                <MessageSection HandleSendMessage={() => HandleSendMessage()} />
+                <MessageSection
+                    HandleSendMessage={() => HandleSendMessage()}
+                    HandleBubble={e => HandleSendBubble(e)}
+                    StateBubble={roomBubbleState.state}
+                />
             </RightContainer>
         </>
     );

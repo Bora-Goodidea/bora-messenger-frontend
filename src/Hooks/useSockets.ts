@@ -9,8 +9,14 @@ import { MessengerUserListItemInterface } from '@RecoilInterface';
 import { AtomRootState } from '@Recoil/AppRootState';
 
 export default function useSockets() {
+    const [roomBubbleState, setRoomBubbleState] = useState<{ roomCode: string; uid: string; state: boolean }>({
+        roomCode: ``,
+        uid: ``,
+        state: false,
+    });
     const [socketConnentState, setSocketConnentState] = useState<boolean>(false);
     const socketConnection = useRef<Socket>();
+    const socketSendBubble = useRef<`start` | `end`>(`end`);
     const atomRootState = useRecoilValue(AtomRootState);
     const setMessengerRoomListState = useSetRecoilState(MessengerRoomListState);
     const setMessengerUserListState = useSetRecoilState(MessengerUserListState);
@@ -72,6 +78,31 @@ export default function useSockets() {
         }
     };
 
+    // 메시지 타이핑 시작, 종료 이벤트
+    const hdnaleSendBubble = ({ roomCode, state }: { roomCode: string; state: `start` | `end` }) => {
+        if (socketSendBubble.current === state) {
+            return;
+        }
+        socketSendBubble.current = state;
+        if (socketConnection.current && socketConnection.current.connected) {
+            if (state === `start`) {
+                socketConnection.current.emit('send-bubble-start', {
+                    room_code: roomCode,
+                });
+
+                return;
+            }
+
+            if (state === `end`) {
+                socketConnection.current.emit('send-bubble-end', {
+                    room_code: roomCode,
+                });
+
+                return;
+            }
+        }
+    };
+
     useEffect(() => {
         if (socketConnentState && socketConnection.current) {
             // 방초대 이벤트
@@ -121,6 +152,16 @@ export default function useSockets() {
                 }));
             });
 
+            // 메시지 타이핑? 시작 이벤트
+            socketConnection.current.on('room-bubble-start', (payload: { roomCode: string; uid: string }) => {
+                setRoomBubbleState({ roomCode: payload.roomCode, uid: payload.uid, state: true });
+            });
+
+            // 메시지 타이핑? 종료 이벤트
+            socketConnection.current.on('room-bubble-end', (payload: { roomCode: string; uid: string }) => {
+                setRoomBubbleState({ roomCode: payload.roomCode, uid: payload.uid, state: false });
+            });
+
             // 채팅방 신규 메시지
             socketConnection.current.on('room-new-message', (payload: MessengerRoomNewMessage) => {
                 setMessengerRoomListState(prevState => ({
@@ -162,5 +203,8 @@ export default function useSockets() {
         handleSocketConnent,
         handleSocketDisconnect,
         handleRoomSendMessage,
+        hdnaleSendBubble,
+        roomBubbleState,
+        socketSendBubble,
     };
 }
