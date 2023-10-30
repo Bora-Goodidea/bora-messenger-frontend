@@ -11,7 +11,13 @@ import { useLayout } from '@Hooks';
 const { Container, InputBox, InputWapper } = ElementStyles.MessageStyle.MessageFooterBox;
 const { ImageCreate } = ProfileService;
 
-const MessageFooterBox = ({ HandleSendMessage }: { HandleSendMessage: () => void }) => {
+const MessageFooterBox = ({
+    HandleSendMessage,
+    HandleBubble,
+}: {
+    HandleSendMessage: () => void;
+    HandleBubble: ({ state }: { state: `start` | `end` }) => void;
+}) => {
     const [messengerChatCreateState, setMessengerChatCretaeState] = useRecoilState(MessengerChatCreateState);
     const hiddenFileInput = useRef<HTMLInputElement>(null);
     const { HandleMainAlert } = useLayout();
@@ -60,6 +66,7 @@ const MessageFooterBox = ({ HandleSendMessage }: { HandleSendMessage: () => void
         if (e.key !== 'Enter') return;
 
         HandleSendMessage();
+        HandleBubble({ state: `end` });
     };
 
     return (
@@ -79,6 +86,8 @@ const MessageFooterBox = ({ HandleSendMessage }: { HandleSendMessage: () => void
                             Placeholder="Aa"
                             OnChange={e => handleInputOnchange(e)}
                             HandleOnKeyDown={e => HandleOnKeyDown(e)}
+                            HandleOnInput={() => HandleBubble({ state: `start` })}
+                            HandleOnBlur={() => HandleBubble({ state: `end` })}
                         />
                         <input type="file" onChange={e => handlePictureOnchange(e)} ref={hiddenFileInput} className="hidden" />
                         <BoraButton ButtonType={`MessageInInputButton`} ButtonChildren={<MessageEmojiIcon />} />

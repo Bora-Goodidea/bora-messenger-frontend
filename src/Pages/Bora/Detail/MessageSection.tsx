@@ -6,10 +6,19 @@ import { AtomRootState } from '@Recoil/AppRootState';
 import { MessageHeaderBox, MessageBox, MessageFooterBox } from '@Elements';
 import { PageStyles } from '@Styles';
 import { CommonCodesItemInterface } from '@CommonType';
-import { DefaultSpinner } from '@Icons';
+import { DefaultSpinner, MessageBubbleIcon } from '@Icons';
 import MessengerService from '@Module/Messenger.Service';
+import { BoraAvatar } from '@Elements';
 
-const { HeaderBox, MessageBox: MessageBoxStyle, FooterBox, MessageDate } = PageStyles.Bora.MessengerStyles.MessageSection;
+const {
+    HeaderBox,
+    MessageBox: MessageBoxStyle,
+    FooterBox,
+    MessageDate,
+    MessageBubbleWapper,
+    MessageBubbleBox,
+    MessageBubbleIconWapper,
+} = PageStyles.Bora.MessengerStyles.MessageSection;
 const { ServiceMessengerChartChecked } = MessengerService;
 
 const pageInitializeState = {
@@ -31,7 +40,15 @@ const pageInitializeState = {
     doChecks: [],
 };
 
-const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }) => {
+const MessageSection = ({
+    HandleSendMessage,
+    HandleBubble,
+    StateBubble,
+}: {
+    HandleSendMessage: () => void;
+    StateBubble: boolean;
+    HandleBubble: ({ state }: { state: `start` | `end` }) => void;
+}) => {
     const [messengerChatListState, setMessengerChatListState] = useRecoilState(MessengerChatListState);
     const setMessengerRoomListState = useSetRecoilState(MessengerRoomListState);
     const atomRootState = useRecoilValue(AtomRootState);
@@ -287,6 +304,12 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
         }
     }, [pageState.doChecks, setMessengerChatListState, setMessengerRoomListState]);
 
+    useEffect(() => {
+        if (messengerChatListState.resultData.chat.length > 0 && messageBoxRef.current) {
+            messageBoxRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [StateBubble, messengerChatListState.resultData.chat.length]);
+
     return (
         <>
             {pageState.loading ? (
@@ -348,12 +371,27 @@ const MessageSection = ({ HandleSendMessage }: { HandleSendMessage: () => void }
                                 </React.Fragment>
                             );
                         })}
+                        {StateBubble && (
+                            <MessageBubbleWapper location={`left`}>
+                                <BoraAvatar
+                                    AvatarImage={[{ url: `https://xsgames.co/randomusers/avatar.php?g=pixel`, alt: `` }]}
+                                    AvatarShadow={true}
+                                    AvatarSize={`small`}
+                                />
+                                <MessageBubbleBox>
+                                    <MessageBubbleIconWapper>
+                                        <MessageBubbleIcon />
+                                    </MessageBubbleIconWapper>
+                                </MessageBubbleBox>
+                            </MessageBubbleWapper>
+                        )}
+
                         <div ref={messageBoxRef} />
                     </MessageBoxStyle>
                 </>
             )}
             <FooterBox>
-                <MessageFooterBox HandleSendMessage={() => HandleSendMessage()} />
+                <MessageFooterBox HandleSendMessage={() => HandleSendMessage()} HandleBubble={e => HandleBubble(e)} />
             </FooterBox>
         </>
     );
