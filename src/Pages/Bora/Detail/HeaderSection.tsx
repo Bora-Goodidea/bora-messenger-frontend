@@ -38,6 +38,7 @@ const HeaderSection = ({
             name: string;
             email: string;
             uid: string;
+            sinceString: string;
         }>;
         modal: {
             createChat: boolean;
@@ -98,6 +99,7 @@ const HeaderSection = ({
                         name: user.nickname,
                         email: user.email,
                         uid: user.uid,
+                        sinceString: user.active.updated_at ? user.active.updated_at.sinceString : `알수 없음`,
                     };
                 }),
             }));
@@ -156,7 +158,7 @@ const HeaderSection = ({
                                                         <UserList.ListCardName>{user.name}</UserList.ListCardName>
                                                         <UserList.ListCardEmail>{user.email}</UserList.ListCardEmail>
                                                     </UserList.ListCardNameWapper>
-                                                    <UserList.ListCardDate>방금전</UserList.ListCardDate>
+                                                    <UserList.ListCardDate>{user.sinceString}</UserList.ListCardDate>
                                                 </UserList.ListCard>
                                             </UserList.ListRow>
                                         );
