@@ -4,6 +4,7 @@ import {
     MessengerRoomListInterface,
     MessengeChatListInterface,
     MessengeChatCreateInterface,
+    MessengeChatSearchInterface,
 } from '@RecoilInterface';
 
 // 사용자 리스트 스테이트
@@ -65,5 +66,13 @@ export const MessengerChatCreateState = atom<MessengeChatCreateInterface>({
             contents: ``,
             image: ``,
         },
+    },
+});
+
+// 메시지 검색 스테이트
+export const MessengerChatSearchState = atom<MessengeChatSearchInterface>({
+    key: `messenger/chat-search`,
+    default: {
+        searchStr: ``,
     },
 });

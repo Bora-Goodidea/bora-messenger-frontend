@@ -1,10 +1,22 @@
 import { SearchIcon } from '@Icons';
 import { BoraInput } from '@Elements';
 import { PageStyles } from '@Styles';
+import { ChangeEvent } from 'react';
+import { MessengerChatSearchState } from '@Recoil/MessengerState';
+import { useRecoilState } from 'recoil';
 
 const { Container, Wapper, Label, Icon } = PageStyles.Bora.MessengerStyles.SearchSection;
 
 const SearchSection = () => {
+    const [messengerChatSearchState, setMessengerChatSearchState] = useRecoilState(MessengerChatSearchState);
+
+    const handleOnchangeEvent = (e: ChangeEvent<HTMLInputElement>) => {
+        setMessengerChatSearchState(prevState => ({
+            ...prevState,
+            searchStr: e.target.value,
+        }));
+    };
+
     return (
         <Container>
             <Wapper>
@@ -12,9 +24,9 @@ const SearchSection = () => {
                     <BoraInput
                         StyleType={`search`}
                         InputType={`text`}
-                        InputValue={``}
+                        InputValue={messengerChatSearchState.searchStr}
                         Placeholder={`Search Messenger`}
-                        OnChange={e => console.debug('SearchSection OnChange: ', e)}
+                        OnChange={e => handleOnchangeEvent(e)}
                     />
                     <Icon>
                         <SearchIcon />
