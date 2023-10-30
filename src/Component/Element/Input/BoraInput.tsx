@@ -14,6 +14,7 @@ const BoraInput = ({
     HandleOnKeyDown,
     HandleOnInput,
     HandleOnBlur,
+    HandleDisabled,
 }: {
     StyleType: BoraInputType;
     InputType: string;
@@ -24,6 +25,7 @@ const BoraInput = ({
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
     HandleOnInput?: (e: ChangeEvent<HTMLInputElement>) => void;
     HandleOnBlur?: (e: FocusEvent<HTMLInputElement>) => void;
+    HandleDisabled?: boolean;
 }) => {
     return (
         <Input
@@ -36,6 +38,7 @@ const BoraInput = ({
             onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown && HandleOnKeyDown(e)}
             onInput={(e: ChangeEvent<HTMLInputElement>) => HandleOnInput && HandleOnInput(e)}
             onBlur={(e: FocusEvent<HTMLInputElement>) => HandleOnBlur && HandleOnBlur(e)}
+            disabled={HandleDisabled}
         />
     );
 };
