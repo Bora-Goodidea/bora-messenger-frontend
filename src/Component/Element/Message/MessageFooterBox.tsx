@@ -1,6 +1,6 @@
-import { ChangeEvent, KeyboardEvent, useRef } from 'react';
+import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 import { BoraButton, BoraInput } from '@Elements';
-import { MessagePictureIcon, MessageEmojiIcon, MessageSendIcon } from '@Icons';
+import { MessagePictureIcon, MessageEmojiIcon, MessageSendIcon, ButtonSpinnerIcon } from '@Icons';
 import { ElementStyles } from '@Styles';
 import { useRecoilState } from 'recoil';
 import { MessengerChatCreateState } from '@Recoil/MessengerState';
@@ -10,6 +10,10 @@ import { useLayout } from '@Hooks';
 
 const { Container, InputBox, InputWapper } = ElementStyles.MessageStyle.MessageFooterBox;
 const { ImageCreate } = ProfileService;
+
+const pageInitializeState = {
+    imageUploadLoding: false,
+};
 
 const MessageFooterBox = ({
     HandleSendMessage,
@@ -21,6 +25,9 @@ const MessageFooterBox = ({
     const [messengerChatCreateState, setMessengerChatCretaeState] = useRecoilState(MessengerChatCreateState);
     const hiddenFileInput = useRef<HTMLInputElement>(null);
     const { HandleMainAlert } = useLayout();
+    const [pageState, setPageState] = useState<{
+        imageUploadLoding: boolean;
+    }>(pageInitializeState);
 
     const handleMessageRecoilState = ({ type, message }: { type: MessageType; message: string }) => {
         setMessengerChatCretaeState(prevState => ({
@@ -45,6 +52,11 @@ const MessageFooterBox = ({
         const selectFiles = e.target.files as FileList;
 
         if (selectFiles.length > 0) {
+            setPageState(prevState => ({
+                ...prevState,
+                imageUploadLoding: true,
+            }));
+
             const formData = new FormData();
             formData.append('image', selectFiles[0]);
             const { status, payload, message } = await ImageCreate(formData);
@@ -56,8 +68,13 @@ const MessageFooterBox = ({
                     state: true,
                     message: message,
                 });
-                return;
             }
+
+            setPageState(prevState => ({
+                ...prevState,
+                imageUploadLoding: false,
+            }));
+            return;
         }
     };
 
@@ -72,11 +89,16 @@ const MessageFooterBox = ({
     return (
         <>
             <Container>
-                <BoraButton
-                    ButtonType={`MessageInputButton`}
-                    ButtonChildren={<MessagePictureIcon />}
-                    HandleOnClick={() => handleClickPuctureButton()}
-                />
+                {pageState.imageUploadLoding ? (
+                    <ButtonSpinnerIcon />
+                ) : (
+                    <BoraButton
+                        ButtonType={`MessageInputButton`}
+                        ButtonChildren={<MessagePictureIcon />}
+                        HandleOnClick={() => handleClickPuctureButton()}
+                    />
+                )}
+
                 <InputBox>
                     <InputWapper>
                         <BoraInput
@@ -88,6 +110,7 @@ const MessageFooterBox = ({
                             HandleOnKeyDown={e => HandleOnKeyDown(e)}
                             HandleOnInput={() => HandleBubble({ state: `start` })}
                             HandleOnBlur={() => HandleBubble({ state: `end` })}
+                            HandleDisabled={pageState.imageUploadLoding}
                         />
                         <input type="file" onChange={e => handlePictureOnchange(e)} ref={hiddenFileInput} className="hidden" />
                         <BoraButton ButtonType={`MessageInInputButton`} ButtonChildren={<MessageEmojiIcon />} />
