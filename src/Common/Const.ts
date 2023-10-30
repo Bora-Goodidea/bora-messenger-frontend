@@ -7,4 +7,7 @@ export default {
         refreshToken: `bora_m_refreshToken`,
         rememberId: `bora_m_login_id`,
     },
+    Message: {
+        imageType: `040020`,
+    },
 };

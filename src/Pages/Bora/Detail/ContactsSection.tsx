@@ -5,6 +5,7 @@ import lodash from 'lodash';
 import { PageStyles } from '@Styles';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DefaultSpinner } from '@Icons';
+import Const from '@Const';
 
 const {
     Wapper,
@@ -55,7 +56,7 @@ const ContactsSection = () => {
                         profileImage: lodash.map(room.target, e => e.profile.image),
                         checked: room.checked === 'N',
                         name: room.target[0].nickname, // 첫번쨰 닉네임만 표시
-                        message: room.chart.content,
+                        message: room.chart.type === Const.Message.imageType ? `이미지` : room.chart.content,
                         time: room.chart.updated_at ? room.chart.updated_at.sinceString : '',
                     };
                 }),

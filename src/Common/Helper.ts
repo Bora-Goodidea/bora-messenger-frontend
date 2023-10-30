@@ -175,3 +175,48 @@ export const getAccessToken = (): string => storageMaster.get(Const.Naming.acces
  * @param emailString
  */
 export const emailValidate = (emailString: string): boolean => /^[^@]+@\w+(\.\w+)+\w$/.test(emailString);
+
+/**
+ * gmt 시간 변경
+ * @param time
+ */
+export const gmtTimeToTimeObject = (
+    time: Date
+): {
+    year: number;
+    month: number;
+    monthPad: string;
+    day: number;
+    dayPad: string;
+    hour: number;
+    hourPad: string;
+    minute: number;
+    minutePad: string;
+    second: number;
+    secondPad: string;
+    week: string;
+} => {
+    const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
+
+    const date = new Date(time);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const second = date.getSeconds();
+
+    return {
+        year: date.getFullYear(),
+        month: month,
+        monthPad: String(month).padStart(2, '0'),
+        day: day,
+        dayPad: String(day).padStart(2, '0'),
+        hour: hour,
+        hourPad: String(hour).padStart(2, '0'),
+        minute: minute,
+        minutePad: String(minute).padStart(2, '0'),
+        second: second,
+        secondPad: String(second).padStart(2, '0'),
+        week: WEEKDAY[time.getDay()],
+    };
+};

@@ -279,6 +279,7 @@ const MessageSection = ({
                         }),
                     },
                 }));
+
                 setMessengerRoomListState(prevState => ({
                     ...prevState,
                     rooms: lodash.map(prevState.rooms, room => {
