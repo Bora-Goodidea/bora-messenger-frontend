@@ -390,9 +390,13 @@ const MessageSection = ({
                     </MessageBoxStyle>
                 </>
             )}
-            <FooterBox>
-                <MessageFooterBox HandleSendMessage={() => HandleSendMessage()} HandleBubble={e => HandleBubble(e)} />
-            </FooterBox>
+            {!pageState.messenger.last.uid ? (
+                <></>
+            ) : (
+                <FooterBox>
+                    <MessageFooterBox HandleSendMessage={() => HandleSendMessage()} HandleBubble={e => HandleBubble(e)} />
+                </FooterBox>
+            )}
         </>
     );
 };
