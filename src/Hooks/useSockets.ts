@@ -177,6 +177,7 @@ export default function useSockets() {
                                         checked: 'N',
                                         chart: {
                                             content: payload.content,
+                                            type: payload.type,
                                             updated_at: payload.updated_at,
                                         },
                                     };

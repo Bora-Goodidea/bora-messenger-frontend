@@ -53,6 +53,7 @@ export interface MessengerRoomListItemInterface {
     target: Array<CommonUserInfoInterface>;
     chart: {
         content: string;
+        type: string;
         updated_at: CommonSimplyTimeFormatInterface | null;
     };
     checked: `Y` | `N`;
@@ -65,5 +66,6 @@ export interface MessengerRoomNewMessage {
     roomCode: string;
     checked: `Y` | `N`;
     content: string;
+    type: string;
     updated_at: CommonSimplyTimeFormatInterface;
 }

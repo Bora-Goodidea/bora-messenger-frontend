@@ -7,6 +7,8 @@ import { MessengerUserListState, MessengerRoomListState, MessengerChatListState,
 import { useParams } from 'react-router-dom';
 import Messages from '@Messages';
 import { useLayout, useSockets } from '@Hooks';
+import lodash from 'lodash';
+import { gmtTimeToTimeObject } from '@Helper';
 
 const { LeftContainer, RightContainer, ActiveUsersBox, HeaderBox, SearchBox, ContactsBox } = PageStyles.Bora.MessengerStyles.Container;
 
@@ -169,6 +171,61 @@ const MessengerMain = () => {
 
         if (roomCode) {
             handleRoomSendMessage({ roomCode: roomCode, type: type, message: contents });
+
+            // 내가 보낸 메시지는 수동으로 왼쪽 방 리스트목록의 마지막 대화를 업데이트 한다.
+            const { year, monthPad, dayPad, hourPad, minutePad, secondPad, week } = gmtTimeToTimeObject(new Date());
+            setMessengerRoomListState(prevState => ({
+                ...prevState,
+                rooms: lodash.map(prevState.rooms, e => {
+                    if (e.room_code === roomCode) {
+                        return {
+                            ...e,
+                            checked: 'Y',
+                            chart: {
+                                ...e.chart,
+                                content: contents,
+                                type: type,
+                                updated_at: {
+                                    ...e.chart.updated_at,
+                                    sinceString: `방금 전`,
+                                    format: {
+                                        step1: `${year}년 ${monthPad}월 ${dayPad}일 ${week}요일`,
+                                        step2: `${year}년 ${monthPad}월 ${dayPad}일 ${week}요일 ${hourPad}시 ${minutePad}분`,
+                                        step3: `${year}년 ${monthPad}월 ${dayPad}일 ${week}요일 ${hourPad}시 ${minutePad}분 ${secondPad}초`,
+                                    },
+                                },
+                            },
+                        };
+                    }
+
+                    return e;
+                }),
+            }));
+
+            setMessengerChatListState(prevState => ({
+                ...prevState,
+                resultData: (() => {
+                    return {
+                        ...prevState.resultData,
+                        messenger: {
+                            ...prevState.resultData.messenger,
+                            last: {
+                                ...prevState.resultData.messenger.last,
+                                time: (() => {
+                                    return {
+                                        sinceString: `방금 전`,
+                                        format: {
+                                            step1: `${year}년 ${monthPad}월 ${dayPad}일 ${week}요일`,
+                                            step2: `${year}년 ${monthPad}월 ${dayPad}일 ${week}요일 ${hourPad}시 ${minutePad}분`,
+                                            step3: `${year}년 ${monthPad}월 ${dayPad}일 ${week}요일 ${hourPad}시 ${minutePad}분 ${secondPad}초`,
+                                        },
+                                    };
+                                })(),
+                            },
+                        },
+                    };
+                })(),
+            }));
         }
 
         resetMessengerChatCretaeState();
