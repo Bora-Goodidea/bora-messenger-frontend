@@ -1,6 +1,6 @@
 import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 import { BoraButton, BoraInput } from '@Elements';
-import { MessagePictureIcon, MessageEmojiIcon, MessageSendIcon, ButtonSpinnerIcon } from '@Icons';
+import { MessagePictureIcon, MessageSendIcon, ButtonSpinnerIcon } from '@Icons';
 import { ElementStyles } from '@Styles';
 import { useRecoilState } from 'recoil';
 import { MessengerChatCreateState } from '@Recoil/MessengerState';
@@ -113,7 +113,7 @@ const MessageFooterBox = ({
                             HandleDisabled={pageState.imageUploadLoding}
                         />
                         <input type="file" onChange={e => handlePictureOnchange(e)} ref={hiddenFileInput} className="hidden" />
-                        <BoraButton ButtonType={`MessageInInputButton`} ButtonChildren={<MessageEmojiIcon />} />
+                        {/*<BoraButton ButtonType={`MessageInInputButton`} ButtonChildren={<MessageEmojiIcon />} />*/}
                     </InputWapper>
                 </InputBox>
                 <BoraButton
