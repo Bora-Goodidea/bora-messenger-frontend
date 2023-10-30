@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { MessengerUserListState } from '@Recoil/MessengerState';
+import { MessengerUserListState, MessengerChatSearchState } from '@Recoil/MessengerState';
 import lodash from 'lodash';
 import { BoraButton, BoraAvatar } from '@Elements';
 import { YourStoryIcon } from '@Icons';
@@ -25,6 +25,7 @@ const ActiveUsersSection = ({
     MessengerCreate: (uid: Array<string>) => void;
 }) => {
     const messengerUserListState = useRecoilValue(MessengerUserListState);
+    const messengerChatSearchState = useRecoilValue(MessengerChatSearchState);
     const { HandleMainAlert } = useLayout();
 
     const [pageState, setPageState] = useState<{
@@ -75,22 +76,32 @@ const ActiveUsersSection = ({
     useEffect(() => {
         const fnSetUserList = () => {
             const { loading, users } = messengerUserListState;
+            const { searchStr } = messengerChatSearchState;
+
             setPageState(prevState => ({
                 ...prevState,
                 loading: loading,
-                users: lodash.map(users, user => {
-                    return {
-                        active: user.active.state === 'Y',
-                        profileImage: user.profile.image,
-                        name: user.nickname,
-                        uid: user.uid,
-                    };
-                }),
+                users: lodash.map(
+                    (() => {
+                        if (searchStr.length > 0) {
+                            return lodash.filter(users, el => lodash.includes(el.nickname, searchStr));
+                        }
+                        return users;
+                    })(),
+                    user => {
+                        return {
+                            active: user.active.state === 'Y',
+                            profileImage: user.profile.image,
+                            name: user.nickname,
+                            uid: user.uid,
+                        };
+                    }
+                ),
             }));
         };
 
         fnSetUserList();
-    }, [messengerUserListState]);
+    }, [messengerChatSearchState, messengerUserListState]);
 
     return (
         <>

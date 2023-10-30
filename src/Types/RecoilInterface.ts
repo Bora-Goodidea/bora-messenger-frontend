@@ -84,3 +84,8 @@ export interface MessengeChatCreateInterface {
         image: string;
     };
 }
+
+// 메시지 검색
+export interface MessengeChatSearchInterface {
+    searchStr: string;
+}
