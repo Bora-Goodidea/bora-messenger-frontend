@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { MessengerRoomListState } from '@Recoil/MessengerState';
 import lodash from 'lodash';
-import { PageStyles } from '@Styles';
+import { PageStyles, LayoutStyles } from '@Styles';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DefaultSpinner } from '@Icons';
 import Const from '@Const';
@@ -20,6 +20,7 @@ const {
     MessageTime,
     MessageMin,
 } = PageStyles.Bora.MessengerStyles.ContactsSection;
+const { FlexWFullCenter } = LayoutStyles.WapperStyle;
 
 const pageInitializeState = {
     loading: false,
@@ -69,7 +70,9 @@ const ContactsSection = () => {
     return (
         <>
             {pageState.loading ? (
-                <DefaultSpinner />
+                <FlexWFullCenter>
+                    <DefaultSpinner />
+                </FlexWFullCenter>
             ) : (
                 <>
                     {lodash.map(pageState.rooms, (room, index) => {

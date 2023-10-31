@@ -4,7 +4,7 @@ import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { MessengerChatListState, MessengerRoomListState } from '@Recoil/MessengerState';
 import { AtomRootState } from '@Recoil/AppRootState';
 import { MessageHeaderBox, MessageBox, MessageFooterBox } from '@Elements';
-import { PageStyles } from '@Styles';
+import { PageStyles, LayoutStyles } from '@Styles';
 import { CommonCodesItemInterface } from '@CommonType';
 import { DefaultSpinner, MessageBubbleIcon } from '@Icons';
 import MessengerService from '@Module/Messenger.Service';
@@ -20,6 +20,7 @@ const {
     MessageBubbleIconWapper,
 } = PageStyles.Bora.MessengerStyles.MessageSection;
 const { ServiceMessengerChartChecked } = MessengerService;
+const { FlexWFullCenter } = LayoutStyles.WapperStyle;
 
 const pageInitializeState = {
     loading: false,
@@ -314,7 +315,9 @@ const MessageSection = ({
     return (
         <>
             {pageState.loading ? (
-                <DefaultSpinner />
+                <FlexWFullCenter>
+                    <DefaultSpinner />
+                </FlexWFullCenter>
             ) : (
                 <>
                     {!pageState.messenger.last.uid ? (
