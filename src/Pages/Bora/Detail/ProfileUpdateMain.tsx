@@ -130,7 +130,7 @@ const ProfileUpdateMain = () => {
                 state: true,
                 message: '프로필을 수정하였습니다.',
             });
-            handleGetMyProfileData();
+            handleGetMyProfileData().then();
         } else {
             HandleMainAlert({
                 state: true,

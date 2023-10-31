@@ -80,6 +80,7 @@ const ProfileUpdateSection = ({
                                     onChange={e => handleProfileUpdateChange(e)}
                                     ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
                                     onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                    value={InputValue.nickname}
                                 />
                             </InputItem>
                             <Button onClick={() => handleProfileUpdateSubmit()}>프로필 수정</Button>
