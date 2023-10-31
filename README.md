@@ -1,3 +1,4 @@
+<div align="center">
 <div style="text-align: center;"><h4>📚 STACKS</h4></div>
 
 <div style="text-align: center;">
@@ -11,6 +12,8 @@
 
 <div style="text-align: center;">
     <h1 style="text-align: center;">BoraMessenger Front-End</h1>
+</div>
+
 </div>
 
 ## BoraMessenger Project
