@@ -288,11 +288,14 @@ const MessengerMain = () => {
                 </ContactsBox>
             </LeftContainer>
             <RightContainer>
-                <MessageSection
-                    HandleSendMessage={() => HandleSendMessage()}
-                    HandleBubble={e => HandleSendBubble(e)}
-                    StateBubble={roomBubbleState.state}
-                />
+                {roomCode && (
+                    <MessageSection
+                        RoomCode={roomCode}
+                        HandleSendMessage={() => HandleSendMessage()}
+                        HandleBubble={e => HandleSendBubble(e)}
+                        StateBubble={roomBubbleState.state}
+                    />
+                )}
             </RightContainer>
         </>
     );

@@ -45,7 +45,9 @@ const MessageSection = ({
     HandleSendMessage,
     HandleBubble,
     StateBubble,
+    RoomCode,
 }: {
+    RoomCode: string;
     HandleSendMessage: () => void;
     StateBubble: boolean;
     HandleBubble: ({ state }: { state: `start` | `end` }) => void;
@@ -320,9 +322,7 @@ const MessageSection = ({
                 </FlexWFullCenter>
             ) : (
                 <>
-                    {!pageState.messenger.last.uid ? (
-                        <></>
-                    ) : (
+                    {RoomCode && (
                         <HeaderBox>
                             <MessageHeaderBox
                                 Params={(() => {
@@ -394,9 +394,7 @@ const MessageSection = ({
                     </MessageBoxStyle>
                 </>
             )}
-            {!pageState.messenger.last.uid ? (
-                <></>
-            ) : (
+            {RoomCode && (
                 <FooterBox>
                     <MessageFooterBox HandleSendMessage={() => HandleSendMessage()} HandleBubble={e => HandleBubble(e)} />
                 </FooterBox>
