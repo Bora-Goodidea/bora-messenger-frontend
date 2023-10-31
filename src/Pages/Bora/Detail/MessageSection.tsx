@@ -220,13 +220,13 @@ const MessageSection = ({
                             return lodash.map(returnData, e => {
                                 return {
                                     // 신규 메시지에서는 내 메시지인지 아닌지 판단 할수가 없어서 다시 한번 판단.
-                                    location: atomRootState.uid === e.user.uid ? `right` : `left`,
+                                    location: atomRootState.user.uid === e.user.uid ? `right` : `left`,
                                     // location: e.location,
                                     user: {
                                         profileImage: e.user.profile.image ? e.user.profile.image : null,
                                     },
                                     list: lodash.map(e.message, m => {
-                                        if (atomRootState.uid !== e.user.uid && m.checked === 'N') {
+                                        if (atomRootState.user.uid !== e.user.uid && m.checked === 'N') {
                                             doChecks.push(m.chat_code);
                                         }
                                         return {
@@ -249,7 +249,7 @@ const MessageSection = ({
         };
 
         fnSetChatList();
-    }, [atomRootState.uid, messengerChatListState, messengerChatListState.resultData.chat]);
+    }, [atomRootState.user.uid, messengerChatListState, messengerChatListState.resultData.chat]);
 
     useEffect(() => {
         if (messengerChatListState.resultData.chat.length > 0 && messageBoxRef.current) {

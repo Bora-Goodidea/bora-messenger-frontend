@@ -145,7 +145,7 @@ export default function useSockets() {
                             ...payload,
                             item: {
                                 ...payload.item,
-                                checked: payload.item.user.uid === atomRootState.uid ? 'Y' : 'N',
+                                checked: payload.item.user.uid === atomRootState.user.uid ? 'Y' : 'N',
                             },
                         }),
                     },

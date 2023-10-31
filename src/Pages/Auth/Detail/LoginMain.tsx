@@ -27,7 +27,7 @@ const { loginStatus } = AuthService;
 
 const LoginMain = () => {
     const atomRootState = useRecoilValue(AtomRootState);
-    const { handleAuthTokenSave } = useAuth();
+    const { handleAuthTokenSave, handleAuthCkeck } = useAuth();
     const navigate = useNavigate();
     const { HandleMainAlert } = useLayout();
     const enterInputRef = useRef<HTMLInputElement[]>([]);
@@ -73,15 +73,17 @@ const LoginMain = () => {
         }));
 
         if (status) {
-            const { access_token, refresh_token, uid } = payload;
+            const { access_token, refresh_token } = payload;
 
-            handleAuthTokenSave({ uid: uid, access_token: access_token, refresh_token: refresh_token });
+            handleAuthTokenSave({ access_token: access_token, refresh_token: refresh_token });
 
             if (pageState.loginState.idRemember) {
                 storageMaster.set(Const.Naming.rememberId, email);
             } else {
                 storageMaster.remove(Const.Naming.rememberId);
             }
+
+            await handleAuthCkeck({ tokenCheck: true });
 
             navigate({
                 pathname: `${process.env.PUBLIC_URL}/bora/messenger`,

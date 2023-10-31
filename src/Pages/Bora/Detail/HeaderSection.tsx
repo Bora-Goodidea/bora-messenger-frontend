@@ -8,6 +8,7 @@ import { MessengerUserListState } from '@Recoil/MessengerState';
 import lodash from 'lodash';
 import Messages from '@Messages';
 import { useLayout } from '@Hooks';
+import { AtomRootState } from '@Recoil/AppRootState';
 
 const { Title, NewMessage, UserList } = PageStyles.Bora.MessengerStyles.HeaderSection;
 
@@ -30,6 +31,7 @@ const HeaderSection = ({
     const navigate = useNavigate();
     const { HandleMainAlert } = useLayout();
     const messengerUserListState = useRecoilValue(MessengerUserListState);
+    const atomRootState = useRecoilValue(AtomRootState);
     const [pageState, setPageState] = useState<{
         loading: boolean;
         users: Array<{
@@ -112,7 +114,7 @@ const HeaderSection = ({
         <>
             <BoraAvatar
                 AvatarShadow={true}
-                AvatarImage={[{ url: `https://avatars3.githubusercontent.com/u/22351907?s=60`, alt: `ravisankarchinnam` }]}
+                AvatarImage={[{ url: `${atomRootState.user.profileImage}`, alt: `ravisankarchinnam` }]}
                 AvatarSize={`default`}
                 AvatarOnclick={() => navigate({ pathname: `${process.env.PUBLIC_URL}/bora/profile-update` })}
             />
@@ -121,7 +123,7 @@ const HeaderSection = ({
                     navigate({ pathname: `${process.env.PUBLIC_URL}/bora/messenger` });
                     ResetMessenger();
                 }}>
-                Bora-Messenger
+                {`${atomRootState.user.nickname}'s Bora-Messenger`}
             </Title>
             <NewMessage
                 onClick={() =>
