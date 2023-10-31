@@ -11,6 +11,7 @@ const {
     BackInfoSvg,
     ButtonSpinnerSvg,
     DefaultWHSvgAni,
+    DefaultBlueSvg,
 } = ElementStyles.IconStyle;
 
 // 왼쪽 상단 뉴 메시지 버튼
@@ -55,9 +56,9 @@ export const MessageInfoIcon = () => {
 // 메시지 사진 업로드 아이콘
 export const MessagePictureIcon = () => {
     return (
-        <DefaultSvg viewBox="0 0 20 20">
+        <DefaultBlueSvg viewBox="0 0 20 20">
             <path d="M11,13 L8,10 L2,16 L11,16 L18,16 L13,11 L11,13 Z M0,3.99406028 C0,2.8927712 0.898212381,2 1.99079514,2 L18.0092049,2 C19.1086907,2 20,2.89451376 20,3.99406028 L20,16.0059397 C20,17.1072288 19.1017876,18 18.0092049,18 L1.99079514,18 C0.891309342,18 0,17.1054862 0,16.0059397 L0,3.99406028 Z M15,9 C16.1045695,9 17,8.1045695 17,7 C17,5.8954305 16.1045695,5 15,5 C13.8954305,5 13,5.8954305 13,7 C13,8.1045695 13.8954305,9 15,9 Z" />
-        </DefaultSvg>
+        </DefaultBlueSvg>
     );
 };
 
@@ -83,13 +84,13 @@ export const MessageEmojiIcon = () => {
 // 메시지 보내기 아이콘
 export const MessageSendIcon = () => {
     return (
-        <DefaultSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" fill="currentColor" strokeWidth="1.8">
+        <DefaultBlueSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" fill="currentColor" strokeWidth="1.8">
             <path
                 fillRule="evenodd"
                 d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm.53 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v5.69a.75.75 0 001.5 0v-5.69l1.72 1.72a.75.75 0 101.06-1.06l-3-3z"
                 clipRule="evenodd"
             />
-        </DefaultSvg>
+        </DefaultBlueSvg>
     );
 };
 

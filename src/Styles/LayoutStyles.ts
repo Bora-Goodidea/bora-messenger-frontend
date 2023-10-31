@@ -2,13 +2,13 @@ import tw from 'twin.macro';
 
 export default {
     DafalutLayoutStyle: {
-        MainContainer: tw.div`flex h-screen w-full antialiased text-gray-800 bg-white overflow-hidden`,
+        MainContainer: tw.div`flex h-screen w-full antialiased text-gray-800 bg-white overflow-hidden dark:bg-gray-900`,
         MainWapper: tw.div`flex w-full flex-col items-center justify-center`,
         BlankMainWapper: tw.div``,
         BlankWapper: tw.div`flex h-screen w-full flex-col items-center justify-center`,
         BoraLayoutStyle: {
             Wapper: tw.div`flex-1 flex flex-col`,
-            IconWapper: tw.div`border-b-2 p-2 flex flex-row z-20`,
+            IconWapper: tw.div`border-b-2 p-2 flex flex-row z-20 dark:border-gray-800`,
             IconStep1: tw.div`bg-red-600 w-3 h-3 rounded-full mr-2`,
             IconStep2: tw.div`bg-yellow-500 w-3 h-3 rounded-full mr-2`,
             IconStep3: tw.div`bg-green-500 w-3 h-3 rounded-full mr-2`,
