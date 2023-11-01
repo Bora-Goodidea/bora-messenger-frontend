@@ -86,21 +86,15 @@ export default {
     },
     BoraInputStyle: {
         Input: styled.input(({ StyleType }: { StyleType: BoraInputType }) => {
-            const twStyled = [];
+            const twStyled = [
+                tw`pl-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none focus:shadow-md transition duration-300 ease-in dark:bg-gray-800 dark:border-gray-800 dark:focus:border-gray-700 dark:focus:bg-gray-900 dark:focus:outline-none dark:text-gray-200`,
+            ];
 
             if (StyleType === `search`) {
-                twStyled.push(
-                    tw`rounded-full py-2 pr-6 pl-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none dark:text-gray-600 focus:shadow-md transition duration-300 ease-in`
-                );
+                twStyled.push(tw`rounded-full py-2 pr-6`);
             } else if (StyleType === `send`) {
-                twStyled.push(
-                    tw`rounded-full py-2 pl-3 pr-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none dark:text-gray-600 focus:shadow-md transition duration-300 ease-in`
-                );
+                twStyled.push(tw`rounded-full py-2 pl-3`);
             }
-
-            twStyled.push(
-                tw`dark:border-gray-800 dark:focus:border-gray-700 dark:focus:bg-gray-900 dark:focus:outline-none dark:text-gray-200`
-            );
 
             return twStyled;
         }),
