@@ -3,6 +3,9 @@ import { useLayout } from '@Hooks';
 import ProfileUpdateSection from './ProfileUpdateSection';
 import { KeyboardEvent, useEffect, useRef, useState, useCallback } from 'react';
 import { ProfileService } from '@Modules';
+import Messages from '@Messages';
+import { useSetRecoilState } from 'recoil';
+import { AtomRootState } from '@Recoil/AppRootState';
 
 const { MainContainer } = LayoutStyles.DafalutLayoutStyle;
 const { MyProfile, ImageCreate, ProfileUpdate } = ProfileService;
@@ -16,10 +19,12 @@ const pageInitializeState = {
         email: '',
         nickname: '',
     },
+    completed: false,
 };
 
 const ProfileUpdateMain = () => {
     const { HandleMainAlert } = useLayout();
+    const setAtomRootState = useSetRecoilState(AtomRootState);
     const enterInputRef = useRef<HTMLInputElement[]>([]);
 
     const [pageState, setPageState] = useState<{
@@ -31,6 +36,7 @@ const ProfileUpdateMain = () => {
             email: string;
             nickname: string;
         };
+        completed: boolean;
     }>(pageInitializeState);
 
     const handleGetMyProfileData = useCallback(async () => {
@@ -46,6 +52,15 @@ const ProfileUpdateMain = () => {
                         id: payload.profile_image.id,
                         url: payload.profile_image.url,
                     },
+                },
+            }));
+
+            setAtomRootState(prevState => ({
+                ...prevState,
+                user: {
+                    ...prevState.user,
+                    nickname: payload.nickname,
+                    profileImage: payload.profile_image.url,
                 },
             }));
         } else {
@@ -119,18 +134,20 @@ const ProfileUpdateMain = () => {
         }));
     };
 
-    const handleProfileUpdateSubmit = async () => {
+    const handleProfileUpdateSubmit = useCallback(async () => {
         setPageState(prevState => ({
             ...prevState,
             loading: true,
         }));
         const { status, message } = await ProfileUpdate(pageState.profileState.profileImage.id, pageState.profileState.nickname);
         if (status) {
+            handleGetMyProfileData().then();
             HandleMainAlert({
                 state: true,
-                message: '프로필을 수정하였습니다.',
+                type: `move`,
+                message: Messages.Common.success,
+                action: `/bora/messenger`,
             });
-            handleGetMyProfileData();
         } else {
             HandleMainAlert({
                 state: true,
@@ -143,7 +160,7 @@ const ProfileUpdateMain = () => {
             ...prevState,
             loading: false,
         }));
-    };
+    }, [HandleMainAlert, handleGetMyProfileData, pageState.profileState.nickname, pageState.profileState.profileImage.id]);
 
     useEffect(() => {
         const pageStart = () => {

@@ -67,13 +67,16 @@ export default {
                 );
             }
 
+            twStyled.push(tw`dark:bg-gray-800 dark:text-gray-600`);
+
             return twStyled;
         }),
     },
     IconStyle: {
-        DefaultSvg: tw.svg`w-full h-full fill-current`,
+        DefaultSvg: tw.svg`w-full h-full fill-current dark:text-white`,
+        DefaultBlueSvg: tw.svg`w-full h-full fill-current text-blue-600`,
         DefaultWHSvg: tw.svg`w-6 h-6`,
-        DefaultWHSvgAni: tw.svg`w-6 h-6 animate-bounce`,
+        DefaultWHSvgAni: tw.svg`w-6 h-6 animate-bounce dark:text-white`,
         DefaultXSvg: tw.svg`text-red-600 w-6 h-6`,
         DefaultSpinnerSvg: tw.svg`inline w-8 h-8 mr-2 text-gray-200 animate-spin fill-purple-600`,
         MessageInfoSvg: tw.svg`w-full h-full fill-current text-blue-600`,
@@ -95,6 +98,10 @@ export default {
                     tw`rounded-full py-2 pl-3 pr-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none text-gray-600 focus:shadow-md transition duration-300 ease-in`
                 );
             }
+
+            twStyled.push(
+                tw`dark:border-gray-800 dark:focus:border-gray-700 bg-gray-800 dark:focus:bg-gray-900 dark:focus:outline-none text-gray-200`
+            );
 
             return twStyled;
         }),
@@ -131,6 +138,7 @@ export default {
                 } else if (LocationStyle === `right`) {
                     twStyled.push(tw`flex items-center flex-row-reverse`);
                 }
+
                 return twStyled;
             }),
         },
@@ -141,10 +149,10 @@ export default {
         },
         MessageHeader: {
             Wapper: tw.div`flex`,
-            TextWapper: tw.div`text-sm`,
+            TextWapper: tw.div`text-sm dark:text-white`,
             Name: tw.p`font-bold`,
             Time: tw.p``,
-            IconWapper: tw.div`block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2 ml-4`,
+            IconWapper: tw.div`block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2 ml-4 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer`,
         },
         MessageItem: {
             MessageTextWapper: styled.p(
@@ -160,11 +168,10 @@ export default {
                     }
 
                     if (LocationStyle === `left`) {
-                        twStyled.push(tw`bg-gray-200 rounded-r-full`);
+                        twStyled.push(tw`bg-gray-200 rounded-r-full dark:bg-gray-800 dark:text-gray-200`);
                     } else if (LocationStyle === `right`) {
-                        twStyled.push(tw`bg-blue-500 rounded-l-full`);
+                        twStyled.push(tw`bg-blue-500 rounded-l-full dark:bg-blue-700`);
                     }
-
                     return twStyled;
                 }
             ),

@@ -2,13 +2,13 @@ import tw from 'twin.macro';
 
 export default {
     DafalutLayoutStyle: {
-        MainContainer: tw.div`flex h-screen w-full antialiased text-gray-800 bg-white overflow-hidden`,
+        MainContainer: tw.div`flex h-screen w-full antialiased text-gray-800 bg-white overflow-hidden dark:bg-gray-900`,
         MainWapper: tw.div`flex w-full flex-col items-center justify-center`,
         BlankMainWapper: tw.div``,
         BlankWapper: tw.div`flex h-screen w-full flex-col items-center justify-center`,
         BoraLayoutStyle: {
             Wapper: tw.div`flex-1 flex flex-col`,
-            IconWapper: tw.div`border-b-2 p-2 flex flex-row z-20`,
+            IconWapper: tw.div`border-b-2 p-2 flex flex-row z-20 dark:border-gray-800`,
             IconStep1: tw.div`bg-red-600 w-3 h-3 rounded-full mr-2`,
             IconStep2: tw.div`bg-yellow-500 w-3 h-3 rounded-full mr-2`,
             IconStep3: tw.div`bg-green-500 w-3 h-3 rounded-full mr-2`,
@@ -50,5 +50,8 @@ export default {
         SubText: tw.p`mt-4 text-gray-500 dark:text-gray-400`,
         BackIcon: tw.div`flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto`,
         BackButton: tw.button`flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700`,
+    },
+    WapperStyle: {
+        FlexWFullCenter: tw.div`flex w-full h-full items-center justify-center`,
     },
 };

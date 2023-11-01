@@ -1,7 +1,7 @@
 export default {
     Common: {
         success: `정상 처리 하였습니다.`,
-        error: `정상 처리 하였습니다.`,
+        error: `처리중 문제가 발생했습니다.`,
         emptyEmail: `이메일을 입력해주세요.`,
         emailValidate: `정확한 이메일을 입력해 주세요.`,
         emptyPassword: `패스워드를 입력해 주세요.`,

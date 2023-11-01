@@ -26,7 +26,11 @@ export const AtomRootState = atom<RootStateInterface>({
         },
         systemNotice: '',
         loginState: false,
-        uid: ``,
+        user: {
+            uid: ``,
+            nickname: ``,
+            profileImage: ``,
+        },
         rootData: {
             code: {
                 step1: [],

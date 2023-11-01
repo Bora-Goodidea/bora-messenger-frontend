@@ -77,6 +77,7 @@ export default {
                 id: number;
                 url: string;
             };
+            active: string;
         }>
     > => {
         return Axios({

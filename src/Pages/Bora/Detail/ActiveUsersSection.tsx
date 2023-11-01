@@ -4,12 +4,13 @@ import { MessengerUserListState, MessengerChatSearchState } from '@Recoil/Messen
 import lodash from 'lodash';
 import { BoraButton, BoraAvatar } from '@Elements';
 import { YourStoryIcon } from '@Icons';
-import { PageStyles } from '@Styles';
+import { PageStyles, LayoutStyles } from '@Styles';
 import { DefaultSpinner } from '@Icons';
 import { useLayout } from '@Hooks';
 import Messages from '@Messages';
 
 const { IconWapper, LoadingWapper, AvatarWapper, AvatarBox } = PageStyles.Bora.MessengerStyles.ActiveUsersSection;
+const { FlexWFullCenter } = LayoutStyles.WapperStyle;
 
 const pageInitializeState = {
     loading: false,
@@ -106,7 +107,9 @@ const ActiveUsersSection = ({
     return (
         <>
             {pageState.loading ? (
-                <DefaultSpinner />
+                <FlexWFullCenter>
+                    <DefaultSpinner />
+                </FlexWFullCenter>
             ) : (
                 <>
                     {CreateLoading ? (

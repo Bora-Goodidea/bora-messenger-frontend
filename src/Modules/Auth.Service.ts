@@ -122,10 +122,9 @@ export default {
     },
     getTokenInfo: (): Promise<
         ServicesResult<{
-            email: string;
             uid: string;
-            status: string;
-            level: string;
+            profileImage: string;
+            nickname: string;
         }>
     > => {
         return Axios({

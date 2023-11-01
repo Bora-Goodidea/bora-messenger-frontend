@@ -44,9 +44,7 @@ const ProfileUpdateSection = ({
                         <TitleBox>프로필 수정</TitleBox>
                         <ProfileImageForm>
                             <ProfileImage>
-                                <DefaultProfileImage
-                                    /*src="http://psmever.iptime.org:8052/profile/default_profile.jpg" */ src={InputValue.profileImage.url}
-                                />
+                                <DefaultProfileImage src={InputValue.profileImage.url} />
                             </ProfileImage>
                             <ProfileInputItem
                                 type="file"
@@ -79,13 +77,15 @@ const ProfileUpdateSection = ({
                                     id="nickname"
                                     placeholder="••••••••"
                                     required={false}
-                                    // value={InputValue.nickname}
                                     onChange={e => handleProfileUpdateChange(e)}
                                     ref={el => (EnterRef.current[1] = el as HTMLInputElement)}
                                     onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown(e)}
+                                    value={InputValue.nickname}
                                 />
                             </InputItem>
-                            <Button onClick={() => handleProfileUpdateSubmit()}>프로필 수정</Button>
+                            <div className="flex w-full">
+                                <Button onClick={() => handleProfileUpdateSubmit()}>프로필 수정</Button>
+                            </div>
                         </AuthForm>
                     </FormBox>
                 </FormWapper>

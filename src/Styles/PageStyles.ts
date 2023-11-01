@@ -5,15 +5,15 @@ export default {
         MessengerStyles: {
             Container: {
                 LeftContainer: tw.section`flex flex-col flex-none overflow-auto w-24 lg:max-w-sm md:w-2/5 transition-all duration-300 ease-in-out`,
-                RightContainer: tw.section`flex flex-col flex-auto border-l`,
+                RightContainer: tw.section`flex flex-col flex-auto border-l dark:border-gray-800`,
                 HeaderBox: tw.div`p-4 flex flex-row justify-between items-center flex-none`,
                 SearchBox: tw.div`p-4 flex-none`,
                 ActiveUsersBox: tw.div`flex flex-row p-2 overflow-auto w-0 min-w-full`,
-                ContactsBox: tw.div`p-2 flex-1 overflow-y-scroll border-t`,
+                ContactsBox: tw.div`p-2 flex-1 overflow-y-scroll border-t dark:border-gray-800`,
             },
             HeaderSection: {
-                Title: tw.p`font-bold hidden md:block cursor-pointer`,
-                NewMessage: tw.div`block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2 cursor-pointer`,
+                Title: tw.p`font-bold hidden md:block cursor-pointer dark:text-white`,
+                NewMessage: tw.div`block rounded-full hover:bg-gray-200 bg-gray-100 w-10 h-10 p-2 cursor-pointer dark:bg-gray-800 dark:hover:bg-gray-700`,
                 UserList: {
                     Container: tw.div`w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700`,
                     Title: tw.div`flex items-center justify-between mb-4`,
@@ -37,9 +37,9 @@ export default {
                 Icon: tw.span`absolute top-0 left-0 mt-2 ml-3 inline-block`,
             },
             ActiveUsersSection: {
-                IconWapper: tw.div`text-sm text-center mr-4`,
+                IconWapper: tw.div`text-sm text-center mr-4 dark:text-white`,
                 LoadingWapper: tw.div`flex items-center justify-center mr-4`,
-                AvatarBox: tw.div`text-sm text-center mr-4 cursor-pointer`,
+                AvatarBox: tw.div`text-sm text-center mr-4 cursor-pointer dark:text-white`,
                 AvatarWapper: styled.div(({ SelectStyle }: { SelectStyle: boolean }) => {
                     const twStyled = [tw`p-1 border-4 rounded-full`];
 
@@ -57,15 +57,16 @@ export default {
                     const twStyled = [tw`flex justify-between items-center p-3 rounded-lg relative cursor-pointer`];
 
                     if (SelectStyle) {
-                        twStyled.push(tw`bg-gray-200`);
+                        twStyled.push(tw`bg-gray-200 dark:bg-gray-800`);
                     } else {
-                        twStyled.push(tw`hover:bg-gray-100`);
+                        twStyled.push(tw`hover:bg-gray-100 dark:hover:bg-gray-800`);
                     }
+
+                    // twStyled.push(tw`dark:bg-gray-900`);
 
                     return twStyled;
                 }),
                 AvatarBox: tw.div`w-16 h-16 relative flex flex-shrink-0`,
-                AvatarImage1: tw.img`shadow-md rounded-full w-full h-full object-cover`,
                 AvatarImage: styled.img(({ Index, Multiple }: { Multiple: boolean; Index: number }) => {
                     const twStyled = [tw`shadow-md rounded-full object-cover`];
 
@@ -86,11 +87,11 @@ export default {
                 AvatarActive: tw.div`absolute bg-white p-1 rounded-full bottom-0 right-0`,
                 AvatarActiveMark: tw.div`bg-green-500 rounded-full w-3 h-3`,
                 MessageWapper: tw.div`flex-auto min-w-0 ml-4 mr-6 hidden md:block`,
-                MessageName: tw.p``,
-                MessageBox: tw.div`flex items-center text-sm text-gray-600`,
+                MessageName: tw.p`dark:text-white`,
+                MessageBox: tw.div`flex items-center text-sm text-white`,
                 MessageMin: tw.div`min-w-0`,
-                Message: tw.p`truncate`,
-                MessageTime: tw.p`text-xs`,
+                Message: tw.p`truncate dark:text-white`,
+                MessageTime: tw.p`text-xs dark:text-white`,
             },
             MessageSection: {
                 HeaderBox: tw.div`px-6 py-4 flex flex-row flex-none justify-between items-center shadow`,
@@ -141,12 +142,12 @@ export default {
             TitleBox: tw.h1`flex justify-center text-xl  font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white`,
             AuthForm: tw.div`space-y-4 md:space-y-6`,
             InputItem: tw.div``,
-            InputLabel: tw.label`w-48 mb-2 text-sm font-medium text-gray-900 dark:text-white`,
-            Input: tw.input`p-6 sm:text-lg p-2.5 focus:outline-none text-gray-500`,
+            InputLabel: tw.label`block mb-2 text-sm font-medium text-gray-900 dark:text-white`,
+            Input: tw.input`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`,
             Button: tw.button`w-full text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800`,
             ErrorMessage: tw.span`pt-1 font-medium text-xs text-red-500`,
             ProfileImageForm: tw.div`mt-1 flex items-center`,
-            ProfileImage: tw.span`inline-block h-16 w-16 rounded-full overflow-hidden bg-gray-100`,
+            ProfileImage: tw.span`inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100`,
             DefaultProfileImage: tw.img``,
             ProfileInputItem: tw.input`absolute w-0 h-0 mx-0.5`,
             ProfileInputLabel: tw.label`ml-5 bg-gray-50 py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`,

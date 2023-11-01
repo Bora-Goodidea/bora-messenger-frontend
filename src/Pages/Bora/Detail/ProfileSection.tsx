@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ProfileService } from '@Modules';
 import { useLayout } from '@Hooks';
 import { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const { YourProfile } = ProfileService;
 
@@ -14,6 +15,7 @@ const pageInitializeState = {
         },
         email: '',
         nickname: '',
+        active: ``,
     },
 };
 
@@ -30,9 +32,11 @@ const {
     ProfileImageForm,
     ProfileImage,
     DefaultProfileImage,
+    Button,
 } = PageStyles.Bora.ProfileStyles;
 
 const ProfileSection = () => {
+    const navigate = useNavigate();
     const { profileUid } = useParams();
     const { HandleMainAlert } = useLayout();
 
@@ -44,6 +48,7 @@ const ProfileSection = () => {
             };
             email: string;
             nickname: string;
+            active: string;
         };
     }>(pageInitializeState);
 
@@ -60,6 +65,7 @@ const ProfileSection = () => {
                         id: payload.profile_image.id,
                         url: payload.profile_image.url,
                     },
+                    active: payload.active,
                 },
             }));
         } else {
@@ -93,37 +99,37 @@ const ProfileSection = () => {
                             <ProfileImage>
                                 <DefaultProfileImage src={pageState.profileState.profileImage.url} />
                             </ProfileImage>
-                            <AuthForm>
+                            <div className="pl-10 w-full">
+                                <InputLabel htmlFor="nickname">닉네임</InputLabel>
                                 <InputItem>
                                     <Input
                                         type="text"
                                         name="nickname"
                                         id="nickname"
                                         required={false}
-                                        value={pageState.profileState.nickname}
-                                        readOnly
+                                        defaultValue={pageState.profileState.nickname}
                                     />
                                 </InputItem>
-                            </AuthForm>
+                            </div>
                         </ProfileImageForm>
                         <AuthForm>
                             <InputItem>
                                 <InputLabel form="email">이메일 주소</InputLabel>
-                                <Input type="text" name="email" id="email" value={pageState.profileState.email} readOnly />
+                                <Input type="text" name="email" id="email" defaultValue={pageState.profileState.email} readOnly />
                             </InputItem>
                             <InputItem>
-                                <InputLabel htmlFor="nickname">최근 접속 정보</InputLabel>
+                                <InputLabel htmlFor="latestLogin">최근 접속 정보</InputLabel>
                                 <Input
                                     type="text"
                                     name="latestLogin"
-                                    id="nickname"
+                                    id="latestLogin"
                                     placeholder="••••••••"
                                     required={false}
-                                    value={pageState.profileState.nickname}
-                                    readOnly
+                                    defaultValue={pageState.profileState.active}
                                 />
                             </InputItem>
                         </AuthForm>
+                        <Button onClick={() => navigate(-1)}>뒤로가기</Button>
                     </FormBox>
                 </FormWapper>
             </Wapper>

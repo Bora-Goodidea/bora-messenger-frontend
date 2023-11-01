@@ -18,7 +18,11 @@ export interface RootStateInterface {
     };
     systemNotice: string;
     loginState: boolean;
-    uid: string;
+    user: {
+        uid: string;
+        nickname: string;
+        profileImage: string;
+    };
     rootData: {
         code: {
             step1: Array<BaseDataCodeStep1Item>;

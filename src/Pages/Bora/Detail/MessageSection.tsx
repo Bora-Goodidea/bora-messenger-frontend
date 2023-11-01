@@ -4,7 +4,7 @@ import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { MessengerChatListState, MessengerRoomListState } from '@Recoil/MessengerState';
 import { AtomRootState } from '@Recoil/AppRootState';
 import { MessageHeaderBox, MessageBox, MessageFooterBox } from '@Elements';
-import { PageStyles } from '@Styles';
+import { PageStyles, LayoutStyles } from '@Styles';
 import { CommonCodesItemInterface } from '@CommonType';
 import { DefaultSpinner, MessageBubbleIcon } from '@Icons';
 import MessengerService from '@Module/Messenger.Service';
@@ -20,6 +20,7 @@ const {
     MessageBubbleIconWapper,
 } = PageStyles.Bora.MessengerStyles.MessageSection;
 const { ServiceMessengerChartChecked } = MessengerService;
+const { FlexWFullCenter } = LayoutStyles.WapperStyle;
 
 const pageInitializeState = {
     loading: false,
@@ -44,7 +45,9 @@ const MessageSection = ({
     HandleSendMessage,
     HandleBubble,
     StateBubble,
+    RoomCode,
 }: {
+    RoomCode: string;
     HandleSendMessage: () => void;
     StateBubble: boolean;
     HandleBubble: ({ state }: { state: `start` | `end` }) => void;
@@ -219,13 +222,13 @@ const MessageSection = ({
                             return lodash.map(returnData, e => {
                                 return {
                                     // 신규 메시지에서는 내 메시지인지 아닌지 판단 할수가 없어서 다시 한번 판단.
-                                    location: atomRootState.uid === e.user.uid ? `right` : `left`,
+                                    location: atomRootState.user.uid === e.user.uid ? `right` : `left`,
                                     // location: e.location,
                                     user: {
                                         profileImage: e.user.profile.image ? e.user.profile.image : null,
                                     },
                                     list: lodash.map(e.message, m => {
-                                        if (atomRootState.uid !== e.user.uid && m.checked === 'N') {
+                                        if (atomRootState.user.uid !== e.user.uid && m.checked === 'N') {
                                             doChecks.push(m.chat_code);
                                         }
                                         return {
@@ -248,7 +251,7 @@ const MessageSection = ({
         };
 
         fnSetChatList();
-    }, [atomRootState.uid, messengerChatListState, messengerChatListState.resultData.chat]);
+    }, [atomRootState.user.uid, messengerChatListState, messengerChatListState.resultData.chat]);
 
     useEffect(() => {
         if (messengerChatListState.resultData.chat.length > 0 && messageBoxRef.current) {
@@ -314,12 +317,12 @@ const MessageSection = ({
     return (
         <>
             {pageState.loading ? (
-                <DefaultSpinner />
+                <FlexWFullCenter>
+                    <DefaultSpinner />
+                </FlexWFullCenter>
             ) : (
                 <>
-                    {!pageState.messenger.last.uid ? (
-                        <></>
-                    ) : (
+                    {RoomCode && (
                         <HeaderBox>
                             <MessageHeaderBox
                                 Params={(() => {
@@ -391,9 +394,7 @@ const MessageSection = ({
                     </MessageBoxStyle>
                 </>
             )}
-            {!pageState.messenger.last.uid ? (
-                <></>
-            ) : (
+            {RoomCode && (
                 <FooterBox>
                     <MessageFooterBox HandleSendMessage={() => HandleSendMessage()} HandleBubble={e => HandleBubble(e)} />
                 </FooterBox>

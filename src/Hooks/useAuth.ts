@@ -9,12 +9,11 @@ const { getTokenInfo } = AuthService;
 export default function useAuth() {
     const setAtomRootState = useSetRecoilState(AtomRootState);
 
-    const handleAuthTokenSave = ({ uid, access_token, refresh_token }: { uid: string; access_token: string; refresh_token: string }) => {
+    const handleAuthTokenSave = ({ access_token, refresh_token }: { access_token: string; refresh_token: string }) => {
         saveRefreshToken({ accessToken: access_token, refreshToken: refresh_token });
         setAtomRootState(prevState => ({
             ...prevState,
             loginState: true,
-            uid: uid,
         }));
     };
 
@@ -41,11 +40,15 @@ export default function useAuth() {
             if (!status) {
                 setAtomRootState(prevState => ({
                     ...prevState,
-                    loginState: false,
-                    uid: ``,
                     appCheckStatus: {
                         ...prevState.appCheckStatus,
                         login: true,
+                    },
+                    loginState: false,
+                    user: {
+                        uid: ``,
+                        nickname: ``,
+                        profileImage: ``,
                     },
                 }));
 
@@ -53,11 +56,15 @@ export default function useAuth() {
             } else {
                 setAtomRootState(prevState => ({
                     ...prevState,
-                    loginState: true,
-                    uid: payload.uid,
                     appCheckStatus: {
                         ...prevState.appCheckStatus,
                         login: true,
+                    },
+                    loginState: true,
+                    user: {
+                        uid: payload.uid,
+                        nickname: payload.nickname,
+                        profileImage: payload.profileImage,
                     },
                 }));
             }
