@@ -85,22 +85,21 @@ export default {
         ButtonSpinnerSvg: tw.svg`inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600`,
     },
     BoraInputStyle: {
-        Input2: tw.input`rounded-full py-2 pr-6 pl-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none text-gray-600 focus:shadow-md transition duration-300 ease-in`,
         Input: styled.input(({ StyleType }: { StyleType: BoraInputType }) => {
             const twStyled = [];
 
             if (StyleType === `search`) {
                 twStyled.push(
-                    tw`rounded-full py-2 pr-6 pl-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none text-gray-600 focus:shadow-md transition duration-300 ease-in`
+                    tw`rounded-full py-2 pr-6 pl-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none dark:text-gray-600 focus:shadow-md transition duration-300 ease-in`
                 );
             } else if (StyleType === `send`) {
                 twStyled.push(
-                    tw`rounded-full py-2 pl-3 pr-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none text-gray-600 focus:shadow-md transition duration-300 ease-in`
+                    tw`rounded-full py-2 pl-3 pr-10 w-full border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none dark:text-gray-600 focus:shadow-md transition duration-300 ease-in`
                 );
             }
 
             twStyled.push(
-                tw`dark:border-gray-800 dark:focus:border-gray-700 bg-gray-800 dark:focus:bg-gray-900 dark:focus:outline-none text-gray-200`
+                tw`dark:border-gray-800 dark:focus:border-gray-700 dark:focus:bg-gray-900 dark:focus:outline-none dark:text-gray-200`
             );
 
             return twStyled;

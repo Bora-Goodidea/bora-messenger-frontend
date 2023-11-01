@@ -88,7 +88,7 @@ export default {
                 AvatarActiveMark: tw.div`bg-green-500 rounded-full w-3 h-3`,
                 MessageWapper: tw.div`flex-auto min-w-0 ml-4 mr-6 hidden md:block`,
                 MessageName: tw.p`dark:text-white`,
-                MessageBox: tw.div`flex items-center text-sm text-white`,
+                MessageBox: tw.div`flex items-center text-sm dark:text-white`,
                 MessageMin: tw.div`min-w-0`,
                 Message: tw.p`truncate dark:text-white`,
                 MessageTime: tw.p`text-xs dark:text-white`,
@@ -156,7 +156,7 @@ export default {
     Auth: {
         AuthStyles: {
             Container: tw.section`w-full bg-gray-50 dark:bg-gray-900`,
-            Wapper: tw.div`flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0`,
+            Wapper: tw.div`flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0`,
             FormWapper: tw.div`w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700`,
             FormBox: tw.div`p-6 space-y-4 md:space-y-6 sm:p-8`,
             TitleBox: tw.h1`flex justify-center text-xl  font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white`,
