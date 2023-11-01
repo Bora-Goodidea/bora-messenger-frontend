@@ -83,7 +83,9 @@ const ProfileUpdateSection = ({
                                     value={InputValue.nickname}
                                 />
                             </InputItem>
-                            <Button onClick={() => handleProfileUpdateSubmit()}>프로필 수정</Button>
+                            <div className="flex w-full">
+                                <Button onClick={() => handleProfileUpdateSubmit()}>프로필 수정</Button>
+                            </div>
                         </AuthForm>
                     </FormBox>
                 </FormWapper>
