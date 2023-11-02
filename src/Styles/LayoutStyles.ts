@@ -12,7 +12,7 @@ export default {
             IconStep1: tw.div`bg-red-600 w-3 h-3 rounded-full mr-2`,
             IconStep2: tw.div`bg-yellow-500 w-3 h-3 rounded-full mr-2`,
             IconStep3: tw.div`bg-green-500 w-3 h-3 rounded-full mr-2`,
-            MainWapper: tw.main`flex-grow flex flex-row min-h-0`,
+            MainWapper: tw.main`h-screen flex flex-row min-h-0`,
         },
         BlankLayoutStyle: {},
     },

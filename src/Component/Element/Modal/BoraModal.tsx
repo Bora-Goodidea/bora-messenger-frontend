@@ -3,7 +3,15 @@ import { ElementStyles } from '@Styles';
 
 const { Container, MainWapper, Wapper, ButtonWapper, Button } = ElementStyles.BoraModalStyle;
 
-const BoraAlert = ({ OkButtonClick, Children }: { OkButtonClick: () => void; Children: ReactNode }) => {
+const BoraAlert = ({
+    OkButtonClick,
+    CancleButtonClick,
+    Children,
+}: {
+    OkButtonClick: () => void;
+    CancleButtonClick?: () => void;
+    Children: ReactNode;
+}) => {
     return (
         <Container>
             <MainWapper>
@@ -11,6 +19,9 @@ const BoraAlert = ({ OkButtonClick, Children }: { OkButtonClick: () => void; Chi
                 <ButtonWapper>
                     <Button type="button" onClick={() => OkButtonClick()}>
                         확인
+                    </Button>
+                    <Button type="button" onClick={() => CancleButtonClick && CancleButtonClick()}>
+                        취소
                     </Button>
                 </ButtonWapper>
             </MainWapper>
