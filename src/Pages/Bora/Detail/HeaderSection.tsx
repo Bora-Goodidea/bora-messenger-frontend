@@ -143,7 +143,7 @@ const HeaderSection = ({
                     Children={
                         <UserList.Container>
                             <UserList.Title>
-                                <UserList.TitleText>대화 친구</UserList.TitleText>
+                                <UserList.TitleText>대화할 친구를 선택해 주세요</UserList.TitleText>
                             </UserList.Title>
                             <UserList.ListFlow>
                                 <UserList.ListWapper>
@@ -151,7 +151,8 @@ const HeaderSection = ({
                                         return (
                                             <UserList.ListRow
                                                 key={`header-section-create-chat-modal-item-${index}`}
-                                                onClick={() => handleUserSelection({ uid: user.uid })}>
+                                                onClick={() => handleUserSelection({ uid: user.uid })}
+                                                Selected={lodash.findIndex(pageState.selectList, { uid: user.uid }) > -1}>
                                                 <UserList.ListCard>
                                                     <UserList.ListCardImageWapper>
                                                         <UserList.ListCardImage src={user.profileImage} alt={user.name} />
@@ -170,6 +171,15 @@ const HeaderSection = ({
                         </UserList.Container>
                     }
                     OkButtonClick={() => handleClickYourStoryButton()}
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                createChat: false,
+                            },
+                        }));
+                    }}
                 />
             )}
         </>
